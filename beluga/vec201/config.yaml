@@ -1,0 +1,56 @@
+jupyterhub::jupyterhub_config_hash:
+    SbatchForm:
+        account:
+            def: 'def-sponsor00'
+        runtime:
+            min: 3.5
+            def: 4.0
+            max: 5.0
+        nprocs:
+            min: 1
+            def: 1
+            max: 1
+        memory:
+            min: 1024
+            max: 7400
+            def: 7400
+        oversubscribe:
+            def: true
+            lock: true
+        ui:
+            def: 'lab'
+    SlurmFormSpawner:
+        disable_form: true
+
+jupyterhub::enable_otp_auth: false
+
+jupyterhub::admin_groups: ['helper']
+
+# jupyterhub::slurm_partitions: ['jh_cpu']
+
+profile::freeipa::mokey::enable_user_signup: false
+
+profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
+
+profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
+
+profile::users::ldap::users:
+    user:
+        count: 50
+        passwd: # SET THE PASSWD
+        groups: ['def-sponsor00']
+
+    instructor:
+        passwd: # SET THE PASSWD
+        groups: ['def-sponsor00', 'helper']
+
+    helper:
+        count: 4
+        passwd: # SET THE PASSWD
+        groups: ['def-sponsor00', 'helper']
+
+profile::accounts::skel_archives:
+    - filename: main-nbody.zip
+      source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
+    - filename: main-convolution.zip
+      source: https://github.com/calculquebec/cq-formation-convolution/archive/refs/heads/main.zip
