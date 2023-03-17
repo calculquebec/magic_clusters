@@ -48,8 +48,10 @@ profile::users::ldap::users:
         groups: ['def-sponsor00', 'helper']
 
 profile::accounts::skel_archives:
-    - filename: main.zip
+    - filename: analyse-donnees-python-main.zip
       source: https://github.com/calculquebec/analyse-donnees-python/archive/refs/heads/main.zip
+    - filename: data-analysis-python-main.zip
+      source: https://github.com/calculquebec/data-analysis-python/archive/refs/heads/main.zip
     - filename: cache.zip
       source: https://drive.google.com/uc?id=1vwrd7xNAy9WwFQLbSbZuBPQ0YtupiNnH&export=download
     - filename: jupyter.zip
