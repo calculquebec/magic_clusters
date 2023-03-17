@@ -30,7 +30,8 @@ jupyterhub::kernel::venv::packages: ['pyspark', 'numpy', 'pandas']
 
 profile::freeipa::mokey::enable_user_signup: false
 
-profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'spark']
+# Load the same python as the kernel to trigger site-packages visibility
+profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'python/3.9', 'spark', 'arrow']
 
 profile::users::ldap::users:
     user:
