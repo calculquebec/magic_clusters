@@ -26,7 +26,7 @@ jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
 
-jupyterhub::slurm_partitions: ['jh_cpu']
+jupyterhub::slurm_partitions: ['node']
 
 profile::freeipa::mokey::enable_user_signup: false
 
@@ -52,3 +52,5 @@ profile::users::ldap::users:
 profile::accounts::skel_archives:
     - filename: main.zip
       source: https://github.com/calculquebec/cip201-serveurs-calcul/archive/refs/heads/main.zip
+    - filename: will-cite.zip
+      source: https://drive.google.com/uc?export=download&id=11vO_wCCvUUGxg6JmpvQjck6Q6WU-LL9t
