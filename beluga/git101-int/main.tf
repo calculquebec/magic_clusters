@@ -9,7 +9,7 @@ module "openstack" {
 
   cluster_name = "gitint101"
   domain       = "calculquebec.cloud"
-  image        = "Rocky-8.6-x64-2022-07"
+  image        = "Rocky-8.7-x64-2023-02"
 
   instances = {
     mgmt   = { type = "p4-7.5gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
