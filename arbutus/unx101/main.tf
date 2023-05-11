@@ -3,13 +3,13 @@ terraform {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=12.3.0"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=12.4.0"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "12.3.0"
+  config_version = "12.4.0"
 
   cluster_name = "unx101"
   domain       = "calculquebec.cloud"
-  image        = "Rocky-8.7-x64-2023-02"
+  image        = "Rocky-8"
 
   instances = {
     mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
@@ -44,7 +44,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=12.3.0"
+  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=12.4.0"
   email            = "YOUR EMAIL"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
