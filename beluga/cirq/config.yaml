@@ -46,3 +46,9 @@ profile::users::ldap::users:
         count: 4
         passwd: # SET THE PASSWD
         groups: ['def-sponsor00', 'helper']
+
+profile::accounts::skel_archives:
+    - filename: cache.zip
+      source: https://drive.google.com/uc?id=1vwrd7xNAy9WwFQLbSbZuBPQ0YtupiNnH&export=download
+    - filename: jupyter.zip
+      source: https://drive.google.com/uc?id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB&export=download
