@@ -7,7 +7,7 @@ module "openstack" {
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "12.4.0"
 
-  cluster_name = "monarq"
+  cluster_name = "snowflake"
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
