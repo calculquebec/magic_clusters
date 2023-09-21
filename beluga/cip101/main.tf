@@ -46,7 +46,7 @@ output "public_ip" {
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=12.6.2"
-  email            = "YOUR EMAIL"
+  email            = chomp(file("../../.myemail.txt"))
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances

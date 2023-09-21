@@ -1,6 +1,9 @@
 # Magic Clusters
 Magic Clusters recipes for various workshops
 
+0. Email
+Create a file named `.myemail.txt` that contains your email to be used in the different configuration files.
+
 1. Init
 ```bash
 terraform init
