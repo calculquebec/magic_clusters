@@ -29,7 +29,7 @@ jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
 
-jupyterhub::kernel::venv::packages: ['numba', 'pycuda', 'matplotlib']
+jupyterhub::kernel::venv::packages: ['numba==0.53.1', "numpy==1.23.5", 'pycuda', 'matplotlib']
 
 profile::freeipa::mokey::enable_user_signup: false
 
