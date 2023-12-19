@@ -27,6 +27,7 @@ jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair', 'altair_saver']
+jupyterhub::kernel::venv::python: "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python"
 
 profile::freeipa::mokey::enable_user_signup: false
 
