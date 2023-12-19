@@ -17,6 +17,9 @@ jupyterhub::jupyterhub_config_hash:
         oversubscribe:
             def: true
             lock: true
+        partition:
+            def: 'node'
+            lock: true
         ui:
             def: 'terminal'
     SlurmFormSpawner:
@@ -25,8 +28,6 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
-
-jupyterhub::slurm_partitions: ['node']
 
 profile::freeipa::mokey::enable_user_signup: false
 
