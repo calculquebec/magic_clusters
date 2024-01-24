@@ -25,7 +25,7 @@ module "openstack" {
     }
   }
 
-  public_keys = compact(concat(split("\n", file("~/.ssh/id_rsa.pub")), )))
+  public_keys = compact(concat(split("\n", file("~/.ssh/id_rsa.pub")), ))
 
   nb_users = 55
   # Shared password, randomly chosen if blank
