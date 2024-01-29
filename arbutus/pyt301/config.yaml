@@ -35,10 +35,7 @@ profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda']
 
-# Private terraform token, and specific terraform cloud workspace
 profile::slurm::base::slurm_version: '23.02'
-profile::slurm::controller::tfe_token: rXZ2Dz6TVUv95Q.atlasv1.BVkPjLcw6nf1K8o0dXU8v9ujj6p1bhzr4zSAJ0qdRLANO62RTZ6FDBV7UF2NoRgUuNk
-profile::slurm::controller::tfe_workspace: ws-SuRUmESWUVWicpiK
 
 profile::users::ldap::users:
     user:

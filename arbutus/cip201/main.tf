@@ -7,6 +7,19 @@ variable "pool" {
   default = []
 }
 
+variable "tfe_token" {}
+variable "tfe_workspace" {}
+
+locals {
+  hieradata = yamlencode(merge(
+    {
+      "profile::slurm::controller::tfe_token" = var.tfe_token
+      "profile::slurm::controller::tfe_workspace" = var.tfe_workspace
+    },
+    yamldecode(file("config.yaml"))
+  ))
+}
+
 module "openstack" {
   source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=13.3.1"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
@@ -45,7 +58,7 @@ module "openstack" {
   # Shared password, randomly chosen if blank
   guest_passwd = ""
 
-  hieradata = file("./config.yaml")
+  hieradata = local.hieradata
 }
 
 output "accounts" {
