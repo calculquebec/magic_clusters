@@ -39,7 +39,7 @@ module "openstack" {
   instances = {
     mgmt   = { type = "p4-7.5gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
     login  = { type = "p4-7.5gb", tags = ["login", "public", "proxy"], count = 1 }
-    node   = { type = "p2-3.75gb", tags = ["node"], count = 20, image="snapshot-cpunode-2024.1" }
+    node   = { type = "p2-3.75gb", tags = ["node"], count = 33, image="snapshot-cpunode-2024.1" }
     nodepoolcpu   = { type = "p2-3.75gb", tags = ["node", "pool"], count = 20, image="snapshot-cpunode-2024.1" }
   }
 
