@@ -9,7 +9,7 @@ variable "pool" {
 
 variable "TFC_WORKSPACE_NAME" { type = string }
 variable "token_hieradata" {}
-variable "credentials_hieradata" {}
+variable "credentials_hieradata" { default= "" }
 
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME

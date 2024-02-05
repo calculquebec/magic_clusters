@@ -7,16 +7,12 @@ variable "pool" {
   default = []
 }
 
-variable "tfe_token" {}
-variable "tfe_workspace" {}
+variable "credentials_hieradata" { default= "" }
 
 locals {
   hieradata = yamlencode(merge(
-    {
-      "profile::slurm::controller::tfe_token" = var.tfe_token
-      "profile::slurm::controller::tfe_workspace" = var.tfe_workspace
-    },
-    yamldecode(file("config.yaml"))
+    var.credentials_hieradata,
+     yamldecode(file("config.yaml"))
   ))
 }
 
