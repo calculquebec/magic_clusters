@@ -8,6 +8,8 @@ variable "pool" {
 }
 variable "token_hieradata" {}
 variable "credentials_hieradata" { default= "" }
+variable "cloud_name_hieradata" { default="" }
+variable "prometheus_password_hieradata" { default="" }
 variable "TFC_WORKSPACE_NAME" { type = string }
 
 data "tfe_workspace" "current" {
@@ -18,8 +20,11 @@ data "tfe_workspace" "current" {
 locals {
   hieradata = yamlencode(merge(
     var.credentials_hieradata,
+    var.cloud_name_hieradata,
+    var.prometheus_password_hieradata,
     var.token_hieradata,
     {"profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id},
+    {"cluster_name" = "cgpu101"},
      yamldecode(file("config.yaml"))
   ))
 }
