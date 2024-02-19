@@ -6,12 +6,20 @@ variable "pool" {
   description = "Slurm pool of compute nodes"
   default = []
 }
-
+variable "token_hieradata" {}
 variable "credentials_hieradata" { default= "" }
+variable "TFC_WORKSPACE_NAME" { type = string }
+
+data "tfe_workspace" "current" {
+  name         = var.TFC_WORKSPACE_NAME
+  organization = "CalculQuebec"
+}
 
 locals {
   hieradata = yamlencode(merge(
     var.credentials_hieradata,
+    var.token_hieradata,
+    {"profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id},
      yamldecode(file("config.yaml"))
   ))
 }
@@ -28,7 +36,8 @@ module "openstack" {
   instances = {
     mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
     login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
-    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 13 }
+    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 1 }
+    gpu-nodepool   = { type = "g1-8gb-c4-22gb", tags = ["node", "pool"], count = 40, image="snapshot-gpunode-2024.1" }
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
@@ -39,7 +48,7 @@ module "openstack" {
 
   volumes = {
     nfs = {
-      home     = { size = 20 }
+      home     = { size = 200 }
       project  = { size = 20 }
       scratch  = { size = 20 }
     }
