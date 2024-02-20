@@ -7,8 +7,10 @@ variable "pool" {
   default = []
 }
 
-variable "credentials_hieradata" { default= "" }
 variable "token_hieradata" {}
+variable "credentials_hieradata" { default= "" }
+variable "cloud_name_hieradata" { default="" }
+variable "prometheus_password_hieradata" { default="" }
 variable "TFC_WORKSPACE_NAME" { type = string }
 
 data "tfe_workspace" "current" {
@@ -19,8 +21,11 @@ data "tfe_workspace" "current" {
 locals {
   hieradata = yamlencode(merge(
     var.credentials_hieradata,
+    var.cloud_name_hieradata,
+    var.prometheus_password_hieradata,
     var.token_hieradata,
     {"profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id},
+    {"cluster_name" = "cip201"},
      yamldecode(file("config.yaml"))
   ))
 }
@@ -35,7 +40,7 @@ module "openstack" {
   image        = "Rocky-8"
 
   instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+    mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
     login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
     node   = { type = "c8-60gb-186", tags = ["node"], count = 2 }
     compute-node   = { type = "c8-60gb-186", tags = ["node"], count = 1 }
