@@ -33,6 +33,11 @@ profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
+lookup_options:
+    jupyterhub::kernel::venv::pip_environment:
+        merge: deep
+jupyterhub::kernel::venv::pip_environment:
+    PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'cupy']
 
 profile::slurm::base::slurm_version: '23.02'
