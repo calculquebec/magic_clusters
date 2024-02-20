@@ -8,10 +8,19 @@ variable "pool" {
 }
 
 variable "credentials_hieradata" { default= "" }
+variable "token_hieradata" {}
+variable "TFC_WORKSPACE_NAME" { type = string }
+
+data "tfe_workspace" "current" {
+  name         = var.TFC_WORKSPACE_NAME
+  organization = "CalculQuebec"
+}
 
 locals {
   hieradata = yamlencode(merge(
     var.credentials_hieradata,
+    var.token_hieradata,
+    {"profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id},
      yamldecode(file("config.yaml"))
   ))
 }
@@ -29,8 +38,10 @@ module "openstack" {
     mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
     login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
     node   = { type = "c8-60gb-186", tags = ["node"], count = 2 }
-    compute-node   = { type = "c8-60gb-186", tags = ["node"], count = 8 }
-    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 10 }
+    compute-node   = { type = "c8-60gb-186", tags = ["node"], count = 1 }
+    compute-nodepool   = { type = "c8-60gb-186", tags = ["node", "pool"], count = 8, image="snapshot-cpunode-2024.1" }
+    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 1 }
+    gpu-nodepool   = { type = "g1-8gb-c4-22gb", tags = ["node", "pool"], count = 10, image="snapshot-gpunode-2024.1" }
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
