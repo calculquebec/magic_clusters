@@ -81,3 +81,7 @@ profile::accounts::skel_archives:
       source: https://drive.google.com/uc?id=1vwrd7xNAy9WwFQLbSbZuBPQ0YtupiNnH&export=download
     - filename: jupyter.zip
       source: https://drive.google.com/uc?id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB&export=download
+    - filename: master.zip
+      source: https://github.com/calculquebec/formation_cpu-gpu/archive/refs/heads/master.zip
+    - filename: cifar-10-python.tar.gz
+      source: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
