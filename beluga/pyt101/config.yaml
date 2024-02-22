@@ -26,10 +26,9 @@ jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
 
-lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
 jupyterhub::kernel::venv::pip_environment:
+    PYTHONPATH: "/cvmfs/soft.computecanada.ca/custom/python/site-packages"
+    PIP_CONFIG_FILE: "/cvmfs/soft.computecanada.ca/config/python/pip-%{facts.cpu_ext}-gentoo.conf"
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
