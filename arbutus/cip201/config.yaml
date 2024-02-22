@@ -57,6 +57,8 @@ prometheus::remote_write_configs:
       password: "%{alias('prometheus_password')}"
       
 profile::slurm::base::slurm_version: '23.02'
+profile::slurm::base::suspend_time: 7200
+profile::slurm::base::resume_timeout: 7200
 
 # For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
