@@ -7,10 +7,16 @@ variable "pool" {
   default = []
 }
 
+variable "TFC_WORKSPACE_NAME" { type = string }
 variable "token_hieradata" {}
 variable "credentials_hieradata" { default= "" }
 variable "cloud_name_hieradata" {}
 variable "prometheus_password_hieradata" {}
+
+data "tfe_workspace" "current" {
+  name         = var.TFC_WORKSPACE_NAME
+  organization = "CalculQuebec"
+}
 
 locals {
   hieradata = yamlencode(merge(
