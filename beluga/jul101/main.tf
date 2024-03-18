@@ -27,6 +27,7 @@ locals {
     {
       "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
     },
+    {"cluster_name" = "jul101"},
     yamldecode(file("config.yaml"))
   ))
 }
