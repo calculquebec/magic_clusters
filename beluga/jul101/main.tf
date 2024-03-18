@@ -7,12 +7,21 @@ variable "pool" {
   default = []
 }
 
+variable "token_hieradata" {}
 variable "credentials_hieradata" { default= "" }
+variable "cloud_name_hieradata" {}
+variable "prometheus_password_hieradata" {}
 
 locals {
   hieradata = yamlencode(merge(
+    var.token_hieradata,
     var.credentials_hieradata,
-     yamldecode(file("config.yaml"))
+    var.cloud_name_hieradata,
+    var.prometheus_password_hieradata,
+    {
+      "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
+    },
+    yamldecode(file("config.yaml"))
   ))
 }
 
