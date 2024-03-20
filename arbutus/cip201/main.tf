@@ -1,5 +1,5 @@
 locals {
-  name = 'cip201'
+  name = "cip201"
 }
 
 module "openstack" {
