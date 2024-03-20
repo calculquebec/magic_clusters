@@ -29,7 +29,7 @@ locals {
       "cluster_purpose" = "formation"
     },
     var.credentials_hieradata,
-    yamldecode(file("../common/config.yaml")),
+    yamldecode(file("../../common/config.yaml")),
     yamldecode(file("config.yaml"))
   ))
 }
