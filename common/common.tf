@@ -20,6 +20,12 @@ data "tfe_workspace" "current" {
 
 locals {
   default_pod = {
+    image_cpu = "snapshot-cpunode-2024.1"
+    image_gpu = "snapshot-gpunode-2024.1"
+    ncpu = 0
+    ncpupool = 2
+    ngpu = 0
+    ngpupool = 2
     home_size = 20
     project_size = 20
     scratch_size = 10
@@ -27,6 +33,52 @@ locals {
   }
   
   default = {
+    instances_map = {
+      arbutus = {
+          mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+          login  = { type = "p4-6gb-avx2", tags = ["login", "public", "proxy"], count = 1 }
+          cpu-node   = { 
+            type = "c8-30gb-186-avx2", 
+            tags = ["node"], 
+            count = try(local.custom.ncpu, local.default_pod.ncpu), 
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+          cpu-nodepool   = { 
+            type = "c8-30gb-186-avx2", 
+            tags = ["node", "pool"], 
+            count = try(local.custom.ncpupool, local.default_pod.ncpupool), 
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+          gpu-node   = { 
+            type = "g1-8gb-c4-22gb", 
+            tags = ["node"], 
+            count = try(local.custom.ngpu, local.default_pod.ngpu), 
+            image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+          }
+          gpu-nodepool   = { 
+            type = "g1-8gb-c4-22gb", 
+            tags = ["node", "pool"], 
+            count = try(local.custom.ngpupool, local.default_pod.ngpupool), 
+            image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+          }
+      }
+      beluga = {
+          mgmt   = { type = "p4-7.5gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+          login  = { type = "p4-7.5gb", tags = ["login", "public", "proxy"], count = 1 }
+          cpu-node   = { 
+            type = "c8-60gb", 
+            tags = ["node"], 
+            count = try(local.custom.ncpu, local.default_pod.ncpu), 
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+          cpu-nodepool   = { 
+            type = "c8-60gb", 
+            tags = ["node", "pool"], 
+            count = try(local.custom.ncpupool, local.default_pod.ncpupool), 
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+      }
+    }
     volumes_map = {
       arbutus = {
         nfs = {
@@ -47,6 +99,7 @@ locals {
   
   volumes = try(local.custom.volumes, local.default.volumes_map[var.cloud_name])
   cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
+  instances = try(local.custom.instances, local.default.instances_map[var.cloud_name])
 
   hieradata = yamlencode(merge(
     {
