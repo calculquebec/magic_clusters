@@ -1,11 +1,13 @@
 locals {
   name = "cip201"
-  custom = {
+  custom_pod = {
   	scratch_size = 20
 	ncpu = 1
 	ncpupool = 8
 	ngpu = 1
 	ngpupool = 10
+  }
+  custom = {
 	instances = {
 	  mgmt   = local.default.instances_map[var.cloud_name]["mgmt"]
 	  login  = local.default.instances_map[var.cloud_name]["login"]

@@ -40,26 +40,26 @@ locals {
           cpu-node   = { 
             type = "c8-30gb-186-avx2", 
             tags = ["node"], 
-            count = try(local.custom.ncpu, local.default_pod.ncpu), 
-            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+            count = try(local.custom_pod.ncpu, local.default_pod.ncpu), 
+            image = try(local.custom_pod.image_cpu, local.default_pod.image_cpu),
           }
           cpu-nodepool   = { 
             type = "c8-30gb-186-avx2", 
             tags = ["node", "pool"], 
-            count = try(local.custom.ncpupool, local.default_pod.ncpupool), 
-            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+            count = try(local.custom_pod.ncpupool, local.default_pod.ncpupool), 
+            image = try(local.custom_pod.image_cpu, local.default_pod.image_cpu),
           }
           gpu-node   = { 
             type = "g1-8gb-c4-22gb", 
             tags = ["node"], 
-            count = try(local.custom.ngpu, local.default_pod.ngpu), 
-            image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+            count = try(local.custom_pod.ngpu, local.default_pod.ngpu), 
+            image = try(local.custom_pod.image_gpu, local.default_pod.image_gpu),
           }
           gpu-nodepool   = { 
             type = "g1-8gb-c4-22gb", 
             tags = ["node", "pool"], 
-            count = try(local.custom.ngpupool, local.default_pod.ngpupool), 
-            image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+            count = try(local.custom_pod.ngpupool, local.default_pod.ngpupool), 
+            image = try(local.custom_pod.image_gpu, local.default_pod.image_gpu),
           }
       }
       beluga = {
@@ -68,37 +68,37 @@ locals {
           cpu-node   = { 
             type = "c8-60gb", 
             tags = ["node"], 
-            count = try(local.custom.ncpu, local.default_pod.ncpu), 
-            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+            count = try(local.custom_pod.ncpu, local.default_pod.ncpu), 
+            image = try(local.custom_pod.image_cpu, local.default_pod.image_cpu),
           }
           cpu-nodepool   = { 
             type = "c8-60gb", 
             tags = ["node", "pool"], 
-            count = try(local.custom.ncpupool, local.default_pod.ncpupool), 
-            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+            count = try(local.custom_pod.ncpupool, local.default_pod.ncpupool), 
+            image = try(local.custom_pod.image_cpu, local.default_pod.image_cpu),
           }
       }
     }
     volumes_map = {
       arbutus = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size) }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size) }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size) }
+          home     = { size = try(local.custom_pod.home_size, local.default_pod.home_size) }
+          project  = { size = try(local.custom_pod.project_size, local.default_pod.project_size) }
+          scratch  = { size = try(local.custom_pod.scratch_size, local.default_pod.scratch_size) }
         }
       }
       beluga = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd"  }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec"  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec"  }
+          home     = { size = try(local.custom_pod.home_size, local.default_pod.home_size), type = "volumes-ssd"  }
+          project  = { size = try(local.custom_pod.project_size, local.default_pod.project_size), type = "volumes-ec"  }
+          scratch  = { size = try(local.custom_pod.scratch_size, local.default_pod.scratch_size), type = "volumes-ec"  }
         }
       }
     }
   }
   
   volumes = try(local.custom.volumes, local.default.volumes_map[var.cloud_name])
-  cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
+  cluster_purpose = try(local.custom_pod.cluster_purpose, local.default_pod.cluster_purpose)
   instances = try(local.custom.instances, local.default.instances_map[var.cloud_name])
 
   hieradata = yamlencode(merge(
