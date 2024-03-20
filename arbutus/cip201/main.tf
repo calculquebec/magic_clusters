@@ -1,6 +1,6 @@
 locals {
   name = "cip201"
-  custom {
+  custom = {
   	scratch_size = 20
   }
 }
