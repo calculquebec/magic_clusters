@@ -7,13 +7,13 @@ locals {
 	ngpu = 1
 	ngpupool = 10
 	instances = {
-	  mgmt   = local.instances_map[var.cloud_name]["mgmt"]
-	  login  = local.instances_map[var.cloud_name]["login"]
+	  mgmt   = local.default.instances_map[var.cloud_name]["mgmt"]
+	  login  = local.default.instances_map[var.cloud_name]["login"]
 	  node   = { type = "c8-60gb-186", tags = ["node"], count = 2 }
-	  compute-node   = local.instances_map[var.cloud_name]["cpu-node"]
-	  compute-nodepool   = local.instances_map[var.cloud_name]["cpu-nodepool"]
-	  gpu-node   = local.instances_map[var.cloud_name]["gpu-node"]
-	  gpu-nodepool   = local.instances_map[var.cloud_name]["gpu-nodepool"]
+	  compute-node   = local.default.instances_map[var.cloud_name]["cpu-node"]
+	  compute-nodepool   = local.default.instances_map[var.cloud_name]["cpu-nodepool"]
+	  gpu-node   = local.default.instances_map[var.cloud_name]["gpu-node"]
+	  gpu-nodepool   = local.default.instances_map[var.cloud_name]["gpu-nodepool"]
 	}
   }
 }
