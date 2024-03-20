@@ -19,6 +19,12 @@ data "tfe_workspace" "current" {
 }
 
 locals {
+  default_pod = {
+    cluster_purpose = "formation"
+  }
+  
+  cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
+
   hieradata = yamlencode(merge(
     {
       "profile::slurm::controller::tfe_token" =  var.tfe_token
@@ -26,7 +32,7 @@ locals {
       "cluster_name" = local.name
       "prometheus_password" = var.prometheus_password
       "cloud_name" = var.cloud_name
-      "cluster_purpose" = "formation"
+      "cluster_purpose" = local.cluster_purpose
     },
     var.credentials_hieradata,
     yamldecode(file("../../common/config.yaml")),
