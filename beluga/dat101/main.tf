@@ -2,10 +2,24 @@ terraform {
   required_version = ">= 1.4.0"
 }
 
+variable "pool" {
+  description = "Slurm pool of compute nodes"
+  default = []
+}
+
+variable "credentials_hieradata" { default= "" }
+
+locals {
+  hieradata = yamlencode(merge(
+    var.credentials_hieradata,
+     yamldecode(file("config.yaml"))
+  ))
+}
+
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=13.3.1"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=13.3.2"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "13.3.1"
+  config_version = "13.3.2"
 
   cluster_name = "dat101"
   domain       = "calculquebec.cloud"
@@ -17,6 +31,12 @@ module "openstack" {
     node   = { type = "p2-3.75gb", tags = ["node"], count = 55 }
   }
 
+  # var.pool is managed by Slurm through Terraform REST API.
+  # To let Slurm manage a type of nodes, add "pool" to its tag list.
+  # When using Terraform CLI, this parameter is ignored.
+  # Refer to Magic Castle Documentation - Enable Magic Castle Autoscaling
+  pool = var.pool
+
   volumes = {
     nfs = {
       home     = { size = 20 }
@@ -25,13 +45,14 @@ module "openstack" {
     }
   }
 
-  public_keys = compact(concat(split("\n", file("~/.ssh/id_rsa.pub")), ))
+  generate_ssh_key = true
+  public_keys = compact(concat(split("\n", file("../../sshkeys.pub")), ))
 
   nb_users = 55
   # Shared password, randomly chosen if blank
   guest_passwd = ""
 
-  hieradata = file("./config.yaml")
+  hieradata = local.hieradata
 }
 
 output "accounts" {
@@ -44,7 +65,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=13.3.1"
+  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=13.3.2"
 #  email            = chomp(file("../../.myemail.txt"))
   bastions         = module.openstack.bastions
   name             = module.openstack.cluster_name

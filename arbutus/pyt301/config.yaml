@@ -29,25 +29,33 @@ jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
 
+lookup_options:
+    jupyterhub::kernel::venv::pip_environment:
+        merge: deep
+jupyterhub::kernel::venv::pip_environment:
+    PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numba==0.53.1', "numpy==1.23.5", 'pycuda', 'matplotlib']
 
 profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda']
 
+profile::slurm::base::slurm_version: '23.02'
+
+# For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
     user:
         count: 50
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_user')}"
         groups: ['def-sponsor00']
 
     instructor:
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_instructor')}"
         groups: ['def-sponsor00', 'helper']
 
     helper:
         count: 4
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_helper')}"
         groups: ['def-sponsor00', 'helper']
 
 profile::accounts::skel_archives:

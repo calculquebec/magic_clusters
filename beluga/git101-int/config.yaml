@@ -30,17 +30,20 @@ profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'code-server']
 
+profile::slurm::base::slurm_version: '23.02'
+
+# For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
     user:
         count: 50
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_user')}"
         groups: ['def-sponsor00']
 
     instructor:
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_instructor')}"
         groups: ['def-sponsor00', 'helper']
 
     helper:
         count: 4
-        passwd: # SET THE PASSWD
+        passwd: "%{alias('passwd_helper')}"
         groups: ['def-sponsor00', 'helper']
