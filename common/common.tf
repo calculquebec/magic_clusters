@@ -21,7 +21,7 @@ locals {
   }
 
   cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
-  
+
   hieradata = yamlencode(merge(
     {
       "profile::slurm::controller::tfe_token" =  var.tfe_token
@@ -55,7 +55,6 @@ module "dns" {
   ssh_private_key  = module.openstack.ssh_private_key
   sudoer_username  = module.openstack.accounts.sudoer.username
 }
-
 
 output "hostnames" {
   value = module.dns.hostnames

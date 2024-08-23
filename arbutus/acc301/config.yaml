@@ -25,7 +25,6 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::enable_otp_auth: false
 
 jupyterhub::admin_groups: ['helper']
 
@@ -35,7 +34,6 @@ profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'nvhpc/20.7', 'cud
 
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
 
-profile::slurm::base::slurm_version: '23.02'
 
 # For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
