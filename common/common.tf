@@ -27,7 +27,7 @@ locals {
     home_size = 20
     project_size = 20
     scratch_size = 20
-    cluster_purpose = "cours_academiques"
+    cluster_purpose = "formation"
 
     instances_type_map = {
       arbutus = {
