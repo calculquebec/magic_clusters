@@ -1,6 +1,6 @@
 locals {
   name = "paraview"
-  
+
   custom = {
     home_size = 100
 	project_size = 100

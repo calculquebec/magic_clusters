@@ -49,6 +49,7 @@ profile::users::ldap::users:
         passwd: "%{alias('passwd_helper')}"
         groups: ['def-sponsor00', 'helper']
 
+
 profile::accounts::skel_archives:
     - filename: main.zip
       source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip

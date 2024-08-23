@@ -50,6 +50,8 @@ profile::users::ldap::users:
         groups: ['def-sponsor00', 'helper']
 
 profile::accounts::skel_archives:
+    - filename: main-mpi201-prog-parallele
+      source: https://github.com/calculquebec/mpi201-prog-parallele/archive/refs/heads/main.zip
     - filename: main-nbody.zip
       source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
     - filename: main-convolution.zip

@@ -1,7 +1,7 @@
 locals {
   name = "pyt101"
   
-  custom {
+  custom = {
     ncpu = 2
   }
 }
