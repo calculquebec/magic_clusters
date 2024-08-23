@@ -1,5 +1,9 @@
 locals {
   name = "pyt301"
+  
+  custom = {
+    ngpu = 55
+  }
 }
 
 module "openstack" {
@@ -11,11 +15,7 @@ module "openstack" {
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
-  instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
-    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 55 }
-  }
+  instances = local.instances
 
   # var.pool is managed by Slurm through Terraform REST API.
   # To let Slurm manage a type of nodes, add "pool" to its tag list.

@@ -1,10 +1,19 @@
 locals {
   name = "paraview"
 
-  custom {
+  custom = {
     home_size = 100
 	project_size = 100
 	scrach_size = 100
+	
+	instances_type_map = {
+	  arbutus = {
+	    cpu = "c4-30gb-83"
+	  }
+	  beluga = {
+	    cpu = "c4-30gb"
+	  }
+	}
   }
 }
 
@@ -17,11 +26,7 @@ module "openstack" {
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
-  instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
-    node   = { type = "c4-30gb-83", tags = ["node"], count = 0 }
-  }
+  instances = local.instances
 
   # var.pool is managed by Slurm through Terraform REST API.
   # To let Slurm manage a type of nodes, add "pool" to its tag list.

@@ -1,5 +1,14 @@
 locals {
   name = "mpi201"
+  
+  custom = {
+    instances = {
+	  mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+      login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
+      jh-node   = { type = "c16-90gb-392", tags = ["node"], count = 1 }
+      compute-node =	{ type = "c8-30gb-186", tags = ["node"], count = 8 }
+    }
+  }
 }
 
 module "openstack" {
@@ -11,12 +20,7 @@ module "openstack" {
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
-  instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
-    jh-node   = { type = "c16-90gb-392", tags = ["node"], count = 1 }
-    compute-node =	{ type = "c8-30gb-186", tags = ["node"], count = 8 }
-  }
+  instances = local.instances
 
   # var.pool is managed by Slurm through Terraform REST API.
   # To let Slurm manage a type of nodes, add "pool" to its tag list.

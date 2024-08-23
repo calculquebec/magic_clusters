@@ -1,5 +1,12 @@
 locals {
   name = "cip201"
+  
+  custom = {
+    ncpu = 1
+	ncpupool = 8
+	ngpu = 1
+	ngpupool = 10
+  }
 }
 
 module "openstack" {
@@ -11,15 +18,7 @@ module "openstack" {
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
-  instances = {
-    mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p4-6gb", tags = ["login", "public", "proxy"], count = 1 }
-    node   = { type = "c8-60gb-186", tags = ["node"], count = 2 }
-    compute-node   = { type = "c8-60gb-186", tags = ["node"], count = 1 }
-    compute-nodepool   = { type = "c8-60gb-186", tags = ["node", "pool"], count = 8, image="snapshot-cpunode-2024.1" }
-    gpu-node   = { type = "g1-8gb-c4-22gb", tags = ["node"], count = 1 }
-    gpu-nodepool   = { type = "g1-8gb-c4-22gb", tags = ["node", "pool"], count = 10, image="snapshot-gpunode-2024.1" }
-  }
+  instances = local.instances
 
   # var.pool is managed by Slurm through Terraform REST API.
   # To let Slurm manage a type of nodes, add "pool" to its tag list.
