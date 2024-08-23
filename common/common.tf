@@ -168,6 +168,34 @@ locals {
   ))
 }
 
+module "openstack" {
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.0.0-beta"
+  config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
+  config_version = try(local.custom.config_version, local.default_pod.config_version)
+
+  cluster_name = local.name
+  domain       = "calculquebec.cloud"
+  image        = try(local.custom.image, local.default_pod.image)
+
+  instances = local.instances
+
+  # var.pool is managed by Slurm through Terraform REST API.
+  # To let Slurm manage a type of nodes, add "pool" to its tag list.
+  # When using Terraform CLI, this parameter is ignored.
+  # Refer to Magic Castle Documentation - Enable Magic Castle Autoscaling
+  pool = var.pool
+
+  volumes = local.volumes
+
+  public_keys = compact(concat(split("\n", file("../common/sshkeys.pub")), ))
+
+  nb_users = 55
+  # Shared password, randomly chosen if blank
+  guest_passwd = ""
+
+  hieradata = local.hieradata
+}
+
 output "accounts" {
   value = module.openstack.accounts
 }
@@ -178,13 +206,10 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=13.3.2"
-  bastions         = module.openstack.bastions
+  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=14.0.0-beta"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
-  ssh_private_key  = module.openstack.ssh_private_key
-  sudoer_username  = module.openstack.accounts.sudoer.username
 }
 
 output "hostnames" {
