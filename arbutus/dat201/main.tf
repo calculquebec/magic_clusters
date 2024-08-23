@@ -1,16 +1,14 @@
 locals {
-  hieradata = yamlencode(merge(
-    var.credentials_hieradata,
-     yamldecode(file("config.yaml"))
-  ))
+  name = "dat201"
 }
+
 
 module "openstack" {
   source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=13.3.2"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "13.3.2"
 
-  cluster_name = "dat201"
+  cluster_name = local.name
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 

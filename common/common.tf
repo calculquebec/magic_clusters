@@ -5,8 +5,37 @@ variable "pool" {
   description = "Slurm pool of compute nodes"
   default = []
 }
+variable "TFC_WORKSPACE_NAME" { type = string }
+variable "tfe_token" {}
+variable "cloud_name" { type = string }
+variable "prometheus_password" { type = string }
 variable "credentials_hieradata" { default= "" }
+data "tfe_workspace" "current" {
+  name         = var.TFC_WORKSPACE_NAME
+  organization = "CalculQuebec"
+}
 
+locals {
+  default_pod = {
+    cluster_purpose = "cours_academiques"
+  }
+
+  cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
+  
+  hieradata = yamlencode(merge(
+    {
+      "profile::slurm::controller::tfe_token" =  var.tfe_token
+      "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
+      "cluster_name" = local.name
+      "prometheus_password" = var.prometheus_password
+      "cloud_name" = var.cloud_name
+      "cluster_purpose" = local.cluster_purpose
+    },
+    var.credentials_hieradata,
+    yamldecode(file("../common/config.yaml")),
+    yamldecode(file("config.yaml"))
+  ))
+}
 
 output "accounts" {
   value = module.openstack.accounts

@@ -1,25 +1,5 @@
-variable "TFC_WORKSPACE_NAME" { type = string }
-variable "token_hieradata" {}
-variable "cloud_name_hieradata" {}
-variable "prometheus_password_hieradata" {}
-
-data "tfe_workspace" "current" {
-  name         = var.TFC_WORKSPACE_NAME
-  organization = "CalculQuebec"
-}
-
 locals {
-  hieradata = yamlencode(merge(
-    var.token_hieradata,
-    var.credentials_hieradata,
-    var.cloud_name_hieradata,
-    var.prometheus_password_hieradata,
-    {
-      "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
-    },
-    {"cluster_name" = "lab101"},
-    yamldecode(file("config.yaml"))
-  ))
+  name = "lab101"
 }
 
 module "openstack" {
@@ -27,7 +7,7 @@ module "openstack" {
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "13.3.2"
 
-  cluster_name = "lab101"
+  cluster_name = local.name
   domain       = "calculquebec.cloud"
   image        = "Rocky-8"
 
