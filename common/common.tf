@@ -17,9 +17,32 @@ data "tfe_workspace" "current" {
 
 locals {
   default_pod = {
+    home_size = 20
+    project_size = 20
+    scratch_size = 20
     cluster_purpose = "cours_academiques"
   }
 
+  default = {
+    volumes_map = {
+      arbutus = {
+        nfs = {
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size) }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size) }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size) }
+        }
+      }
+      beluga = {
+        nfs = {
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd"  }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec"  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec"  }
+        }
+      }
+    }
+  }
+  
+  volumes = try(local.custom.volumes, local.default.volumes_map[var.cloud_name])
   cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
 
   hieradata = yamlencode(merge(

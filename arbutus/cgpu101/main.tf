@@ -1,5 +1,9 @@
 locals {
   name = "cgpu101"
+
+  custom {
+    home_size = 200
+  }
 }
 
 module "openstack" {
@@ -24,14 +28,8 @@ module "openstack" {
   # Refer to Magic Castle Documentation - Enable Magic Castle Autoscaling
   pool = var.pool
 
-  volumes = {
-    nfs = {
-      home     = { size = 200 }
-      project  = { size = 20 }
-      scratch  = { size = 20 }
-    }
-  }
-
+  volumes = local.volumes
+  
   generate_ssh_key = true
   public_keys = compact(concat(split("\n", file("../../sshkeys.pub")), ))
 
