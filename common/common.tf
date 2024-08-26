@@ -113,18 +113,21 @@ locals {
 	  }
           nodecpu   = {
             type = try(local.custom.instances_type_map.beluga.cpu, local.default_pod.instances_type_map.beluga.cpu),
+	    disk_size = 20
             tags = ["node"],
             count = try(local.custom.ncpu, local.default_pod.ncpu),
             image = try(local.custom.image_cpu, local.default_pod.image_cpu),
           }
           compute-node   = {
             type = try(local.custom.instances_type_map.beluga.compute_node, local.default_pod.instances_type_map.beluga.compute_node),
+	    disk_size = 20
             tags = ["node"],
             count = try(local.custom.n_compute_node, local.default_pod.n_compute_node),
             image = try(local.custom.image_cpu, local.default_pod.image_cpu),
           }
           nodecpupool   = {
             type = try(local.custom.instances_type_map.beluga.cpupool, local.default_pod.instances_type_map.beluga.cpupool),
+	    disk_size = 20
             tags = ["node", "pool"],
             count = try(local.custom.ncpupool, local.default_pod.ncpupool),
             image = try(local.custom.image_cpu, local.default_pod.image_cpu),
