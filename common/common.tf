@@ -5,9 +5,9 @@ variable "pool" {
   description = "Slurm pool of compute nodes"
   default = []
 }
-variable "TFC_WORKSPACE_NAME" { type = string }
-variable "tfe_token" {}
-variable "cloud_name" { type = string }
+variable "TFC_WORKSPACE_NAME" { type = string, default = "" }
+variable "tfe_token" { type = string, default = "" }
+variable "cloud_name" { type = string, default = "" }
 variable "prometheus_password" { type = string }
 variable "credentials_hieradata" { default= "" }
 variable "cloud_suffix" { default = "" }
