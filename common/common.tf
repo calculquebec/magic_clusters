@@ -5,12 +5,27 @@ variable "pool" {
   description = "Slurm pool of compute nodes"
   default = []
 }
-variable "TFC_WORKSPACE_NAME" { type = string, default = "" }
-variable "tfe_token" { type = string, default = "" }
-variable "cloud_name" { type = string, default = "" }
-variable "prometheus_password" { type = string }
+variable "TFC_WORKSPACE_NAME" {
+  type = string
+  default = "" 
+}
+variable "tfe_token" {
+  type = string
+  default = ""
+}
+variable "cloud_name" {
+  type = string
+  default = ""
+}
+variable "prometheus_password" { 
+  type = string 
+  default = ""
+}
 variable "credentials_hieradata" { default= "" }
-variable "cloud_suffix" { default = "" }
+variable "cloud_suffix" { 
+  type = string
+  default = ""
+}
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME
   organization = "CalculQuebec"
