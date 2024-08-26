@@ -22,6 +22,7 @@ locals {
     image_gpu = "snapshot-gpunode-2024-R810.2"
     ncpu = 2
     ngpu = 0
+    n_compute_node = 0
     ncpupool = 0
     ngpupool = 0
     home_size = 20
@@ -35,6 +36,7 @@ locals {
 	login = "p4-6gb"
 	cpu = "c8-30gb-186-avx2"
 	cpupool = "c8-30gb-186-avx2"
+	compute_node = "p8-12gb"
 	gpu = "g1-8gb-c4-22gb"
 	gpupool = "g1-8gb-c4-22gb"
       }
@@ -43,6 +45,7 @@ locals {
 	login = "p4-7.5gb"
 	cpu = "c8-60gb"
 	cpupool = "c8-60gb"
+	compute_node = "p8-15gb"
 	gpu = "gpu32-240-3450gb-a100x1"
 	gpupool = "gpu32-240-3450gb-a100x1"
       }
@@ -69,6 +72,12 @@ locals {
             type = try(local.custom.instances_type_map.arbutus.cpu, local.default_pod.instances_type_map.arbutus.cpu),
             tags = ["node"],
             count = try(local.custom.ncpu, local.default_pod.ncpu),
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+          compute-node   = {
+            type = try(local.custom.instances_type_map.arbutus.compute_node, local.default_pod.instances_type_map.arbutus.compute_node),
+            tags = ["node"],
+            count = try(local.custom.n_compute_node, local.default_pod.n_compute_node),
             image = try(local.custom.image_cpu, local.default_pod.image_cpu),
           }
           nodecpupool   = {
@@ -105,6 +114,12 @@ locals {
             type = try(local.custom.instances_type_map.beluga.cpu, local.default_pod.instances_type_map.beluga.cpu),
             tags = ["node"],
             count = try(local.custom.ncpu, local.default_pod.ncpu),
+            image = try(local.custom.image_cpu, local.default_pod.image_cpu),
+          }
+          compute-node   = {
+            type = try(local.custom.instances_type_map.beluga.compute_node, local.default_pod.instances_type_map.beluga.compute_node),
+            tags = ["node"],
+            count = try(local.custom.n_compute_node, local.default_pod.n_compute_node),
             image = try(local.custom.image_cpu, local.default_pod.image_cpu),
           }
           nodecpupool   = {
