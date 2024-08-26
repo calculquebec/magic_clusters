@@ -141,7 +141,7 @@ locals {
 	    disk_size = "50"
           }
           nodegpupool   = {
-            type = try(local.custom.instances_type_map.beluga.cpupool, local.default_pod.instances_type_map.beluga.cpupool),
+            type = try(local.custom.instances_type_map.beluga.gpupool, local.default_pod.instances_type_map.beluga.gpupool),
             tags = ["node", "pool"],
             count = try(local.custom.ngpupool, local.default_pod.ngpupool),
 	    mig = try(local.custom.gpupool_mig_config, local.default_pod.gpupool_mig_config)
