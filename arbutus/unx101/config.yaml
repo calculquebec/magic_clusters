@@ -22,27 +22,6 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-
-
-
-
-
-# For TF cloud, password is pre-set from variable
-profile::users::ldap::users:
-    user:
-        count: 50
-        passwd: "%{alias('passwd_user')}"
-        groups: ['def-sponsor00']
-
-    instructor:
-        passwd: "%{alias('passwd_instructor')}"
-        groups: ['def-sponsor00', 'helper']
-
-    helper:
-        count: 4
-        passwd: "%{alias('passwd_helper')}"
-        groups: ['def-sponsor00', 'helper']
-
 profile::accounts::skel_archives:
     - filename: shell-lesson-data.zip
       source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip

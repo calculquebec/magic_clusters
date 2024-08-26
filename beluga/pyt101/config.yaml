@@ -29,25 +29,6 @@ jupyterhub::kernel::venv::pip_environment:
     PIP_CONFIG_FILE: "/cvmfs/soft.computecanada.ca/config/python/pip-%{facts.cpu_ext}-gentoo.conf"
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
-
-
-
-
-# For TF cloud, password is pre-set from variable
-profile::users::ldap::users:
-    user:
-        count: 50
-        passwd: "%{alias('passwd_user')}"
-        groups: ['def-sponsor00']
-
-    instructor:
-        passwd: "%{alias('passwd_instructor')}"
-        groups: ['def-sponsor00', 'helper']
-
-    helper:
-        count: 4
-        passwd: "%{alias('passwd_helper')}"
-        groups: ['def-sponsor00', 'helper']
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
 profile::accounts::skel_archives:

@@ -29,22 +29,6 @@ jupyterhub::jupyterhub_config_hash:
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
 
 
-# For TF cloud, password is pre-set from variable
-profile::users::ldap::users:
-    user:
-        count: 50
-        passwd: "%{alias('passwd_user')}"
-        groups: ['def-sponsor00']
-
-    instructor:
-        passwd: "%{alias('passwd_instructor')}"
-        groups: ['def-sponsor00', 'helper']
-
-    helper:
-        count: 4
-        passwd: "%{alias('passwd_helper')}"
-        groups: ['def-sponsor00', 'helper']
-
 profile::accounts::skel_archives:
     - filename: main-nbody.zip
       source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
