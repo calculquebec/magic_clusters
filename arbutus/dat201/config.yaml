@@ -28,10 +28,9 @@ lookup_options:
 jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
 
-profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair']
 jupyterhub::kernel::venv::python: "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python"
-
+profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
 profile::accounts::skel_archives:
     - filename: analyse-donnees-python-main.zip

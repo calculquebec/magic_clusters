@@ -22,6 +22,7 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
+
 profile::accounts::skel_archives:
     - filename: shell-lesson-data.zip
       source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip

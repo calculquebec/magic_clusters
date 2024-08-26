@@ -22,6 +22,8 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
+
+
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'ir-kernel/4.2']
 
 profile::accounts::skel_archives:

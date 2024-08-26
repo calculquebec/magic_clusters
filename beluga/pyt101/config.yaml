@@ -22,8 +22,9 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-
-
+lookup_options:
+    jupyterhub::kernel::venv::pip_environment:
+        merge: deep
 jupyterhub::kernel::venv::pip_environment:
     PYTHONPATH: "/cvmfs/soft.computecanada.ca/custom/python/site-packages"
     PIP_CONFIG_FILE: "/cvmfs/soft.computecanada.ca/config/python/pip-%{facts.cpu_ext}-gentoo.conf"

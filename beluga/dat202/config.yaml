@@ -22,14 +22,13 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-
-
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:
         merge: deep
 jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['pyspark', 'numpy', 'pandas<2.0.0']
+
 
 # Load the same python as the kernel to trigger site-packages visibility
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'python/3.9', 'spark', 'arrow']

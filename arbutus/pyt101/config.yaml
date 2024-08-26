@@ -26,8 +26,11 @@ lookup_options:
     jupyterhub::kernel::venv::pip_environment:
         merge: deep
 jupyterhub::kernel::venv::pip_environment:
+    PYTHONPATH: "/cvmfs/soft.computecanada.ca/custom/python/site-packages"
+    PIP_CONFIG_FILE: "/cvmfs/soft.computecanada.ca/config/python/pip-%{facts.cpu_ext}-gentoo.conf"
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
+profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
 profile::accounts::skel_archives:
     - filename: python-novice-inflammation-data.zip

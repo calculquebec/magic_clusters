@@ -31,6 +31,7 @@ jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'matplotlib']
 
+
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'ir-kernel/4.2', 'ijulia-kernel/1.8']
 
 profile::accounts::skel_archives:

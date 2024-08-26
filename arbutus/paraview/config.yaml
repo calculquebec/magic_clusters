@@ -23,4 +23,6 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: true
 
 
+
+
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc/9.3.0', 'openmpi/4.0.3', 'paraview-offscreen/5.9.1']
