@@ -33,7 +33,7 @@ jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numba==0.53.1', "numpy==1.23.5", 'pycuda', 'matplotlib']
 
-profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda']
+profile::software_stack::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda']
 
 profile::accounts::skel_archives:
     - filename: main.zip
