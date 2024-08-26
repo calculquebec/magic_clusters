@@ -3,8 +3,8 @@ locals {
 
   custom = {
     home_size = 200
-	
-	ngpu = 1
-	ngpupool = 40
+    ncpu = 0
+    ngpu = 1
+    ngpupool = 40
   }
 }
