@@ -10,6 +10,7 @@ variable "tfe_token" {}
 variable "cloud_name" { type = string }
 variable "prometheus_password" { type = string }
 variable "credentials_hieradata" { default= "" }
+variable "cloud_suffix" { default = "" }
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME
   organization = "CalculQuebec"
@@ -192,7 +193,7 @@ module "openstack" {
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
-  cluster_name = local.name
+  cluster_name = "${local.name}${var.cloud_suffix}"
   domain       = "calculquebec.cloud"
   image        = try(local.custom.image, local.default_pod.image)
 
