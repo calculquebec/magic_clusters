@@ -1,6 +1,8 @@
 jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 
+profile::freeipa::mokey::enable_user_signup: false
+
 profile::slurm::base::slurm_version: '23.02'
 
 prometheus::global_config:

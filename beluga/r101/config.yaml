@@ -26,7 +26,6 @@ jupyterhub::jupyterhub_config_hash:
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'ir-kernel/4.2']
 
-profile::freeipa::mokey::enable_user_signup: false
 
 
 # For TF cloud, password is pre-set from variable

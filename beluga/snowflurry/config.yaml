@@ -24,7 +24,6 @@ jupyterhub::jupyterhub_config_hash:
 
 
 
-profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'julia', 'ijulia-kernel/1.8']
 

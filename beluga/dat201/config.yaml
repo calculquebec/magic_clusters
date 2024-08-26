@@ -33,7 +33,6 @@ jupyterhub::kernel::venv::pip_environment:
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair']
 jupyterhub::kernel::venv::python: "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python"
 
-profile::freeipa::mokey::enable_user_signup: false
 
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 

@@ -31,7 +31,6 @@ jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['pyspark', 'numpy', 'pandas<2.0.0']
 
-profile::freeipa::mokey::enable_user_signup: false
 
 # Load the same python as the kernel to trigger site-packages visibility
 profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'python/3.9', 'spark', 'arrow']
