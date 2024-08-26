@@ -25,7 +25,6 @@ jupyterhub::jupyterhub_config_hash:
 
 
 
-profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
 

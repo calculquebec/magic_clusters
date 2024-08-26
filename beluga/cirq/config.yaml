@@ -25,7 +25,6 @@ jupyterhub::jupyterhub_config_hash:
 
 
 
-profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020']
 
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:
