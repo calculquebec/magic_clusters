@@ -27,7 +27,6 @@ jupyterhub::jupyterhub_config_hash:
         start_timeout: 900
 
 
-jupyterhub::admin_groups: ['helper']
 
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:

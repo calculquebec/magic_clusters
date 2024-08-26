@@ -23,7 +23,6 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: true
 
 
-jupyterhub::admin_groups: ['helper']
 
 jupyterhub::kernel::venv::pip_environment:
     PYTHONPATH: "/cvmfs/soft.computecanada.ca/custom/python/site-packages"

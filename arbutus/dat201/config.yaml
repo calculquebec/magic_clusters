@@ -23,7 +23,6 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: true
 
 
-jupyterhub::admin_groups: ['helper']
 
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:
