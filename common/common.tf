@@ -21,7 +21,7 @@ variable "prometheus_password" {
   type = string 
   default = ""
 }
-variable "credentials_hieradata" { default= "" }
+variable "credentials_hieradata" { default= {} }
 variable "cloud_suffix" { 
   type = string
   default = ""
@@ -34,8 +34,8 @@ data "tfe_workspace" "current" {
 locals {
   default_pod = {
     image = "Rocky-8"
-    image_cpu = "snapshot-cpunode-2024-R810.2"
-    image_gpu = "snapshot-gpunode-2024-R810.2"
+    image_cpu = "snapshot-cpunode-2024-R810.3"
+    image_gpu = "snapshot-gpunode-2024-R810.3"
     ncpu = 2
     ngpu = 0
     n_compute_node = 0
