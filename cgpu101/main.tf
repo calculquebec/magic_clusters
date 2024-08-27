@@ -4,7 +4,7 @@ locals {
   custom = {
     home_size = 200
     ncpu = 0
-    ngpu = 5
+    ngpu = 1
     ngpupool = 40
   }
 }
