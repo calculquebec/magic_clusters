@@ -107,4 +107,10 @@ for an example.
 Any parameter specified in the `config.yaml` file inside of the course directory will override the default value that may be defined in the `common` directory. For a sampling of some useful puppet parameters, see
 in [the example folder](https://github.com/calculquebec/magic_clusters/blob/common/example/config.yaml). For an exhaustive list, see the [Magic Castle documentation](https://github.com/computecanada/puppet-magic_castle).
 
+## Terraform variables
+If you use a dynamic pool of node, you will want to configure a Terraform variable of type HCL, named `pool`, with value `[]`. 
+
+The name of the cluster will be based on the `name` variable as defined in the `locals`. If you want, you can define a Terraform variable named `cloud_suffix`, which will be appended to the `name`. 
+This may be useful if you want to start two clusters, one in Arbutus, one in Béluga-cloud, using the same configuration.
+
 
