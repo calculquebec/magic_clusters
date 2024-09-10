@@ -2,8 +2,8 @@ locals {
   name = "lab101"
   
   custom = {
-    ncpu = 1
-	ncpupool = 20
+    nnode_cpu = 1
+	nnode_cpupool = 20
 	
     instances_type_map = {
 	  arbutus = {

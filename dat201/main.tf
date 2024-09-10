@@ -2,6 +2,6 @@ locals {
   name = "dat201"
   
   custom = {
-    ncpu = 1
+    nnode_cpu = 1
   }
 }

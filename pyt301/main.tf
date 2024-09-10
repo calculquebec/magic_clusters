@@ -2,6 +2,6 @@ locals {
   name = "pyt301"
   
   custom = {
-    ngpu = 55
+    nnode_gpu = 55
   }
 }

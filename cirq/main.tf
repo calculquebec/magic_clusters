@@ -4,6 +4,6 @@ locals {
   custom = {
     home_size = 200
 	
-	ncpu = 1
+	nnode_cpu = 1
   }
 }

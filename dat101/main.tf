@@ -2,7 +2,7 @@ locals {
   name = "dat101"
   
   custom = {
-    ncpu = 55
+    nnode_cpu = 55
 	
 	instances_type_map = {
 	  arbutus = {

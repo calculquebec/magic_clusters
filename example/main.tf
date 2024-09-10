@@ -9,11 +9,11 @@ locals {
     # image_gpu = "AlmaLinux-9"
 
     # Nombre de type d'instances. Les valeurs par défaut sont celles ci-dessous
-    ncpu = 2
-    ngpu = 0
-    n_compute_node = 0
-    ncpupool = 0
-    ngpupool = 0
+    nnode_cpu = 2
+    nnode_gpu = 0
+    nnode_compute = 0
+    nnode_cpupool = 0
+    nnode_gpupool = 0
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 20

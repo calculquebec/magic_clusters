@@ -2,8 +2,8 @@ locals {
   name = "mpi201"
   
   custom = {
-    ncpu = 1
-    n_compute_node = 8
+    nnode_cpu = 1
+    nnode_compute = 8
 
     instances_type_map = {
       arbutus = {

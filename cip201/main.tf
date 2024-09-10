@@ -2,9 +2,9 @@ locals {
   name = "cip201"
   
   custom = {
-    ncpu = 1
-	ncpupool = 8
-	ngpu = 1
-	ngpupool = 10
+    nnode_cpu = 1
+	nnode_cpupool = 8
+	nnode_gpu = 1
+	nnode_gpupool = 10
   }
 }

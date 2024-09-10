@@ -2,8 +2,8 @@ locals {
   name = "cip101"
   
   custom = {
-    ncpu = 2
-    n_compute_node = 2
+    nnode_cpu = 2
+    nnode_compute = 2
 
     instances_type_map = {
       arbutus = {

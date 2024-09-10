@@ -2,7 +2,7 @@ locals {
   name = "gitint101"
   
   custom = {
-    ncpu = 10
+    nnode_cpu = 10
 	
     instances_type_map = {
 	  arbutus = {

@@ -3,6 +3,6 @@ locals {
   
   custom = {
     home_size = 100
-	ngpu = 15
+	nnode_gpu = 15
   }
 }

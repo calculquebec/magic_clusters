@@ -2,6 +2,6 @@ locals {
   name = "vec201"
   
   custom = {
-    ncpu = 4
+    nnode_cpu = 4
   }
 }

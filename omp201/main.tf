@@ -2,7 +2,7 @@ locals {
   name = "omp201"
   
   custom = {
-    ncpu = 7
+    nnode_cpu = 7
 	
 	instances_type_map = {
 	  arbutus = {
