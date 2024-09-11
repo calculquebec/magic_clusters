@@ -34,6 +34,6 @@ prometheus::global_config:
 
 prometheus::remote_write_configs:
     - url: 'https://thanos-receive.dant.computecanada.ca/api/v1/receive'
-        basic_auth:
-            username: 'cqformation'
-            password: "%{alias('prometheus_password')}"
+      basic_auth:
+          username: 'cqformation'
+          password: "%{alias('prometheus_password')}"
