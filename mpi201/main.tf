@@ -8,11 +8,11 @@ locals {
     instances_type_map = {
       arbutus = {
         cpu = "c16-90gb-392"
-	compute_node = "c8-30gb-186"
+        compute_node = "c8-30gb-186"
       }
       beluga = {
         cpu = "p8-30gb"
-	compute_node = "c8-60gb"
+        compute_node = "c8-60gb"
       }
     }
   }

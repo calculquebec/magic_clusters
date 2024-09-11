@@ -22,12 +22,7 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-
-
-
-
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
-
 
 profile::accounts::skel_archives:
     - filename: main-nbody.zip

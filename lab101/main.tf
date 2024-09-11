@@ -3,15 +3,15 @@ locals {
   
   custom = {
     nnode_cpu = 1
-	nnode_cpupool = 20
-	
+    nnode_cpupool = 20
+
     instances_type_map = {
-	  arbutus = {
-	    cpu = "p2-3gb"
-	  }
-	  beluga = {
-	    cpu = "p2-3.75gb"
-	  }
-	}
+      arbutus = {
+        cpu = "p2-3gb"
+      }
+      beluga = {
+        cpu = "p2-3.75gb"
+      }
+    }
   }
 }
