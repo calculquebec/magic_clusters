@@ -5,6 +5,9 @@
 
 # Before commit, check staged files for yaml issues.
 
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -e "\.yaml$" -e "\.yml$")
 
-exec yamllint --no-warning $STAGED_FILES
+for file in $STAGED_FILES
+do
+	exec yamllint --no-warning $file
+done
