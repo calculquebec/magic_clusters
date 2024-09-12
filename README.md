@@ -57,7 +57,7 @@ In some rare cases, you may want to customize the following local variables:
 | `image` | Default image to use for login and management VMs | Rocky-8 | 
 | `image_cpu` | Default image to use for CPU node VMs | snapshot-cpunode-2024-R810.4 | 
 | `image_gpu` | Default image to use for CPU node VMs | snapshot-gpunode-2024-R810.4 | 
-| `n_compute_node` | Number of CPU nodes of a second type | 0 | 
+| `nnode_compute` | Number of CPU nodes of a second type | 0 | 
 | `config_version` | Version of [puppet-magic_castle](https://github.com/computecanada/puppet-magic_castle) to use | see `common.tf` |
 | `gpu_mig_config` | MIG configuration used for static GPU nodes (for Béluga-cloud only) | `{ "3g.20gb" = 1, "2g.10gb" = 1, "1g.5gb" = 2 }` | 
 | `gpupool_mig_config` | MIG configuration used for static GPU nodes (for Béluga-cloud only) | `{ "1g.5gb" = 7 }` | 
