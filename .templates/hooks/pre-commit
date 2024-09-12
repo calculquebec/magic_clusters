@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Copy this template to $(git rev-parse --show-toplevel)/.git/hook/pre-commit
+# Ensure it is executable : chmod +x .git/hook/pre-commit
+
+# Before commit, check staged files for yaml issues.
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+exec yamllint --no-warning $STAGED_FILES
