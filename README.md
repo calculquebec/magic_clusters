@@ -113,4 +113,21 @@ If you use a dynamic pool of node, you will want to configure a Terraform variab
 The name of the cluster will be based on the `name` variable as defined in the `locals`. If you want, you can define a Terraform variable named `cloud_suffix`, which will be appended to the `name`. 
 This may be useful if you want to start two clusters, one in Arbutus, one in Béluga-cloud, using the same configuration.
 
+## YAML Validation
+### Local (client-side) pre-commit hook
+One can validate and lint the YAML configuration files locally by using `yamllint` and the provided configuration and hook.
+The hook is ran before a commit operation and checks files that are **staged** for commit.
 
+1. Install `yamllint` locally with your preferred method (`pip`, system package manager, ...).
+For installation instructions, see [quickstart](https://yamllint.readthedocs.io/en/stable/quickstart.html)
+
+2. Copy the hook and ensure it is executable
+```bash
+cd $(git rev-parse --show-toplevel)
+cp -v .template/hooks/pre-commit .git/hooks/
+```
+or create a symbolic link:
+```bash
+cd $(git rev-parse --show-toplevel)
+ln -rs .templates/hooks/pre-commit .git/hooks/pre-commit
+```
