@@ -124,7 +124,7 @@ For installation instructions, see [quickstart](https://yamllint.readthedocs.io/
 2. Copy the hook and ensure it is executable
 ```bash
 cd $(git rev-parse --show-toplevel)
-cp -v .template/hooks/pre-commit .git/hooks/
+cp -v .templates/hooks/pre-commit .git/hooks/
 ```
 or create a symbolic link:
 ```bash
