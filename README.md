@@ -131,3 +131,7 @@ or create a symbolic link:
 cd $(git rev-parse --show-toplevel)
 ln -rs .templates/hooks/pre-commit .git/hooks/pre-commit
 ```
+
+### Online
+A Github action runs on every push or pull request that modifies a yaml file.
+One can see the different runs and details for a particular commit or under the Actions tab.
