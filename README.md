@@ -28,10 +28,10 @@ locals {
 In most cases, the only terraform locals which you want to customize will be
 | Parameter | Description | Default value | 
 | --- | --- | --- | 
-| `ncpu` | Number of static CPU nodes in the cluster | 2 |
-| `ncpupool` | Maximum number of CPU nodes that can be booted dynamically by Slurm | 0 |
-| `ngpu` | Number of static GPU nodes in the cluster | 0 |
-| `ngpupool` | Maximum number of GPU nodes that can be booted dynamically by Slurm | 0 |
+| `nnode_cpu` | Number of static CPU nodes in the cluster | 2 |
+| `nnode_cpupool` | Maximum number of CPU nodes that can be booted dynamically by Slurm | 0 |
+| `nnode_gpu` | Number of static GPU nodes in the cluster | 0 |
+| `nnode_gpupool` | Maximum number of GPU nodes that can be booted dynamically by Slurm | 0 |
 | `home_size` | Size of the /home filesystem in GB | 20 | 
 | `project_size` | Size of the /project filesystem in GB | 20 |
 | `scratch_size` | Size of the /scratch filesystem in GB | 20 | 
@@ -42,8 +42,8 @@ locals {
   name = "example"
   
   custom = {
-    ncpu = 5
-    ngpupool = 2
+    nnode_cpu = 5
+    nnode_gpupool = 2
     home_size = 50
   }
 }
