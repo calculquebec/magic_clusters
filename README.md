@@ -110,7 +110,7 @@ in [the example folder](https://github.com/calculquebec/magic_clusters/blob/comm
 ## Terraform variables
 If you use a dynamic pool of node, you will want to configure a Terraform variable of type HCL, named `pool`, with value `[]`. 
 
-The name of the cluster will be based on the `name` variable as defined in the `locals`. If you want, you can define a Terraform variable named `cloud_suffix`, which will be appended to the `name`. 
+The name of the cluster will be based on the `name` variable as defined in the `locals`. If you want, you can define a Terraform variable named `suffix`, which will be appended to the `name`. 
 This may be useful if you want to start two clusters, one in Arbutus, one in Béluga-cloud, using the same configuration.
 
 ## YAML Validation

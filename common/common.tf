@@ -22,7 +22,7 @@ variable "prometheus_password" {
   default = ""
 }
 variable "credentials_hieradata" { default= {} }
-variable "cloud_suffix" {
+variable "suffix" {
   type = string
   default = ""
 }
@@ -208,7 +208,7 @@ module "openstack" {
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
-  cluster_name = "${local.name}${var.cloud_suffix}"
+  cluster_name = "${local.name}${var.suffix}"
   domain       = "calculquebec.cloud"
   image        = try(local.custom.image, local.default_pod.image)
 
