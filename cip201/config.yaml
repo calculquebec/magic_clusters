@@ -25,11 +25,6 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
-jupyterhub::kernel::venv::pip_environment:
-    PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['numpy', 'cupy']
 
 profile::slurm::base::suspend_time: 7200
