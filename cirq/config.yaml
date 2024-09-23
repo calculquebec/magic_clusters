@@ -22,11 +22,6 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
-jupyterhub::kernel::venv::pip_environment:
-    PIP_NO_INDEX: 1
 jupyterhub::kernel::venv::packages: ['cirq==1.1.0']
 
 profile::accounts::skel_archives:

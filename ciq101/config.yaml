@@ -22,14 +22,6 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3
-jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
-lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
-jupyterhub::kernel::venv::pip_environment:
-    PIP_NO_INDEX: 1
-    PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
 jupyterhub::kernel::venv::packages: ['pennylane==0.37.0']
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11']

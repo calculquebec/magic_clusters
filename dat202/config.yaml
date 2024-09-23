@@ -22,11 +22,11 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
+jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.9.6/bin/python3
+jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.9
 jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
+    PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-avx2-gentoo.conf
 jupyterhub::kernel::venv::packages: ['pyspark', 'numpy', 'pandas<2.0.0']
 
 
