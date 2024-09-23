@@ -27,7 +27,11 @@ lookup_options:
         merge: deep
 jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
+    PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
+jupyterhub::kernel::setup: module
+jupyterhub::node::prefix: /cvmfs/soft.computecanada.ca/custom/python/envs/jupyterhub_node/v4.3.12
 jupyterhub::kernel::venv::packages: ['pennylane==0.37.0']
+profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11']
 
 profile::accounts::skel_archives:
     - filename: cache.zip
