@@ -21,7 +21,7 @@ jupyterhub::jupyterhub_config_hash:
             def: true
             lock: true
         ui:
-            def: 'lab' # ['notebook', 'lab', 'terminal']
+            def: 'lab'  # ['notebook', 'lab', 'terminal']
     SlurmFormSpawner:
         disable_form: true
 
