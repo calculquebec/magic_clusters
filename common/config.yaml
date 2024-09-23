@@ -30,7 +30,6 @@ jupyterhub::kernel::venv::pip_environment:
     PIP_NO_INDEX: 1
     PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
 
-	
 prometheus::global_config:
     scrape_interval: '1m'
     scrape_timeout: '1m'
