@@ -23,6 +23,7 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: true
 
 jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3
+jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
 jupyterhub::kernel::setup: venv
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:
