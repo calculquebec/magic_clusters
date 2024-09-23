@@ -22,10 +22,7 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::node::prefix: /cvmfs/soft.computecanada.ca/custom/python/envs/jupyterhub_node/v4.3.12
-jupyterhub::python3::version: 3.11.5
-jupyterhub::python3::bin: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/compiler/gcccore/python/3.11.5/bin/python3
-jupyterhub::python3::path: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/compiler/gcccore/python/3.11.5/bin
+jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3
 jupyterhub::kernel::setup: venv
 lookup_options:
     jupyterhub::kernel::venv::pip_environment:
