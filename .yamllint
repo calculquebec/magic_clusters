@@ -8,9 +8,7 @@ yaml-files:
 
 # https://yamllint.readthedocs.io/en/stable/rules.html
 rules:
-  line-length:
-    max: 120
-    level: warning
+  line-length: disable
 
   document-start:
     present: false
