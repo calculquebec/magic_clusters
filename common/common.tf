@@ -35,7 +35,7 @@ locals {
   default_pod = {
     image = "Rocky-8"
     image_cpu = "snapshot-cpunode-2024-R810.5"
-    image_gpu = "snapshot-gpunode-2024-R810.4"
+    image_gpu = "snapshot-gpunode-2024-R810.5"
     nnode_cpu = 2
     nnode_gpu = 0
     nnode_compute = 0
