@@ -2,7 +2,7 @@ locals {
   name = "lab101"
   
   custom = {
-    nnode_cpu = 1
+    nnode_cpu = 0
     nnode_cpupool = 20
 
     instances_type_map = {
