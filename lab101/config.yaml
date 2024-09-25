@@ -21,6 +21,8 @@ jupyterhub::jupyterhub_config_hash:
             def: 'lab'
     SlurmFormSpawner:
         disable_form: true
+        start_timeout: 900
+        http_timeout: 300
 
 jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python3
 jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
