@@ -3,7 +3,7 @@ locals {
   
   custom = {
     nnode_cpu = 20
-    nnode_cpupool = 20
+    nnode_cpupool = 2
 
     instances_type_map = {
       arbutus = {
