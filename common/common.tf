@@ -63,8 +63,6 @@ locals {
         cpu = "c8-60gb"
         cpupool = "c8-60gb"
         compute_node = "p8-15gb"
-        gpu = "gpu32-240-3450gb-a100x1"
-        gpupool = "gpu32-240-3450gb-a100x1"
       }
     }
 
@@ -147,22 +145,6 @@ locals {
           tags = ["node", "pool"],
           count = try(local.custom.nnode_cpupool, local.default_pod.nnode_cpupool),
           image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodegpu = {
-          type = try(local.custom.instances_type_map.beluga.gpu, local.default_pod.instances_type_map.beluga.gpu),
-          tags = ["node"],
-          count = try(local.custom.nnode_gpu, local.default_pod.nnode_gpu),
-          mig = try(local.custom.gpu_mig_config, local.default_pod.gpu_mig_config),
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-          disk_size = "50"
-        }
-        nodegpupool = {
-          type = try(local.custom.instances_type_map.beluga.gpupool, local.default_pod.instances_type_map.beluga.gpupool),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnode_gpupool, local.default_pod.nnode_gpupool),
-          mig = try(local.custom.gpupool_mig_config, local.default_pod.gpupool_mig_config),
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-          disk_size = "50"
         }
       }
     }
