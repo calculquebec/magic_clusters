@@ -2,6 +2,6 @@ locals {
   name = "unx101"
   
   custom = {
-    nnode_cpu = 30
+    nnode_cpu = 2
   }
 }
