@@ -25,6 +25,8 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
+profile::users::ldap::users:user:count: 60
+
 profile::accounts::skel_archives:
     - filename: main.zip
       source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip
