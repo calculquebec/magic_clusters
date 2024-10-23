@@ -2,8 +2,10 @@ locals {
   name = "ciq101"
   
   custom = {
-    nnode_cpu = 0
-    nnode_cpupool = 4
-    nnode_gpupool = 0
+    nnodes = {
+      cpu = 0
+      cpupool = 4
+      gpupool = 0
+    }
   }
 }

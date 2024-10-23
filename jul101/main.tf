@@ -2,6 +2,8 @@ locals {
   name = "jul101"
   
   custom = {
-    nnode_cpu = 2
+    nnodes = {
+      cpu = 2
+    }
   }
 }
