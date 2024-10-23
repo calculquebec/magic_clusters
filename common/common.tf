@@ -58,7 +58,8 @@ locals {
     }
 
     cluster_purpose = "formation"
-    config_version = "1ba3a12"
+    config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
+    config_version = "2972853"
 
     instances_type_map = {
       arbutus = {
@@ -201,7 +202,7 @@ locals {
 
 module "openstack" {
   source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.0.0-beta"
-  config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
+  config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
   cluster_name = "${local.name}${var.suffix}"
