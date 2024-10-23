@@ -36,6 +36,7 @@ locals {
     image = "Rocky-8"
     image_cpu = "snapshot-cpunode-2024-R810.5"
     image_gpu = "snapshot-gpunode-2024-R810.5"
+    nb_users = 0
 
     nnodes = {
       cpu = 2
@@ -181,6 +182,7 @@ locals {
   instances = try(local.custom.instances, local.default.instances_map[var.cloud_name])
   volumes = try(local.custom.volumes, local.default.volumes_map[var.cloud_name])
   cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
+  nb_users = try(local.custom.nb_users, local.default_pod.nb_users)
 
   hieradata = yamlencode(merge(
     {
@@ -218,7 +220,7 @@ module "openstack" {
 
   public_keys = compact(concat(split("\n", file("../common/sshkeys.pub")), ))
 
-  nb_users = 55
+  nb_users = local.nb_users
   # Shared password, randomly chosen if blank
   guest_passwd = ""
 
