@@ -44,6 +44,13 @@ locals {
     home_size = 20
     project_size = 20
     scratch_size = 20
+    
+    user_quotas = {
+      home = "1g"
+      project = "1g"
+      scratch = "1g"
+    }
+
     cluster_purpose = "formation"
     config_version = "1ba3a12"
 
@@ -151,16 +158,16 @@ locals {
     volumes_map = {
       arbutus = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size) }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size) }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size) }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home) }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project)  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch)  }
         }
       }
       beluga = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd" }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec" }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec" }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd", quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home)   }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec", quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project)   }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec", quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch)  }
         }
       }
     }
