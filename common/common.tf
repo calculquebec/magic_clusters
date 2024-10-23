@@ -88,7 +88,7 @@ locals {
         login = "ha4-15gb"
         cpu = "c8-30gb"
         cpupool = "c8-30gb"
-        gpu = "gpu16-240-3375gb-a100x1_cq"
+	gpu = "gpu16-240-3450gb-a100x1_cq"
         gpupool = "gpu16-240-3375gb-a100x1"
         gpupool16 = "gpu16-240-3375gb-a100x1"
         gpupool80 = "gpu13-240-2500gb-a100-80gx1"
