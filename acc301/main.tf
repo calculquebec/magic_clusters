@@ -2,7 +2,9 @@ locals {
   name = "acc301"
   
   custom = {
-    nnode_gpu = 55
+    nnodes = {
+      gpu = 55
+    }
   }
 }
 
