@@ -27,6 +27,8 @@ jupyterhub::jupyterhub_config_hash:
 
 profile::users::ldap::users::user::count: 60
 
+profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'mii']
+
 profile::accounts::skel_archives:
     - filename: main.zip
       source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip
