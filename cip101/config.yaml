@@ -32,6 +32,6 @@ profile::accounts::skel_archives:
       source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip
 
 formation_extra::stripped_skel_archives:
-    - filename: main.tar.gz
-      source: 	https://github.com/calculquebec/formation_skels/archive/refs/cip101.tar.gz
+    - filename: cip101_skel_extra.tar.gz
+      source: https://github.com/calculquebec/formation_skels/archive/refs/heads/cip101.tar.gz
 
