@@ -75,7 +75,7 @@ locals {
       arbutus = {
         mgmt = {
           type = try(local.custom.instances_type_map.arbutus.mgmt, local.default_pod.instances_type_map.arbutus.mgmt),
-          tags = ["puppet", "mgmt", "nfs"],
+          tags = ["puppet", "mgmt", "nfs", "formation_extra"],
           count = 1
         }
         login = {
@@ -117,7 +117,7 @@ locals {
       beluga = {
         mgmt = {
           type = try(local.custom.instances_type_map.beluga.mgmt, local.default_pod.instances_type_map.beluga.mgmt),
-          tags = ["puppet", "mgmt", "nfs"],
+          tags = ["puppet", "mgmt", "nfs", "formation_extra"],
           count = 1
         }
         login  = {

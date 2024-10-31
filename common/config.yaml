@@ -1,5 +1,5 @@
 magic_castle::site::tags:
-  mgmt:
+  formation_extra:
     - formation_extra
 
 jupyterhub::enable_otp_auth: false
