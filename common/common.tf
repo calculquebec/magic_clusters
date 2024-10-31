@@ -45,7 +45,7 @@ locals {
     project_size = 20
     scratch_size = 20
     cluster_purpose = "formation"
-    config_version = "1ba3a12"
+    config_version = "14.0.0-beta.4"
 
     instances_type_map = {
       arbutus = {

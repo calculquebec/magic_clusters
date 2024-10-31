@@ -2,7 +2,7 @@ jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 # For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
-    "%{lookup('cluster_name')}_user":
+    "%{lookup('cluster_name')}-user":
         count: 50
         passwd: "%{alias('passwd_user')}"
         groups: ['def-sponsor00']
