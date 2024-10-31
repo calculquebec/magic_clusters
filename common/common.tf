@@ -211,6 +211,8 @@ module "openstack" {
   guest_passwd = ""
 
   hieradata = local.hieradata
+
+  puppetfile = file("../common/Puppetfile")
 }
 
 output "accounts" {

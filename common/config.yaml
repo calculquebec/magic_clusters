@@ -1,3 +1,7 @@
+magic_castle::site::tags:
+  mgmt:
+    - formation_extra
+
 jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 # For TF cloud, password is pre-set from variable
