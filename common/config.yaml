@@ -6,19 +6,19 @@ jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 # For TF cloud, password is pre-set from variable
 profile::users::ldap::users:
-    "%{lookup('cluster_name')}-user":
-        count: 50
-        passwd: "%{alias('passwd_user')}"
-        groups: ['def-sponsor00']
+  "%{lookup('cluster_name')}-user":
+    count: 50
+    passwd: "%{alias('passwd_user')}"
+    groups: ['def-sponsor00']
 
-    instructor:
-        passwd: "%{alias('passwd_instructor')}"
-        groups: ['def-sponsor00', 'helper']
+  instructor:
+    passwd: "%{alias('passwd_instructor')}"
+    groups: ['def-sponsor00', 'helper']
 
-    helper:
-        count: 4
-        passwd: "%{alias('passwd_helper')}"
-        groups: ['def-sponsor00', 'helper']
+  helper:
+    count: 4
+    passwd: "%{alias('passwd_helper')}"
+    groups: ['def-sponsor00', 'helper']
 
 profile::freeipa::mokey::enable_user_signup: false
 
@@ -28,24 +28,24 @@ profile::software_stack::lmod_default_modules: ['StdEnv/2023']
 jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3
 jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
 lookup_options:
-    jupyterhub::kernel::venv::pip_environment:
-        merge: deep
+  jupyterhub::kernel::venv::pip_environment:
+    merge: deep
 jupyterhub::kernel::venv::pip_environment:
-    PIP_NO_INDEX: 1
-    PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
+  PIP_NO_INDEX: 1
+  PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
 
 prometheus::global_config:
-    scrape_interval: '1m'
-    scrape_timeout: '1m'
-    external_labels:
-        cluster: "%{alias('cluster_name')}"
-        cloud: "%{alias('cloud_name')}"
-        team: 'calculquebec'
-        purpose: "%{alias('cluster_purpose')}"
-        replica: '1'
+  scrape_interval: '1m'
+  scrape_timeout: '1m'
+  external_labels:
+    cluster: "%{alias('cluster_name')}"
+    cloud: "%{alias('cloud_name')}"
+    team: 'calculquebec'
+    purpose: "%{alias('cluster_purpose')}"
+    replica: '1'
 
 prometheus::remote_write_configs:
-    - url: 'https://thanos-receive.dant.computecanada.ca/api/v1/receive'
-      basic_auth:
-          username: 'cqformation'
-          password: "%{alias('prometheus_password')}"
+  - url: 'https://thanos-receive.dant.computecanada.ca/api/v1/receive'
+    basic_auth:
+      username: 'cqformation'
+      password: "%{alias('prometheus_password')}"
