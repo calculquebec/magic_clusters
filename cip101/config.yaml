@@ -34,4 +34,3 @@ profile::accounts::skel_archives:
 formation_extra::stripped_skel_archives:
     - filename: cip101_skel_extra.tar.gz
       source: https://github.com/calculquebec/formation_skels/archive/refs/heads/cip101.tar.gz
-
