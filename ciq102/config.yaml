@@ -27,7 +27,7 @@ jupyterhub::kernel::venv::packages: ['pennylane==0.37.0', 'numpy', 'pandas', 'ma
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11']
 
 profile::accounts::skel_archives:
-    - filename: ciq102-main.zip
+    - filename: ciq102-introduction-pennylane-main.zip
       source: https://github.com/calculquebec/ciq102-introduction-pennylane/archive/refs/heads/main.zip
     - filename: cache.zip
       source: https://drive.google.com/uc?id=1vwrd7xNAy9WwFQLbSbZuBPQ0YtupiNnH&export=download
