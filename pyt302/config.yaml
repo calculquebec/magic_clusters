@@ -29,4 +29,4 @@ jupyterhub::kernel::venv::packages: ['cupy']
 
 profile::accounts::skel_archives:
     - filename: jupyter.zip
-      source: https://drive.google.com/uc?id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB&export=download
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
