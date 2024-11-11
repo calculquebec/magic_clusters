@@ -28,4 +28,4 @@ profile::accounts::skel_archives:
     - filename: cache.zip
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
     - filename: jupyter.zip
-      source: https://drive.google.com/uc?id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB&export=download
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
