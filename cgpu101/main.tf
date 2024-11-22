@@ -5,7 +5,7 @@ locals {
     home_size = 200
     nnodes = {
       cpu = 0
-      gpu = 1
+      gpu = 0
       gpupool = 4
     }
   }
