@@ -8,5 +8,8 @@ locals {
       gpu = 0
       gpupool = 4
     }
+    mig = {
+      gpupool = { "3g.10gb" = 2 }
+    }
   }
 }
