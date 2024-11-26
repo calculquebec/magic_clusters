@@ -8,8 +8,8 @@ jupyterhub::jupyterhub_config_hash:
             max: 5.0
         nprocs:
             min: 1
-            def: 4
-            max: 4
+            def: 8
+            max: 8
         memory:
             min: 1024
             max: 22000
