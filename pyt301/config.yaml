@@ -23,7 +23,7 @@ jupyterhub::jupyterhub_config_hash:
         ui:
             def: 'lab'  # ['notebook', 'lab', 'terminal']
     SlurmFormSpawner:
-        disable_form: true
+        disable_form: false
 
 jupyterhub::kernel::venv::packages: ['numba==0.60.0', "numpy==1.26.4", 'pycuda', 'matplotlib']
 
