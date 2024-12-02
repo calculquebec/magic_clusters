@@ -8,7 +8,7 @@ jupyterhub::jupyterhub_config_hash:
             max: 5.0
         nprocs:
             min: 1
-            def: 4
+            def: 2
             max: 4
         memory:
             min: 1024
@@ -23,7 +23,7 @@ jupyterhub::jupyterhub_config_hash:
         ui:
             def: 'lab'  # ['notebook', 'lab', 'terminal']
     SlurmFormSpawner:
-        disable_form: false
+        disable_form: true
 
 jupyterhub::kernel::venv::packages: ['numba==0.60.0', "numpy==1.26.4", 'pycuda', 'matplotlib']
 
