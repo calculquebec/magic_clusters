@@ -8,33 +8,27 @@ jupyterhub::jupyterhub_config_hash:
             max: 5.0
         nprocs:
             min: 1
-            def: 2
-            max: 4
+            def: 1
+            max: 1
         memory:
             min: 1024
-            max: 22000
-            def: 21000
-        gpus:
-            def: 'gpu:1'
-            choices: ['gpu:1']
+            max: 4098
+            def: 4098
         oversubscribe:
             def: true
             lock: true
         ui:
-            def: 'lab'  # ['notebook', 'lab', 'terminal']
+            def: 'lab'
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::kernel::venv::packages: ['numba==0.60.0', "numpy==1.26.4", 'pycuda', 'matplotlib']
+jupyterhub::kernel::venv::packages: ['pennylane==0.37.0', 'numpy', 'pandas', 'matplotlib']
 
-profile::freeipa::mokey::enable_user_signup: false
-profile::freeipa::mokey::require_verify_admin: false
-
-profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2']
+profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11']
 
 profile::accounts::skel_archives:
-    - filename: main.zip
-      source: https://github.com/calculquebec/cq-intro-python-gpu/archive/refs/heads/main.zip
+    - filename: ciq102-introduction-pennylane-main.zip
+      source: https://github.com/calculquebec/ciq102-introduction-pennylane/archive/refs/heads/main.zip
     - filename: cache.zip
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
     - filename: jupyter.zip

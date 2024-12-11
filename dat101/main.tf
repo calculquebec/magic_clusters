@@ -3,7 +3,7 @@ locals {
   
   custom = {
     nnodes = {
-      cpu = 55
+      cpu = 16
     }
 
     instances_type_map = {
