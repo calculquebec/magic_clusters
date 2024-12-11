@@ -8,12 +8,12 @@ jupyterhub::jupyterhub_config_hash:
             max: 5.0
         nprocs:
             min: 1
-            def: 8
-            max: 8
+            def: 6
+            max: 6
         memory:
             min: 1024
-            max: 22000
-            def: 21000
+            max: 55000
+            def: 55000
         gpus:
             def: 'gpu:1'
             choices: ['gpu:1']
