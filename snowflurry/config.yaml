@@ -31,4 +31,4 @@ profile::accounts::skel_archives:
       source: https://github.com/calculquebec/cq-formation-intro-snowflake/archive/refs/heads/main.zip
 
     - filename: jupyter.zip
-      source: https://drive.google.com/uc?export=download&id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip

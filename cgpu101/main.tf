@@ -3,8 +3,13 @@ locals {
 
   custom = {
     home_size = 200
-    nnode_cpu = 0
-    nnode_gpu = 1
-    nnode_gpupool = 40
+    nnodes = {
+      cpu = 0
+      gpu = 0
+      gpupool = 4
+    }
+    mig = {
+      gpupool = { "3g.20gb" = 2 }
+    }
   }
 }

@@ -8,12 +8,12 @@ jupyterhub::jupyterhub_config_hash:
             max: 5.0
         nprocs:
             min: 1
-            def: 4
-            max: 4
+            def: 2
+            max: 2
         memory:
             min: 1024
-            max: 22000
-            def: 21000
+            max: 18000
+            def: 18000
         gpus:
             def: 'gpu:1'
             choices: ['gpu:1']
@@ -29,4 +29,4 @@ jupyterhub::kernel::venv::packages: ['cupy']
 
 profile::accounts::skel_archives:
     - filename: jupyter.zip
-      source: https://drive.google.com/uc?id=1hFNla811miJFnfSGg7Lw3GZhb7VPDYZB&export=download
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
