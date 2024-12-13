@@ -2,6 +2,8 @@ locals {
   name = "pyt101"
   
   custom = {
-    nnode_cpu = 2
+    nnodes = {
+      cpu = 2
+    }
   }
 }
