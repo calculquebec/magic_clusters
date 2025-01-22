@@ -52,7 +52,7 @@ locals {
       gpupool12-j = 0
     }
 
-    home_size = 20
+    home_size = 80
     project_size = 20
     scratch_size = 20
     

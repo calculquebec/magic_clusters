@@ -2,7 +2,7 @@ locals {
   name = "cgpu101"
 
   custom = {
-    home_size = 200
+    home_size = 800
     nnodes = {
       cpu = 0
       gpu = 0
