@@ -25,10 +25,8 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair']
 
 profile::accounts::skel_archives:
-    - filename: analyse-donnees-python-main.zip
-      source: https://github.com/calculquebec/analyse-donnees-python/archive/refs/heads/main.zip
-    - filename: data-analysis-python-main.zip
-      source: https://github.com/calculquebec/data-analysis-python/archive/refs/heads/main.zip
+    - filename: cq-formation-dat201-main.zip
+      source: https://github.com/calculquebec/cq-formation-dat201/archive/refs/heads/main.zip
     - filename: cache.zip
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
     - filename: jupyter.zip
