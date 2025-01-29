@@ -1,5 +1,5 @@
 locals {
-  name = "unx101"
+  name = "lnx101"
   
   custom = {
     nnodes = {
