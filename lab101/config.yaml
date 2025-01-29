@@ -39,5 +39,5 @@ profile::accounts::skel_archives:
     - filename: jupyter.zip
       source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
 
-    - filename: matplotlib.zip
-      source: https://drive.google.com/uc?export=download&id=1vwrd7xNAy9WwFQLbSbZuBPQ0YtupiNnH
+    - filename: cache.zip
+      source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
