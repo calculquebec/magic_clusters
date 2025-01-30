@@ -25,8 +25,6 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
 profile::accounts::skel_archives:
-    - filename: intro-python-main.zip
-      source: https://github.com/ccoulombe/intro-python/archive/refs/heads/main.zip
     - filename: intro-programmation-python-main.zip
       source: https://github.com/calculquebec/intro-programmation-python/archive/refs/heads/main.zip
     - filename: jupyter.zip
