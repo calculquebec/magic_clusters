@@ -22,17 +22,14 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.10.2/bin/python3
-jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.10
-jupyterhub::kernel::venv::pip_environment:
-    PIP_NO_INDEX: 1
-    PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-avx2-gentoo.conf
-jupyterhub::kernel::venv::packages: ['numpy<2', 'pandas', 'matplotlib']
-profile::software_stack::lmod_default_modules: ['StdEnv/2020']
+jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
 profile::accounts::skel_archives:
+    - filename: intro-python-main.zip
+      source: https://github.com/ccoulombe/intro-python/archive/refs/heads/main.zip
+    - filename: intro-programmation-python-main.zip
+      source: https://github.com/calculquebec/intro-programmation-python/archive/refs/heads/main.zip
     - filename: jupyter.zip
       source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
-
     - filename: cache.zip
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
