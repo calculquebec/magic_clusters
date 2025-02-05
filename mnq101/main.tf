@@ -6,5 +6,6 @@ locals {
       cpu = 0
       cpupool = 4
       gpupool = 0
+    }
   }
 }
