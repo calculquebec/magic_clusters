@@ -22,7 +22,7 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::kernel::venv::packages: ['pennylane==0.39.0', 'numpy', 'pandas', 'matplotlib', 'pennylane-calculquebec']
+jupyterhub::kernel::venv::packages: ['pennylane==0.39.0', 'numpy', 'pandas', 'matplotlib', 'pennylane-calculquebec==0.5.5']
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11']
 
