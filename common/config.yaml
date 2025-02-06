@@ -12,6 +12,7 @@ profile::users::ldap::users:
     groups: ['def-sponsor00']
 
   instructor:
+    count: 3
     passwd: "%{alias('passwd_instructor')}"
     groups: ['def-sponsor00', 'helper']
 
