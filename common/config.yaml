@@ -16,7 +16,7 @@ profile::users::ldap::users:
     groups: ['def-sponsor00', 'helper']
 
   helper:
-    count: 4
+    count: 9
     passwd: "%{alias('passwd_helper')}"
     groups: ['def-sponsor00', 'helper']
 
