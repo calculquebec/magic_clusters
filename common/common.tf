@@ -1,11 +1,5 @@
 terraform {
   required_version = ">= 1.4.0"
-  required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 4.51.0"
-    }
-  }
 }
 variable "pool" {
   description = "Slurm pool of compute nodes"
@@ -70,8 +64,8 @@ locals {
 
     cluster_purpose = "formation"
     config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-    # for kernels bugfix
-    config_version = "7ef09d0"
+    # for autoscale and configurable suspend/resume, and mig fix
+    config_version = "4888f7a"
 
     instances_type_map = {
       arbutus = {
@@ -248,7 +242,7 @@ locals {
           disk_size = "50"
         }
         nodegpupool = {
-          type = try(local.custom.instances_type_map.juno.gpupool, local.default_pod.instances_type_map.juno.gpupool16),
+          type = try(local.custom.instances_type_map.juno.gpupool, local.default_pod.instances_type_map.juno.gpupool),
           tags = ["node", "pool"],
           count = try(local.custom.nnodes.gpupool, 0),
           mig = try(local.custom.mig.gpupool, local.default_pod.mig.gpupool)
@@ -314,9 +308,9 @@ locals {
       }
       juno = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home)  }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project)  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch) }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), mkfs_options = "-K"  }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), mkfs_options = "-K"  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), mkfs_options = "-K" }
         }
       }
     }
@@ -343,7 +337,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.1.2"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.2.1"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -369,9 +363,10 @@ module "openstack" {
 
   hieradata = local.hieradata
 
-  puppetfile = file("../common/Puppetfile")
   subnet_id = local.default_pod.network_map[var.cloud_name].subnet_id
   os_ext_network = local.default_pod.network_map[var.cloud_name].os_ext_network
+
+  puppetfile = file("../common/Puppetfile")
 }
 
 output "accounts" {
@@ -384,7 +379,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=14.0.0-beta"
+  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=14.2.1"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
