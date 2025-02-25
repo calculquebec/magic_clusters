@@ -33,3 +33,15 @@ profile::accounts::skel_archives:
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
     - filename: jupyter.zip
       source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
+
+cron::job:
+  spawn_nodes:
+    command: "/usr/sbin/is_event_soon.py --apikey %{lookup('google_api_key')} --calendar_id %{lookup('google_calendar_id')} --delay 30 --course %{lookup('cluster_name')} || /opt/software/slurm/bin/scontrol update node=ALL state=power_up"
+    minute: '05,35'
+    hour: '*'
+    date: '*'
+    month: '*'
+    weekday: '*'
+    user: 'root'
+    description: 'spawn nodes'
+    environment: ['CRON_TZ=America/New_York']

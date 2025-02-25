@@ -21,6 +21,14 @@ variable "prometheus_password" {
   type = string
   default = ""
 }
+variable "google_calendar_id" {
+  type = string
+  default = ""
+}
+variable "google_api_key" {
+  type = string
+  default = ""
+}
 variable "credentials_hieradata" { default= {} }
 variable "suffix" {
   type = string
@@ -136,7 +144,7 @@ locals {
         }
         login = {
           type = try(local.custom.instances_type_map.arbutus.login, local.default_pod.instances_type_map.arbutus.login),
-          tags = ["login", "public", "proxy"],
+          tags = ["login", "public", "proxy", "cron"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
@@ -180,7 +188,7 @@ locals {
         }
         login  = {
           type = try(local.custom.instances_type_map.beluga.login, local.default_pod.instances_type_map.beluga.login),
-          tags = ["login", "public", "proxy"],
+          tags = ["login", "public", "proxy", "cron"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
@@ -215,7 +223,7 @@ locals {
         }
         login  = {
           type = try(local.custom.instances_type_map.juno.login, local.default_pod.instances_type_map.juno.login),
-          tags = ["login", "public", "proxy"],
+          tags = ["login", "public", "proxy", "cron"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
@@ -327,6 +335,8 @@ locals {
       "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
       "cluster_name" = local.name
       "prometheus_password" = var.prometheus_password
+      "google_calendar_id" = var.google_calendar_id
+      "google_api_key" = var.google_api_key
       "cloud_name" = var.cloud_name
       "cluster_purpose" = local.cluster_purpose
     },

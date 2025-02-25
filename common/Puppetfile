@@ -1,3 +1,4 @@
+mod 'puppet-cron', '2.0.0'
 mod 'puppet-formation_extra',
     :git => 'https://github.com/calculquebec/puppet-formation_extra.git',
     :ref => 'main'

@@ -1,6 +1,8 @@
 magic_castle::site::tags:
   formation_extra:
     - formation_extra
+  cron:
+    - cron
 
 jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
