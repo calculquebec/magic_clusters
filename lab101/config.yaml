@@ -43,7 +43,7 @@ profile::accounts::skel_archives:
     source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
 
 formation_extra::google_calendar_id: "%{alias('google_calendar_id')}"
-formation_extra::google_api_key: "%{alias('google_api_id')}"
+formation_extra::google_api_key: "%{alias('google_api_key')}"
 formation_extra::course: "%{alias('cluster_name')}"
 
 cron::job:
