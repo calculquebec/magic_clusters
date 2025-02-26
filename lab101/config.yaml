@@ -24,10 +24,6 @@ jupyterhub::jupyterhub_config_hash:
     start_timeout: 900
     http_timeout: 300
 
-# pour cette formation, on suspend les noeuds plus tard
-profile::slurm::base::suspend_time: 7200
-
-
 jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python3
 jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
 jupyterhub::kernel::venv::pip_environment:
@@ -45,4 +41,3 @@ profile::accounts::skel_archives:
 
   - filename: cache.zip
     source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
-

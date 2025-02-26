@@ -25,6 +25,7 @@ profile::users::ldap::users:
 profile::freeipa::mokey::enable_user_signup: false
 
 profile::slurm::base::slurm_version: '23.02'
+profile::slurm::base::suspend_time: 7200
 profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
 
