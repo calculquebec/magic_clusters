@@ -4,7 +4,8 @@ locals {
   custom = {
     nnodes = {
       cpu = 2
-      cpupool = 20
+      # 4 users par noeud pool
+      cpupool = 10
     }
 
     instances_type_map = {
