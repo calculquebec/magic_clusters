@@ -42,18 +42,3 @@ profile::accounts::skel_archives:
   - filename: cache.zip
     source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
 
-formation_extra::google_calendar_id: "%{alias('google_calendar_id')}"
-formation_extra::google_api_key: "%{alias('google_api_key')}"
-formation_extra::course: "%{alias('cluster_name')}"
-
-cron::job:
-  spawn_nodes:
-    command: "/usr/sbin/is_event_soon.py --delay 30 --config /etc/cq_event_check.ini || /opt/software/slurm/bin/scontrol update node=ALL state=power_up"
-    minute: '*/15'
-    hour: '*'
-    date: '*'
-    month: '*'
-    weekday: '*'
-    user: 'root'
-    description: 'spawn nodes'
-    environment: ['CRON_TZ=America/New_York']
