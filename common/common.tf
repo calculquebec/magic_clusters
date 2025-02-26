@@ -138,13 +138,13 @@ locals {
       arbutus = {
         mgmt = {
           type = try(local.custom.instances_type_map.arbutus.mgmt, local.default_pod.instances_type_map.arbutus.mgmt),
-          tags = ["puppet", "mgmt", "nfs", "formation_extra"],
+          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
           disk_size = 20,
           count = 1
         }
         login = {
           type = try(local.custom.instances_type_map.arbutus.login, local.default_pod.instances_type_map.arbutus.login),
-          tags = ["login", "public", "proxy", "cron"],
+          tags = ["login", "public", "proxy"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
@@ -182,13 +182,13 @@ locals {
       beluga = {
         mgmt = {
           type = try(local.custom.instances_type_map.beluga.mgmt, local.default_pod.instances_type_map.beluga.mgmt),
-          tags = ["puppet", "mgmt", "nfs", "formation_extra"],
+          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
           disk_size = 20,
           count = 1
         }
         login  = {
           type = try(local.custom.instances_type_map.beluga.login, local.default_pod.instances_type_map.beluga.login),
-          tags = ["login", "public", "proxy", "cron"],
+          tags = ["login", "public", "proxy"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
@@ -217,13 +217,13 @@ locals {
       juno = {
         mgmt = {
           type = try(local.custom.instances_type_map.juno.mgmt, local.default_pod.instances_type_map.juno.mgmt),
-          tags = ["puppet", "mgmt", "nfs"],
+          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
           disk_size = 20,
           count = 1
         }
         login  = {
           type = try(local.custom.instances_type_map.juno.login, local.default_pod.instances_type_map.juno.login),
-          tags = ["login", "public", "proxy", "cron"],
+          tags = ["login", "public", "proxy"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
         }
