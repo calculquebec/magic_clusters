@@ -33,7 +33,5 @@ profile::slurm::base::suspend_time: 7200
 profile::slurm::base::resume_timeout: 7200
 
 profile::accounts::skel_archives:
-    - filename: main.zip
-      source: https://github.com/calculquebec/cip201-serveurs-calcul/archive/refs/heads/main.zip
-    - filename: will-cite.zip
-      source: https://drive.google.com/uc?export=download&id=11vO_wCCvUUGxg6JmpvQjck6Q6WU-LL9t
+    - filename: cq-formation-cip201-main.zip
+      source: https://github.com/calculquebec/cq-formation-cip201/archive/refs/heads/main.zip
