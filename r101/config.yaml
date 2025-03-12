@@ -29,4 +29,4 @@ profile::accounts::skel_archives:
       source: https://github.com/hgingras/Formation-R/archive/refs/heads/main.zip
 
     - filename: jupyter.zip
-      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip
