@@ -30,6 +30,6 @@ profile::accounts::skel_archives:
     - filename: cache.zip
       source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
     - filename: jupyter.zip
-      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1/jupyter-v1.zip
+      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip
     - filename: next.zip
       source: https://github.com/vega/vega-datasets/archive/refs/heads/next.zip
