@@ -4,7 +4,7 @@ locals {
   custom = {
     nnodes = {
       cpu = 1
-      cpupool = 2
+      cpupool = 4
     }
   }
 }
