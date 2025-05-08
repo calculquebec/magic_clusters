@@ -16,7 +16,7 @@ jupyterhub::jupyterhub_config_hash:
       def: 21000
     gpus:
       def: 'gpu:0'
-      choices: ['gpu:1']
+      choices: ['gpu:0', 'gpu:1']
     oversubscribe:
       def: true
       lock: true
