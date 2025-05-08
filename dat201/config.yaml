@@ -22,7 +22,7 @@ jupyterhub::jupyterhub_config_hash:
     SlurmFormSpawner:
         disable_form: true
 
-jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair']
+jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair', 'vl_convert_python']
 
 profile::accounts::skel_archives:
     - filename: cq-formation-dat201-main.zip
