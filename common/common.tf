@@ -52,6 +52,7 @@ locals {
       gpu = 0
       cpupool = 0
       gpupool = 0
+      jupyter = 0
       login = 1
       gpupool12 = 0
       gpupool16 = 0
@@ -79,6 +80,7 @@ locals {
       arbutus = {
         mgmt = "p8-12gb"
         login = "p4-6gb"
+        jupyter = "p4-6gb"
         cpu = "c8-30gb-186-avx2"
         cpupool = "c8-30gb-186-avx2"
         compute_node = "p8-12gb"
@@ -88,6 +90,7 @@ locals {
       beluga = {
         mgmt = "p4-7.5gb"
         login = "p4-7.5gb"
+        jupyter = "p4-7.5gb"
         cpu = "c8-60gb"
         cpupool = "c8-60gb"
         compute_node = "p8-15gb"
@@ -95,6 +98,7 @@ locals {
       juno = {
         mgmt = "ha4-15gb"
         login = "ha4-15gb"
+        jupyter = "ha4-15gb"
         cpu = "c8-30gb"
         cpupool = "c8-30gb"
 	gpu = "gpu16-240-3450gb-a100x1_cq"
@@ -144,9 +148,15 @@ locals {
         }
         login = {
           type = try(local.custom.instances_type_map.arbutus.login, local.default_pod.instances_type_map.arbutus.login),
-          tags = ["login", "public", "proxy"],
+          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
+        }
+        jupyter = {
+          type = try(local.custom.instances_type_map.arbutus.jupyter, local.default_pod.instances_type_map.arbutus.jupyter),
+          tags = ["public", "proxy"],
+          disk_size = 20,
+          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
         }
         nodecpu = {
           type = try(local.custom.instances_type_map.arbutus.cpu, local.default_pod.instances_type_map.arbutus.cpu),
@@ -186,11 +196,17 @@ locals {
           disk_size = 20,
           count = 1
         }
-        login  = {
+        login = {
           type = try(local.custom.instances_type_map.beluga.login, local.default_pod.instances_type_map.beluga.login),
-          tags = ["login", "public", "proxy"],
+          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
+        }
+        jupyter = {
+          type = try(local.custom.instances_type_map.beluga.jupyter, local.default_pod.instances_type_map.beluga.jupyter),
+          tags = ["public", "proxy"],
+          disk_size = 20,
+          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
         }
         nodecpu = {
           type = try(local.custom.instances_type_map.beluga.cpu, local.default_pod.instances_type_map.beluga.cpu),
@@ -221,11 +237,17 @@ locals {
           disk_size = 20,
           count = 1
         }
-        login  = {
+        login = {
           type = try(local.custom.instances_type_map.juno.login, local.default_pod.instances_type_map.juno.login),
-          tags = ["login", "public", "proxy"],
+          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
           disk_size = 20,
           count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
+        }
+        jupyter = {
+          type = try(local.custom.instances_type_map.juno.jupyter, local.default_pod.instances_type_map.juno.jupyter),
+          tags = ["public", "proxy"],
+          disk_size = 20,
+          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
         }
         nodecpu = {
           type = try(local.custom.instances_type_map.juno.cpu, local.default_pod.instances_type_map.juno.cpu),
