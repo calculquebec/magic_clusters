@@ -15,7 +15,7 @@ jupyterhub::jupyterhub_config_hash:
             max: 22000
             def: 21000
         gpus:
-            def: 'gpu:1'
+            def: 'gpu:0'
             choices: ['gpu:1']
         oversubscribe:
             def: true
@@ -23,7 +23,7 @@ jupyterhub::jupyterhub_config_hash:
         ui:
             def: 'lab'  # ['notebook', 'lab', 'terminal']
     SlurmFormSpawner:
-        disable_form: true
+        disable_form: false
         start_timeout: 900
 
 #jupyterhub::kernel::venv::packages: ['cupy', 'jax==0.4.30', 'torchvision', 'matplotlib']
