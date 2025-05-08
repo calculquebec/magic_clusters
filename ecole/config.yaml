@@ -26,7 +26,7 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: false
         start_timeout: 900
 
-#jupyterhub::kernel::venv::packages: ['cupy', 'jax==0.4.30', 'torchvision', 'matplotlib']
+jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair', 'vl_convert_python']
 
 profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
