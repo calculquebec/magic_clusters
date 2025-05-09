@@ -12,8 +12,8 @@ jupyterhub::jupyterhub_config_hash:
       max: 4
     memory:
       min: 1024
-      max: 22000
-      def: 21000
+      max: 8092
+      def: 4048
     gpus:
       def: 'gpu:0'
       choices: ['gpu:0', 'gpu:1']
