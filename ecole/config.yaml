@@ -43,7 +43,7 @@ jupyterhub::kernel::venv::packages:
   - torch==2.6.0
   - scikit-learn
   - pillow
-    #  - pycuda
+  - pycuda==2025.1
 
 profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
