@@ -5,11 +5,11 @@ jupyterhub::jupyterhub_config_hash:
     runtime:
       min: 3.5
       def: 4.0
-      max: 5.0
+      max: 8.0
     nprocs:
       min: 1
-      def: 4
-      max: 4
+      def: 1
+      max: 8
     memory:
       min: 1024
       max: 8092
