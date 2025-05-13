@@ -58,10 +58,6 @@ profile::accounts::skel_archives:
   - filename: shell-lesson-data.zip
     source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
 
-formation_extra::stripped_skel_archives:
-  - filename: cip101_skel_extra.tar.gz
-    source: https://github.com/calculquebec/formation_skels/archive/refs/heads/cip101.tar.gz
-
 cron::job:
   spawn_cpu_nodes:
     command: "/opt/software/slurm/bin/scontrol update node=nodecpupool[1-15] state=power_up"
