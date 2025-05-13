@@ -63,7 +63,7 @@ cron::job:
     command: "/opt/software/slurm/bin/scontrol update node=nodecpupool[1-15] state=power_up"
     minute: '0'
     hour: '8'
-    date: '20,21'
+    date: '19,20,21'
     month: '5'
     weekday: '*'
     user: 'root'
