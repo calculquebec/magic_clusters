@@ -67,7 +67,7 @@ profile::accounts::skel_archives:
   - filename: main.zip
     source: https://github.com/calculquebec/cq-formation-dask/archive/refs/heads/main.zip
   - filename: main.zip
-    source: https://github.com/calculquebec/cq-formation-mpi201/archive/refs/heads/main.zip 
+    source: https://github.com/calculquebec/cq-formation-mpi201/archive/refs/heads/main.zip
   - filename: main.zip
     source: https://github.com/calculquebec/cq-intro-python-gpu/archive/refs/heads/main.zip
   - filename: master.zip
