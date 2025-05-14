@@ -80,7 +80,7 @@ profile::accounts::skel_archives:
     source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
   - filename: main.zip
     source: https://github.com/calculquebec/PYT101-ecole_printemps_2025/archive/refs/heads/main.zip
-    
+
 cron::job:
   spawn_cpu_nodes:
     command: "/opt/software/slurm/bin/scontrol update node=nodecpupool[1-15] state=power_up"
