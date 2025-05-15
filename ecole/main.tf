@@ -17,7 +17,7 @@ locals {
     }
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
-    home_size = 20
+    home_size = 200
     project_size = 200
     scratch_size = 100
   }
