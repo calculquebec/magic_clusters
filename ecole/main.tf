@@ -16,6 +16,8 @@ locals {
       gpupool = { "3g.20gb" = 2 }
     }
 
+    image_cpu = "snapshot-cpunode-2025-A9.4-ecole"
+
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 250
     project_size = 200
