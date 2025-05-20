@@ -17,6 +17,7 @@ locals {
     }
 
     image_cpu = "snapshot-cpunode-2025-A9.4-ecole"
+    image_gpu = "snapshot-gpunode-2025-A9.4-ecole"
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 250
