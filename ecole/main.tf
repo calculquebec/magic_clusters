@@ -13,7 +13,7 @@ locals {
     }
 
     mig = {
-      gpupool = { "3g.20gb" = 2 }
+      gpupool = { "1g.5gb" = 7 }
     }
 
     image_cpu = "snapshot-cpunode-2025-A9.4-ecole"
