@@ -28,10 +28,7 @@ locals {
 In most cases, the only terraform locals which you want to customize will be
 | Parameter | Description | Default value | 
 | --- | --- | --- | 
-| `nnode_cpu` | Number of static CPU nodes in the cluster | 2 |
-| `nnode_cpupool` | Maximum number of CPU nodes that can be booted dynamically by Slurm | 0 |
-| `nnode_gpu` | Number of static GPU nodes in the cluster | 0 |
-| `nnode_gpupool` | Maximum number of GPU nodes that can be booted dynamically by Slurm | 0 |
+| `nnodes` | Structure which gives the number of instances of each type | |
 | `home_size` | Size of the /home filesystem in GB | 20 | 
 | `project_size` | Size of the /project filesystem in GB | 20 |
 | `scratch_size` | Size of the /scratch filesystem in GB | 20 | 
@@ -42,8 +39,11 @@ locals {
   name = "example"
   
   custom = {
-    nnode_cpu = 5
-    nnode_gpupool = 2
+    
+    nnodes = {
+      cpu = 5
+      gpupool = 2
+    }
     home_size = 50
   }
 }
@@ -57,7 +57,6 @@ In some rare cases, you may want to customize the following local variables:
 | `image` | Default image to use for login and management VMs | Rocky-8 | 
 | `image_cpu` | Default image to use for CPU node VMs | snapshot-cpunode-2024-R810.4 | 
 | `image_gpu` | Default image to use for CPU node VMs | snapshot-gpunode-2024-R810.4 | 
-| `nnode_compute` | Number of CPU nodes of a second type | 0 | 
 | `config_version` | Version of [puppet-magic_castle](https://github.com/computecanada/puppet-magic_castle) to use | see `common.tf` |
 | `gpu_mig_config` | MIG configuration used for static GPU nodes (for Béluga-cloud only) | `{ "3g.20gb" = 1, "2g.10gb" = 1, "1g.5gb" = 2 }` | 
 | `gpupool_mig_config` | MIG configuration used for static GPU nodes (for Béluga-cloud only) | `{ "1g.5gb" = 7 }` | 
