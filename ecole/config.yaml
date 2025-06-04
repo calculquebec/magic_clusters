@@ -1,30 +1,17 @@
 jupyterhub::jupyterhub_config_hash:
   SbatchForm:
-    account:
-      def: 'def-sponsor00'
     runtime:
-      min: 3.5
-      def: 4.0
       max: 8.0
     nprocs:
-      min: 1
-      def: 1
       max: 8
     memory:
-      min: 1024
       max: 8092
       def: 4048
     gpus:
       def: 'gpu:0'
       choices: ['gpu:0', 'gpu:1']
     oversubscribe:
-      def: true
       lock: false
-    ui:
-      def: 'lab'  # ['notebook', 'lab', 'terminal']
-  SlurmFormSpawner:
-    disable_form: false
-    start_timeout: 900
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2', 'mpi4py/4.0.3']
 jupyterhub::kernel::venv::packages:
@@ -50,10 +37,6 @@ profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
 
 profile::accounts::skel_archives:
-  - filename: cache.zip
-    source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
-  - filename: jupyter.zip
-    source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip
   - filename: cip101-exercices.zip
     source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip
   - filename: shell-lesson-data.zip

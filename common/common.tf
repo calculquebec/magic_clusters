@@ -73,8 +73,7 @@ locals {
 
     cluster_purpose = "formation"
     config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-    # for autoscale and configurable suspend/resume, and mig fix
-    config_version = "4888f7a"
+    config_version = "14.3.0"
 
     instances_type_map = {
       arbutus = {
@@ -119,6 +118,16 @@ locals {
       gpupool12 = { "1g.5gb" = 7 }
       gpupool16-cq = { "1g.5gb" = 7 }
       gpupool12-j = { "1g.5gb" = 7 }
+    }
+
+    shard = {
+      gpu = null
+      gpupool = null
+      gpupool16 = null
+      gpupool80 = null
+      gpupool12 = null
+      gpupool16-cq = null
+      gpupool12-j = null
     }
 
     network_map = {
@@ -269,6 +278,7 @@ locals {
           count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
           mig = try(local.custom.mig.gpu, local.default_pod.mig.gpu)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
           disk_size = "50"
         }
         nodegpupool = {
@@ -277,6 +287,7 @@ locals {
           count = try(local.custom.nnodes.gpupool, 0),
           mig = try(local.custom.mig.gpupool, local.default_pod.mig.gpupool)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
           disk_size = "50"
         }
         nodegpupool16 = {
@@ -285,6 +296,7 @@ locals {
           count = try(local.custom.nnodes.gpupool16, 0),
           mig = try(local.custom.mig.gpupool16, local.default_pod.mig.gpupool16)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool16, local.default_pod.shard.gpupool16),
           disk_size = "50"
         }
         nodegpupool16-cq = {
@@ -293,6 +305,7 @@ locals {
           count = try(local.custom.nnodes.gpupool16-cq, 0),
           mig = try(local.custom.mig.gpupool16-cq, local.default_pod.mig.gpupool16-cq)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool16-cq, local.default_pod.shard.gpupool16-cq),
           disk_size = "50"
         }
         nodegpupool12 = {
@@ -301,6 +314,7 @@ locals {
           count = try(local.custom.nnodes.gpupool12, 0),
           mig = try(local.custom.mig.gpupool12, local.default_pod.mig.gpupool12)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool12, local.default_pod.shard.gpupool12),
           disk_size = "50"
         }
         nodegpupool12-j = {
@@ -309,6 +323,7 @@ locals {
           count = try(local.custom.nnodes.gpupool12-j, 0),
           mig = try(local.custom.mig.gpupool12-j, local.default_pod.mig.gpupool12-j)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool12-j, local.default_pod.shard.gpupool12-j),
           disk_size = "50"
         }
         nodegpupool80 = {
@@ -317,6 +332,7 @@ locals {
           count = try(local.custom.nnodes.gpupool80, 0),
           mig = try(local.custom.mig.gpupool80, local.default_pod.mig.gpupool80)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool80, local.default_pod.shard.gpupool80),
           disk_size = "50"
         }
       }
@@ -364,12 +380,11 @@ locals {
     },
     var.credentials_hieradata,
     yamldecode(file("../common/config.yaml")),
-    yamldecode(file("config.yaml"))
   ))
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.2.1"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.3.0"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -394,6 +409,7 @@ module "openstack" {
   guest_passwd = ""
 
   hieradata = local.hieradata
+  hieradata_dir = "./"
 
   subnet_id = local.default_pod.network_map[var.cloud_name].subnet_id
   os_ext_network = local.default_pod.network_map[var.cloud_name].os_ext_network

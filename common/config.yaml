@@ -3,6 +3,40 @@ magic_castle::site::tags:
     - formation_extra
     - cron
 
+lookup_options:
+  jupyterhub::kernel::venv::pip_environment:
+    merge: deep
+  jupyterhub::jupyterhub_config_hash:
+    merge: deep
+  profile::accounts::skel_archives:
+    merge: deep
+
+jupyterhub::jupyterhub_config_hash:
+  SbatchForm:
+    account:
+      def: 'def-sponsor00'
+    runtime:
+      min: 3.5
+      def: 4.0
+      max: 5.0
+    nprocs:
+      min: 1
+      def: 1
+      max: 1
+    memory:
+      min: 1024
+      max: 2048
+      def: 2048
+    oversubscribe:
+      def: true
+      lock: true
+    ui:
+      def: 'lab'
+  SlurmFormSpawner:
+    disable_form: true
+    start_timeout: 900
+    http_timeout: 300
+
 jupyterhub::enable_otp_auth: false
 jupyterhub::admin_groups: ['helper']
 # For TF cloud, password is pre-set from variable
@@ -26,18 +60,22 @@ profile::freeipa::mokey::enable_user_signup: false
 
 profile::slurm::base::slurm_version: '23.02'
 profile::slurm::base::suspend_time: 7200
+profile::slurm::base::resume_timeout: 7200
 profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023']
 jupyterhub::kernel::venv::python: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3
 jupyterhub::kernel::venv::prefix: /opt/ipython-kernel-3.11
-lookup_options:
-  jupyterhub::kernel::venv::pip_environment:
-    merge: deep
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
   PIP_CONFIG_FILE: /cvmfs/soft.computecanada.ca/config/python/pip-x86-64-v3-gentoo2023.conf
+
+profile::accounts::skel_archives:
+  - filename: cache.zip
+    source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
+  - filename: jupyter.zip
+    source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip
 
 prometheus::global_config:
   scrape_interval: '1m'
