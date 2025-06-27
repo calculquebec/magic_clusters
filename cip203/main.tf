@@ -5,12 +5,10 @@ locals {
     nnodes = {
       cpu = 0      # Forcer 0 noeud CPU
       gpu = 0      # Fonctionner uniquement avec les gpupool
-      gpupool = 5  # 5 users in total
-      gpupool2 = 10 # 5 users in total x 2 MIGs
+      gpupool = 2  # 2 users in total
     }
     mig = {
-      gpupool = { "3g.20gb" = 2 }
-      gpupool2 = { "1g.5gb" = 7 }
+      gpupool = { "3g.20gb" = 1, "1g.5gb" = 4}
     }
   }
 }
