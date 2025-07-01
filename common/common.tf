@@ -96,8 +96,8 @@ locals {
       }
       juno = {
         mgmt = "ha4-15gb"
-        login = "ha4-15gb"
-        jupyter = "ha4-15gb"
+        login = "c4-15gb"
+        jupyter = "c4-15gb"
         cpu = "c8-30gb"
         cpupool = "c8-30gb"
 	gpu = "gpu16-240-3450gb-a100x1_cq"
