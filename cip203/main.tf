@@ -1,14 +1,14 @@
 locals {
-  name = "pyt301"
+  name = "cip203"
   
   custom = {
     nnodes = {
       cpu = 0      # Forcer 0 noeud CPU
       gpu = 0      # Fonctionner uniquement avec les gpupool
-      gpupool = 1  # 6 inscriptions + 1 instructor + 3 helpers = 10 GI
+      gpupool = 2  # 1 mode is OK for testing
     }
     mig = {
-      gpupool = { "3g.20gb" = 2 }
+      gpupool = {"1g.5gb" = 4}
     }
   }
 }
