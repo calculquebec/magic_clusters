@@ -6,4 +6,3 @@ jupyterhub::jupyterhub_config_hash:
         memory:
             max: 3000
             def: 3000
-

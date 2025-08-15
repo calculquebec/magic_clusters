@@ -1,9 +1,8 @@
 jupyterhub::jupyterhub_config_hash:
-    SbatchForm:
-        nprocs:
-            def: 2
-            max: 2
-        memory:
-            max: 3000
-            def: 3000
-
+  SbatchForm:
+    nprocs:
+      def: 2
+      max: 2
+    memory:
+      max: 3000
+      def: 3000
