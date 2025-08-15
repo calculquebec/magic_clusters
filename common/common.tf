@@ -17,6 +17,7 @@ variable "cloud_name" {
   type = string
   default = ""
 }
+variable "eyaml_key" { }
 variable "prometheus_password" {
   type = string
   default = ""
@@ -41,9 +42,9 @@ data "tfe_workspace" "current" {
 
 locals {
   default_pod = {
-    image = "AlmaLinux-9.4"
-    image_cpu = "snapshot-cpunode-2025-A9.4-1"
-    image_gpu = "snapshot-gpunode-2025-A9.4-1"
+    image = "AlmaLinux-9"
+    image_cpu = "snapshot-cpunode-2025.3-A9.6"
+    image_gpu = "snapshot-gpunode-2025.3-A9.6"
     nb_users = 0
 
     nnodes = {
@@ -64,16 +65,21 @@ locals {
     home_size = 80
     project_size = 20
     scratch_size = 20
-    
-    user_quotas = {
+
+    user_quotas_sizes = {
       home = "1g"
       project = "1g"
       scratch = "1g"
     }
+    user_quotas_inodes = {
+      home = 100000
+      project = 100000
+      scratch = 100000
+    }
 
     cluster_purpose = "formation"
-    config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-    config_version = "14.3.0"
+    config_git_url = "https://github.com/calculquebec/puppet-magic_castle_formation.git"
+    config_version = "082469d"
 
     instances_type_map = {
       arbutus = {
@@ -146,6 +152,27 @@ locals {
     }
   }
 
+  user_quotas = {
+    home = {
+      bsoft = try(local.custom.user_quotas_sizes.home, local.default_pod.user_quotas_sizes.home)
+      bhard = try(local.custom.user_quotas_sizes.home, local.default_pod.user_quotas_sizes.home)
+      isoft = try(local.custom.user_quotas_inodes.home, local.default_pod.user_quotas_inodes.home)
+      ihard = try(local.custom.user_quotas_inodes.home, local.default_pod.user_quotas_inodes.home)
+    }
+    project = {
+      bsoft = try(local.custom.user_quotas_sizes.project, local.default_pod.user_quotas_sizes.project)
+      bhard = try(local.custom.user_quotas_sizes.project, local.default_pod.user_quotas_sizes.project)
+      isoft = try(local.custom.user_quotas_inodes.project, local.default_pod.user_quotas_inodes.project)
+      ihard = try(local.custom.user_quotas_inodes.project, local.default_pod.user_quotas_inodes.project)
+    }
+    scratch = {
+      bsoft = try(local.custom.user_quotas_sizes.scratch, local.default_pod.user_quotas_sizes.scratch)
+      bhard = try(local.custom.user_quotas_sizes.scratch, local.default_pod.user_quotas_sizes.scratch)
+      isoft = try(local.custom.user_quotas_inodes.scratch, local.default_pod.user_quotas_inodes.scratch)
+      ihard = try(local.custom.user_quotas_inodes.scratch, local.default_pod.user_quotas_inodes.scratch)
+    }
+  }
+
   default = {
     instances_map = {
       arbutus = {
@@ -190,12 +217,14 @@ locals {
           tags = ["node"],
           count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
         }
         nodegpupool = {
           type = try(local.custom.instances_type_map.arbutus.gpupool, local.default_pod.instances_type_map.arbutus.gpupool),
           tags = ["node", "pool"],
           count = try(local.custom.nnodes.gpupool, local.default_pod.nnodes.gpupool),
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
         }
       }
       beluga = {
@@ -340,23 +369,23 @@ locals {
     volumes_map = {
       arbutus = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), enable_resize = true }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), enable_resize = true  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), enable_resize = true  }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.user_quotas.home), enable_resize = true }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.user_quotas.project), enable_resize = true  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), enable_resize = true  }
         }
       }
       beluga = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd", quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), enable_resize = true   }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec", quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), enable_resize = true   }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec", quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), enable_resize = true  }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd", quota = try(local.custom.user_quotas.home, local.user_quotas.home), enable_resize = true   }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec", quota = try(local.custom.user_quotas.project, local.user_quotas.project), enable_resize = true   }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec", quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), enable_resize = true  }
         }
       }
       juno = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), mkfs_options = "-K", enable_resize = true  }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), mkfs_options = "-K", enable_resize = true  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), mkfs_options = "-K", enable_resize = true }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.user_quotas.home), mkfs_options = "-K", enable_resize = true  }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.user_quotas.project), mkfs_options = "-K", enable_resize = true  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), mkfs_options = "-K", enable_resize = true }
         }
       }
     }
@@ -384,7 +413,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.3.0"
+  source         = "git::https://github.com/calculquebec/magic_castle_formation.git//openstack?ref=formation"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -402,7 +431,7 @@ module "openstack" {
 
   volumes = local.volumes
 
-  public_keys = compact(concat(split("\n", file("../common/sshkeys.pub")), ))
+  public_keys = compact(concat(split("\n", file("../keys/sshkeys.pub")), ))
 
   nb_users = local.nb_users
   # Shared password, randomly chosen if blank
@@ -410,7 +439,8 @@ module "openstack" {
 
   hieradata = local.hieradata
   hieradata_dir = "./"
-
+  eyaml_key = base64decode(var.eyaml_key)
+  software_stack = "alliance"
   subnet_id = local.default_pod.network_map[var.cloud_name].subnet_id
   os_ext_network = local.default_pod.network_map[var.cloud_name].os_ext_network
 
@@ -427,10 +457,11 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=14.2.1"
+  source           = "git::https://github.com/calculquebec/magic_castle_formation.git//dns/cloudflare?ref=formation"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
+  dkim_public_key  = file("../keys/dkim_public.pem")
 }
 
 output "hostnames" {

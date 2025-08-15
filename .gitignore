@@ -1,3 +1,7 @@
+cli
+*private*.pem
+.DS_Store
+
 # Local .terraform directories
 **/.terraform/*
 
