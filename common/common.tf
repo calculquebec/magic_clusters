@@ -142,8 +142,8 @@ locals {
 	os_ext_network = null
       }
       beluga = {
-        subnet_id = null
-	os_ext_network = null
+        subnet_id = "f7412a24-e802-4a72-8e1f-f74bac4a0b5a"
+	os_ext_network = "Public-Network"
       }
       juno = {
         subnet_id = "40981fb8-8421-455f-b691-75e5f52545f5"
