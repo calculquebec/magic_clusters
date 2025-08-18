@@ -17,6 +17,7 @@ variable "cloud_name" {
   type = string
   default = ""
 }
+variable "eyaml_key" { }
 variable "prometheus_password" {
   type = string
   default = ""
@@ -41,9 +42,9 @@ data "tfe_workspace" "current" {
 
 locals {
   default_pod = {
-    image = "AlmaLinux-9.4"
-    image_cpu = "snapshot-cpunode-2025-A9.4-1"
-    image_gpu = "snapshot-gpunode-2025-A9.4-1"
+    image = "AlmaLinux-9"
+    image_cpu = "snapshot-cpunode-2025.3-A9.6"
+    image_gpu = "snapshot-gpunode-2025.3-A9.6"
     nb_users = 0
 
     nnodes = {
@@ -64,17 +65,21 @@ locals {
     home_size = 80
     project_size = 20
     scratch_size = 20
-    
-    user_quotas = {
+
+    user_quotas_sizes = {
       home = "1g"
       project = "1g"
       scratch = "1g"
     }
+    user_quotas_inodes = {
+      home = 100000
+      project = 100000
+      scratch = 100000
+    }
 
     cluster_purpose = "formation"
-    config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-    # for autoscale and configurable suspend/resume, and mig fix
-    config_version = "4888f7a"
+    config_git_url = "https://github.com/calculquebec/puppet-magic_castle_formation.git"
+    config_version = "8fb97c4"
 
     instances_type_map = {
       arbutus = {
@@ -121,6 +126,16 @@ locals {
       gpupool12-j = { "1g.5gb" = 7 }
     }
 
+    shard = {
+      gpu = null
+      gpupool = null
+      gpupool16 = null
+      gpupool80 = null
+      gpupool12 = null
+      gpupool16-cq = null
+      gpupool12-j = null
+    }
+
     network_map = {
       arbutus = {
         subnet_id = null
@@ -134,6 +149,27 @@ locals {
         subnet_id = "40981fb8-8421-455f-b691-75e5f52545f5"
 	os_ext_network = "Public-Network"
       }
+    }
+  }
+
+  user_quotas = {
+    home = {
+      bsoft = try(local.custom.user_quotas_sizes.home, local.default_pod.user_quotas_sizes.home)
+      bhard = try(local.custom.user_quotas_sizes.home, local.default_pod.user_quotas_sizes.home)
+      isoft = try(local.custom.user_quotas_inodes.home, local.default_pod.user_quotas_inodes.home)
+      ihard = try(local.custom.user_quotas_inodes.home, local.default_pod.user_quotas_inodes.home)
+    }
+    project = {
+      bsoft = try(local.custom.user_quotas_sizes.project, local.default_pod.user_quotas_sizes.project)
+      bhard = try(local.custom.user_quotas_sizes.project, local.default_pod.user_quotas_sizes.project)
+      isoft = try(local.custom.user_quotas_inodes.project, local.default_pod.user_quotas_inodes.project)
+      ihard = try(local.custom.user_quotas_inodes.project, local.default_pod.user_quotas_inodes.project)
+    }
+    scratch = {
+      bsoft = try(local.custom.user_quotas_sizes.scratch, local.default_pod.user_quotas_sizes.scratch)
+      bhard = try(local.custom.user_quotas_sizes.scratch, local.default_pod.user_quotas_sizes.scratch)
+      isoft = try(local.custom.user_quotas_inodes.scratch, local.default_pod.user_quotas_inodes.scratch)
+      ihard = try(local.custom.user_quotas_inodes.scratch, local.default_pod.user_quotas_inodes.scratch)
     }
   }
 
@@ -181,12 +217,14 @@ locals {
           tags = ["node"],
           count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
         }
         nodegpupool = {
           type = try(local.custom.instances_type_map.arbutus.gpupool, local.default_pod.instances_type_map.arbutus.gpupool),
           tags = ["node", "pool"],
           count = try(local.custom.nnodes.gpupool, local.default_pod.nnodes.gpupool),
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
         }
       }
       beluga = {
@@ -269,6 +307,7 @@ locals {
           count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
           mig = try(local.custom.mig.gpu, local.default_pod.mig.gpu)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
           disk_size = "50"
         }
         nodegpupool = {
@@ -277,6 +316,7 @@ locals {
           count = try(local.custom.nnodes.gpupool, 0),
           mig = try(local.custom.mig.gpupool, local.default_pod.mig.gpupool)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
           disk_size = "50"
         }
         nodegpupool16 = {
@@ -285,6 +325,7 @@ locals {
           count = try(local.custom.nnodes.gpupool16, 0),
           mig = try(local.custom.mig.gpupool16, local.default_pod.mig.gpupool16)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool16, local.default_pod.shard.gpupool16),
           disk_size = "50"
         }
         nodegpupool16-cq = {
@@ -293,6 +334,7 @@ locals {
           count = try(local.custom.nnodes.gpupool16-cq, 0),
           mig = try(local.custom.mig.gpupool16-cq, local.default_pod.mig.gpupool16-cq)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool16-cq, local.default_pod.shard.gpupool16-cq),
           disk_size = "50"
         }
         nodegpupool12 = {
@@ -301,6 +343,7 @@ locals {
           count = try(local.custom.nnodes.gpupool12, 0),
           mig = try(local.custom.mig.gpupool12, local.default_pod.mig.gpupool12)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool12, local.default_pod.shard.gpupool12),
           disk_size = "50"
         }
         nodegpupool12-j = {
@@ -309,6 +352,7 @@ locals {
           count = try(local.custom.nnodes.gpupool12-j, 0),
           mig = try(local.custom.mig.gpupool12-j, local.default_pod.mig.gpupool12-j)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool12-j, local.default_pod.shard.gpupool12-j),
           disk_size = "50"
         }
         nodegpupool80 = {
@@ -317,6 +361,7 @@ locals {
           count = try(local.custom.nnodes.gpupool80, 0),
           mig = try(local.custom.mig.gpupool80, local.default_pod.mig.gpupool80)
           image = try(local.custom.image_gpu, local.default_pod.image_gpu),
+	  shard = try(local.custom.shard.gpupool80, local.default_pod.shard.gpupool80),
           disk_size = "50"
         }
       }
@@ -324,23 +369,23 @@ locals {
     volumes_map = {
       arbutus = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), enable_resize = true }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), enable_resize = true  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), enable_resize = true  }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.user_quotas.home), enable_resize = true }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.user_quotas.project), enable_resize = true  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), enable_resize = true  }
         }
       }
       beluga = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd", quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), enable_resize = true   }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec", quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), enable_resize = true   }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec", quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), enable_resize = true  }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), type = "volumes-ssd", quota = try(local.custom.user_quotas.home, local.user_quotas.home), enable_resize = true   }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), type = "volumes-ec", quota = try(local.custom.user_quotas.project, local.user_quotas.project), enable_resize = true   }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), type = "volumes-ec", quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), enable_resize = true  }
         }
       }
       juno = {
         nfs = {
-          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.default_pod.user_quotas.home), mkfs_options = "-K", enable_resize = true  }
-          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.default_pod.user_quotas.project), mkfs_options = "-K", enable_resize = true  }
-          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.default_pod.user_quotas.scratch), mkfs_options = "-K", enable_resize = true }
+          home     = { size = try(local.custom.home_size, local.default_pod.home_size), quota = try(local.custom.user_quotas.home, local.user_quotas.home), mkfs_options = "-K", enable_resize = true  }
+          project  = { size = try(local.custom.project_size, local.default_pod.project_size), quota = try(local.custom.user_quotas.project, local.user_quotas.project), mkfs_options = "-K", enable_resize = true  }
+          scratch  = { size = try(local.custom.scratch_size, local.default_pod.scratch_size), quota = try(local.custom.user_quotas.scratch, local.user_quotas.scratch), mkfs_options = "-K", enable_resize = true }
         }
       }
     }
@@ -364,12 +409,11 @@ locals {
     },
     var.credentials_hieradata,
     yamldecode(file("../common/config.yaml")),
-    yamldecode(file("config.yaml"))
   ))
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.2.1"
+  source         = "git::https://github.com/calculquebec/magic_castle_formation.git//openstack?ref=formation"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -387,14 +431,16 @@ module "openstack" {
 
   volumes = local.volumes
 
-  public_keys = compact(concat(split("\n", file("../common/sshkeys.pub")), ))
+  public_keys = compact(concat(split("\n", file("../keys/sshkeys.pub")), ))
 
   nb_users = local.nb_users
   # Shared password, randomly chosen if blank
   guest_passwd = ""
 
   hieradata = local.hieradata
-
+  hieradata_dir = "./"
+  eyaml_key = base64decode(var.eyaml_key)
+  software_stack = "alliance"
   subnet_id = local.default_pod.network_map[var.cloud_name].subnet_id
   os_ext_network = local.default_pod.network_map[var.cloud_name].os_ext_network
 
@@ -411,10 +457,11 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=14.2.1"
+  source           = "git::https://github.com/calculquebec/magic_castle_formation.git//dns/cloudflare?ref=formation"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
+  dkim_public_key  = file("../keys/dkim_public.pem")
 }
 
 output "hostnames" {

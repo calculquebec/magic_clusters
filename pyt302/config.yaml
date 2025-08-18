@@ -1,32 +1,13 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
-        account:
-            def: 'def-sponsor00'
-        runtime:
-            min: 3.5
-            def: 4.0
-            max: 5.0
         nprocs:
-            min: 1
             def: 2
             max: 2
         memory:
-            min: 1024
             max: 18000
             def: 18000
         gpus:
             def: 'gpu:1'
             choices: ['gpu:1']
-        oversubscribe:
-            def: true
-            lock: true
-        ui:
-            def: 'lab'
-    SlurmFormSpawner:
-        disable_form: true
 
 jupyterhub::kernel::venv::packages: ['cupy']
-
-profile::accounts::skel_archives:
-    - filename: jupyter.zip
-      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip

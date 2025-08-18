@@ -1,42 +1,20 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
-        account:
-            def: 'def-sponsor00'
-        runtime:
-            min: 3.5
-            def: 4.0
-            max: 5.0
         nprocs:
-            min: 1
             def: 6
             max: 6
         memory:
-            min: 1024
             max: 55000
             def: 55000
         gpus:
             def: 'gpu:1'
             choices: ['gpu:1']
-        oversubscribe:
-            def: true
-            lock: true
-        ui:
-            def: 'lab'  # ['notebook', 'lab', 'terminal']
-    SlurmFormSpawner:
-        disable_form: true
-        start_timeout: 900
 
 jupyterhub::kernel::venv::packages: ['numba==0.60.0', "numpy==1.26.4", 'pycuda', 'matplotlib']
 
-profile::freeipa::mokey::enable_user_signup: false
-profile::freeipa::mokey::require_verify_admin: false
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2', 'jupyterlab-apps/1.0']
 
 profile::accounts::skel_archives:
     - filename: main.zip
       source: https://github.com/calculquebec/cq-intro-python-gpu/archive/refs/heads/main.zip
-    - filename: cache.zip
-      source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip
-    - filename: jupyter.zip
-      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip

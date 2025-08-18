@@ -1,33 +1,5 @@
-jupyterhub::jupyterhub_config_hash:
-    SbatchForm:
-        account:
-            def: 'def-sponsor00'
-        runtime:
-            min: 3.5
-            def: 4.0
-            max: 5.0
-        nprocs:
-            min: 1
-            def: 1
-            max: 1
-        memory:
-            min: 1024
-            max: 2048
-            def: 2048
-        oversubscribe:
-            def: true
-            lock: true
-        ui:
-            def: 'lab'
-    SlurmFormSpawner:
-        disable_form: true
-
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
 profile::accounts::skel_archives:
     - filename: intro-programmation-python-main.zip
       source: https://github.com/calculquebec/intro-programmation-python/archive/refs/heads/main.zip
-    - filename: jupyter.zip
-      source: https://github.com/calculquebec/jupyterlab-settings/releases/download/v1.0.1/jupyter-v1.0.1.zip
-    - filename: cache.zip
-      source: https://github.com/calculquebec/.cache/releases/download/v1/cache-v1.zip

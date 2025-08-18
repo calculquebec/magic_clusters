@@ -1,26 +1,8 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
-        account:
-            def: 'def-sponsor00'
-        runtime:
-            min: 3.5
-            def: 4.0
-            max: 5.0
-        nprocs:
-            min: 1
-            def: 1
-            max: 1
         memory:
-            min: 1024
             max: 7400
             def: 7400
-        oversubscribe:
-            def: true
-            lock: true
-        ui:
-            def: 'lab'
-    SlurmFormSpawner:
-        disable_form: true
 
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'restricted.computecanada.ca']
 
