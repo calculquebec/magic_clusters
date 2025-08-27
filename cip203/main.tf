@@ -8,7 +8,7 @@ locals {
       gpupool = 2  # 1 mode is OK for testing
     }
     mig = {
-      gpupool = {"1g.5gb" = 4}
+      gpupool = {"1g.5gb" = 4, "3g.20gb" = 2}
     }
   }
 }
