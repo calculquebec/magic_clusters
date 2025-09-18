@@ -1,0 +1,19 @@
+jupyterhub::jupyterhub_config_hash:
+  SbatchForm:
+    memory:
+      max: 3000
+      def: 3000
+
+jupyterhub::kernel::venv::packages: [
+  'numpy', 'pandas',
+  'altair', 'vl_convert_python',
+  'matplotlib',
+  'plotly', 'nbformat>=4.2.0',
+  'plotnine',
+]
+
+profile::accounts::skel_archives:
+  - filename: cq-formation-dat203-main.zip
+    source: https://github.com/calculquebec/cq-formation-dat203/archive/refs/heads/main.zip
+  - filename: next.zip
+    source: https://github.com/vega/vega-datasets/archive/refs/heads/next.zip

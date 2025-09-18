@@ -4,7 +4,7 @@ jupyterhub::jupyterhub_config_hash:
       max: 3000
       def: 3000
 
-jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib', 'plotnine', 'altair', 'vl_convert_python']
+jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
 profile::accounts::skel_archives:
   - filename: cq-formation-dat201-main.zip
