@@ -4,7 +4,7 @@ locals {
   custom = {
     nnodes = {
       cpu = 1      # Pour tester a l'avance
-      cpupool = 8  # 1 par personne : seulement 4 inscriptions + helpers
+      cpupool = 10  # 1 par personne : seulement 6 inscriptions + helpers
     }
 
     instances_type_map = {
