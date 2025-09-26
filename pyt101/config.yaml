@@ -1,5 +1,5 @@
-jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
+jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']  # Pour démos en bonus
 
 profile::accounts::skel_archives:
-    - filename: intro-programmation-python-main.zip
-      source: https://github.com/calculquebec/intro-programmation-python/archive/refs/heads/main.zip
+    - filename: PYT101-2025-main.zip
+      source: https://github.com/calculquebec/PYT101-2025/archive/refs/heads/main.zip
