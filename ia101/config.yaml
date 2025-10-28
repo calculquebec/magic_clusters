@@ -1,9 +1,13 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
         memory:
-            max: 1024
-            def: 1024
+            max: 3072
+            def: 3072
         ui:
-            def: 'terminal'
+            def: 'lab'
 
-jupyterhub::kernel::venv::packages: ['scikit-learn']
+jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pillow', 'numpy']
+
+profile::accounts::skel_archives:
+    - filename: cq-formation-ia101-main.zip
+      source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
