@@ -1,0 +1,9 @@
+jupyterhub::jupyterhub_config_hash:
+    SbatchForm:
+        memory:
+            max: 1024
+            def: 1024
+        ui:
+            def: 'terminal'
+
+jupyterhub::kernel::venv::packages: ['scikit-learn']
