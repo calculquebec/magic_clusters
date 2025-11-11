@@ -1,8 +1,8 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
         nprocs:
-            def: 6
-            max: 6
+            def: 3
+            max: 3
         memory:
             max: 55000
             def: 55000
