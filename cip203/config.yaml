@@ -1,29 +1,21 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
-        account:
-            def: 'def-sponsor00'
-        runtime:
-            min: 3.5
-            def: 4.0
-            max: 5.0
         nprocs:
-            min: 1
-            def: 6
-            max: 6
+            def: 2
+            max: 4
         memory:
-            min: 1024
-            max: 55000
-            def: 12000
+            def: 20000
+            max: 30000
         gpus:
-            def: 'gpu:0'
-            choices: ['gpu:0', 'gpu:1', 'gpu:3g.20gb:1', 'gpu:1g.5gb:1']
+            def: 'gpu:1g.5gb:1'
+            choices: ['gpu:0', 'gpu:1g.5gb:1', 'gpu:3g.20gb:1']
         oversubscribe:
-            def: true
+            def: false
             lock: true
         ui:
             def: 'lab'  # ['notebook', 'lab', 'terminal']
     SlurmFormSpawner:
-        disable_form: false
+        disable_form: true
         start_timeout: 900
 
 jupyterhub::kernel::venv::packages: ['torch', "numpy", 'cupy']
