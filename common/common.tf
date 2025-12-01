@@ -35,6 +35,14 @@ variable "suffix" {
   type = string
   default = ""
 }
+variable "os_ext_network" {
+  type = string
+  default = ""
+}
+variable "subnet_id" {
+  type = string
+  default = ""
+}
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME
   organization = "CalculQuebec"
@@ -441,8 +449,9 @@ module "openstack" {
   hieradata_dir = "./"
   eyaml_key = base64decode(var.eyaml_key)
   software_stack = "alliance"
-  subnet_id = local.default_pod.network_map[var.cloud_name].subnet_id
-  os_ext_network = local.default_pod.network_map[var.cloud_name].os_ext_network
+
+  subnet_id = "${var.subnet_id}"
+  os_ext_network = "${var.os_ext_network}"
 
   puppetfile = file("../common/Puppetfile")
 }
