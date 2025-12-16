@@ -27,4 +27,4 @@ profile::accounts::skel_archives:
     - filename: shell-lesson-data.zip
       source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
     - filename: lnx101-main.zip
-      source: https://github.com/calculquebec/LNX101/archive/refs/heads/main.zip
+      source: https://github.com/calculquebec/lnx101/archive/refs/heads/main.zip
