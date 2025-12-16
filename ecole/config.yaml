@@ -37,8 +37,8 @@ profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
 
 profile::accounts::skel_archives:
-  - filename: cip101-exercices.zip
-    source: https://github.com/calculquebec/cip101-exercices/archive/refs/heads/main.zip
+  - filename: cip101.zip
+    source: https://github.com/calculquebec/cip101/archive/refs/heads/main.zip
   - filename: shell-lesson-data.zip
     source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
   - filename: cip202.zip
