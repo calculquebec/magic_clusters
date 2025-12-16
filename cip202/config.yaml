@@ -13,8 +13,8 @@ profile::software_stack::initial_profile: '$HOME/.bashrc.custom'
 
 
 profile::accounts::skel_archives:
-    - filename: cq-formation-cip202-main.zip
-      source: https://github.com/calculquebec/cq-formation-cip202/archive/refs/heads/main.zip
+    - filename: cip202-main.zip
+      source: https://github.com/calculquebec/cip202/archive/refs/heads/main.zip
 
 formation_extra::stripped_skel_archives:
     - filename: cip20x_skel_extra.tar.gz
