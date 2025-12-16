@@ -1,5 +1,5 @@
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']  # Pour démos en bonus
 
 profile::accounts::skel_archives:
-    - filename: PYT102-main.zip
-      source: https://github.com/calculquebec/PYT102/archive/refs/heads/main.zip
+    - filename: pyt102-main.zip
+      source: https://github.com/calculquebec/pyt102/archive/refs/heads/main.zip
