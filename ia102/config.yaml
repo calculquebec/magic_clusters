@@ -9,5 +9,5 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pillow', 'numpy', 'torch', 'torchvision']
 
 profile::accounts::skel_archives:
-    - filename: cq-formation-ia102-main.zip
-      source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
+    - filename: ia102-main.zip
+      source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
