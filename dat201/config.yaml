@@ -7,7 +7,7 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::kernel::venv::packages: ['numpy', 'pandas', 'matplotlib']
 
 profile::accounts::skel_archives:
-  - filename: cq-formation-dat201-main.zip
-    source: https://github.com/calculquebec/cq-formation-dat201/archive/refs/heads/main.zip
+  - filename: dat201-main.zip
+    source: https://github.com/calculquebec/dat201/archive/refs/heads/main.zip
   - filename: next.zip
     source: https://github.com/vega/vega-datasets/archive/refs/heads/next.zip
