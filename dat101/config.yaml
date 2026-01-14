@@ -7,4 +7,6 @@ jupyterhub::jupyterhub_config_hash:
       max: 3000
       def: 3000
 
-# Pour les prochaines fois, importer le matériel (valider avant): https://github.com/calculquebec/cq-openrefine
+profile::accounts::skel_archives:
+  - filename: dat101-main.zip
+  source: https://github.com/calculquebec/dat101/archive/refs/heads/master.zip
