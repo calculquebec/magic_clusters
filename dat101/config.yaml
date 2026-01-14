@@ -9,4 +9,4 @@ jupyterhub::jupyterhub_config_hash:
 
 profile::accounts::skel_archives:
   - filename: dat101-main.zip
-  source: https://github.com/calculquebec/dat101/archive/refs/heads/master.zip
+    source: https://github.com/calculquebec/dat101/archive/refs/heads/master.zip
