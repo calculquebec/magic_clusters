@@ -3,6 +3,7 @@ locals {
   
   custom = {
     nnodes = {
+      cpu = 0
       cpupool = 4
     }
   }
