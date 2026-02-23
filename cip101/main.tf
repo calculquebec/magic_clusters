@@ -3,7 +3,8 @@ locals {
   
   custom = {
     nnodes = {
-      cpu = 1
+      cpu = 0
+      cpupool = 1
       compute_node = 1  # Requis pour les salloc et sbatch
     }
 
