@@ -23,6 +23,9 @@ jupyterhub::node::install_method: 'none'
 jupyterhub::node::prefix: /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/jupyterhub_node/7.2.1
 jupyterhub::kernel::venv::kernel_name: 'ospython'
 jupyterhub::kernel::venv::display_name: 'Python bundle'
+jupyterhub::jupyter_notebook_config_hash:
+  ServerApp:
+    allow_origin: "https://jupyter.%{lookup('terraform.data.domain_name')}"
 
 jupyterhub::jupyterhub_config_hash:
   SbatchForm:
