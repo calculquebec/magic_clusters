@@ -1,10 +1,22 @@
 jupyterhub::jupyterhub_config_hash:
     SbatchForm:
+        nprocs:
+            def: 2
+            max: 4
         memory:
-            max: 3072
             def: 3072
+            max: 3072
+        gpus:
+            def: 'gpu:1g.5gb:1'
+            choices: ['gpu:0', 'gpu:1g.5gb:1', 'gpu:3g.20gb:1']
+        oversubscribe:
+            def: false
+            lock: true
         ui:
-            def: 'lab'
+            def: 'lab'  # ['notebook', 'lab', 'terminal']
+    SlurmFormSpawner:
+        disable_form: false
+        start_timeout: 900
 
 jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pillow', 'numpy', 'torch', 'torchvision']
 
