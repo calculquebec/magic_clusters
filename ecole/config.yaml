@@ -44,6 +44,7 @@ jupyterhub::jupyterhub_config_hash:
           oversubscribe: false
           ui: 'lab'
           partition: 'gpu'
+          gpus: 'gpu:1'
       PYT:
         name: 'Séquence intro python'
         params:
