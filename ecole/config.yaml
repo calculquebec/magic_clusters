@@ -16,6 +16,9 @@ jupyterhub::jupyterhub_config_hash:
       lock: true
     oversubscribe:
       lock: true
+    profile:
+      def: 'PYT'
+      choices: ['PYT', 'IA_CPU', 'IA_GPU']
   SlurmFormSpawner:
     disable_form: false
     start_timeout: 900
