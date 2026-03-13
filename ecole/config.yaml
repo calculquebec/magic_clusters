@@ -23,6 +23,9 @@ jupyterhub::jupyterhub_config_hash:
       lock: true
     reservation:
       lock: true
+    partition:
+      def: 'cpubase_bycore_b1'
+      lock: true
   SlurmFormSpawner:
     disable_form: false
     start_timeout: 900
@@ -38,7 +41,7 @@ jupyterhub::jupyterhub_config_hash:
           runtime: 4
           memory: '2048'
           ui: 'lab'
-          partition: 'cpu'
+          partition: 'cpubase_bycore_b1'
       IA_GPU:
         name: 'Séquence IA - GPU'
         params: 
@@ -47,7 +50,6 @@ jupyterhub::jupyterhub_config_hash:
           memory: '2048'
           oversubscribe: false
           ui: 'lab'
-          partition: 'gpu'
           gpus: 'gpu:1'
       PYT:
         name: 'Séquence intro python'
@@ -57,7 +59,6 @@ jupyterhub::jupyterhub_config_hash:
           memory: '1024'
           oversubscribe: false
           ui: 'lab'
-          partition: 'cpu'
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2', 'mpi4py/4.0.3', 'jupyterlab-apps/1.0']
 jupyterhub::kernel::venv::packages:
@@ -112,7 +113,7 @@ profile::accounts::skel_archives:
 
 cron::job:
   spawn_cpu_nodes:
-    command: "/opt/software/slurm/bin/scontrol update node=nodecpupool[1-15] state=power_up"
+    command: "/opt/software/slurm/bin/scontrol update node=cpupool[1-15] state=power_up"
     minute: '0'
     hour: '8'
     date: '19,20,21'

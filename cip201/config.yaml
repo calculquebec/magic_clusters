@@ -4,7 +4,7 @@ jupyterhub::jupyterhub_config_hash:
             max: 1024
             def: 1024
         partition:
-            def: 'nodecpu'
+            def: 'cpu'
         ui:
             def: 'terminal'
 

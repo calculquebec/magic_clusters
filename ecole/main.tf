@@ -11,10 +11,10 @@ locals {
       # instance jupyter séparée
       jupyter = 1
 
-      # update git config
-      config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
-      config_version = "15.2.1"
     }
+    # update git config
+    config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
+    config_version = "15.2.1"
 
     instances_type_map = {
       juno = {
