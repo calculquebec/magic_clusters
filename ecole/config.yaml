@@ -19,6 +19,10 @@ jupyterhub::jupyterhub_config_hash:
     profile:
       def: 'PYT'
       choices: ['PYT', 'IA_CPU', 'IA_GPU']
+    account:
+      lock: true
+    reservation:
+      lock: true
   SlurmFormSpawner:
     disable_form: false
     start_timeout: 900
