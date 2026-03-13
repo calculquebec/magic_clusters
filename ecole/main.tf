@@ -16,6 +16,12 @@ locals {
       config_version = "15.2.1"
     }
 
+    instances_type_map = {
+      juno = {
+        login = "ha4-15gb"
+      }
+    }
+
     mig = {
       gpupool = { "1g.5gb" = 7 }
     }
