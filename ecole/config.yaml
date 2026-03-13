@@ -17,6 +17,7 @@ jupyterhub::jupyterhub_config_hash:
     oversubscribe:
       lock: true
   SlurmFormSpawner:
+    disable_form: false
     start_timeout: 900
     http_timeout: 900
     ui_args:
