@@ -41,7 +41,6 @@ jupyterhub::jupyterhub_config_hash:
           runtime: 4
           memory: '2048'
           ui: 'lab'
-          partition: 'cpubase_bycore_b1'
       IA_GPU:
         name: 'Séquence IA - GPU'
         params: 
