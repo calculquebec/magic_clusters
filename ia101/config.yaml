@@ -9,5 +9,5 @@ jupyterhub::jupyterhub_config_hash:
 jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pillow', 'numpy']
 
 profile::accounts::skel_archives:
-    - filename: cq-formation-ia101-main.zip
-      source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
+    - filename: ia101-main.zip  # Utilise le même matériel pour IA101 et IA102
+      source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
