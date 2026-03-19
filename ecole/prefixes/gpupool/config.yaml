@@ -1,0 +1,18 @@
+profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2', 'mpi4py/4.0.3', 'jupyterlab-apps/1.0', 'python/3.13']
+jupyterhub::kernel::venv::packages:
+  - numpy>2
+  - pandas==3.0.0
+  - matplotlib==3.10.8
+  - dask[array,distributed,diagnostics]==2026.1.2
+  - graphviz
+  - sparse
+  - scipy==1.17.0
+  - numba==0.64.0
+  - torch==2.10.0
+  - scikit-learn
+  - pillow
+  - pycuda==2025.1
+  - torchvision
+
+
+
