@@ -11,5 +11,8 @@ jupyterhub::kernel::venv::packages:
   - sparse
   - scipy==1.17.0
   - pillow
-
+  - shap
+  - umap-learn
+  - tqdm
+  - optuna
 
