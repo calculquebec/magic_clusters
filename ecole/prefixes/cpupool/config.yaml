@@ -15,4 +15,4 @@ jupyterhub::kernel::venv::packages:
   - umap-learn
   - tqdm
   - optuna
-
+  - xgboost
