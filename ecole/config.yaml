@@ -27,6 +27,8 @@ jupyterhub::jupyterhub_config_hash:
     partition:
       def: 'cpubase_bycore_b1'
       lock: true
+    feature:
+      lock: true
   SlurmFormSpawner:
     disable_form: false
     start_timeout: 900
@@ -42,6 +44,8 @@ jupyterhub::jupyterhub_config_hash:
           runtime: 4
           memory: '2048'
           ui: 'lab'
+          feature-cpu: true
+          feature-gpu: false
       IA_GPU:
         name: 'Séquence IA - GPU'
         params: 
@@ -51,6 +55,8 @@ jupyterhub::jupyterhub_config_hash:
           oversubscribe: false
           ui: 'lab'
           gpus: 'gpu:1'
+          feature-cpu: false
+          feature-gpu: true
       PYT:
         name: 'Séquence intro python'
         params:
@@ -59,6 +65,8 @@ jupyterhub::jupyterhub_config_hash:
           memory: '1024'
           oversubscribe: false
           ui: 'lab'
+          feature-cpu: true
+          feature-gpu: false
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'cuda/12.2', 'mpi4py/4.0.3', 'jupyterlab-apps/1.0']
 jupyterhub::kernel::venv::packages:
