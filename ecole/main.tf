@@ -21,7 +21,7 @@ locals {
     }
 
     image_map = {
-      gpupool = "snapshot-gpunode-2026-A9.7-1"
+      gpupool = "AlmaLinux-9"
       cpupool = "snapshot-cpunode-2026-A9.7-1"
     }
 
