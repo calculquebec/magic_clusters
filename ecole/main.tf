@@ -17,7 +17,7 @@ locals {
     config_version = "15.2.1"
 
     mig = {
-      gpupool = { "1g.5gb" = 7 }
+      gpupool = { "2g.10gb" = 3 }
     }
 
     image_map = {
