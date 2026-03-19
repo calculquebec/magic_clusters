@@ -49,7 +49,7 @@ jupyterhub::jupyterhub_config_hash:
           feature-gpu: false
       IA_GPU:
         name: 'Séquence IA - GPU'
-        params: 
+        params:
           nprocs: 2
           runtime: 4
           memory: '2048'
