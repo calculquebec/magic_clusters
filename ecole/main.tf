@@ -17,12 +17,12 @@ locals {
     config_version = "15.2.1"
 
     mig = {
-      gpupool = { "2g.10gb" = 3 }
+      gpupool = { "1g.5gb" = 7 }
     }
 
     image_map = {
-      gpupool = "AlmaLinux-9"
       cpupool = "snapshot-cpunode-2026-A9.7-1"
+      gpupool = "snapshot-gpunode-2026-A9.7-1"
     }
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
