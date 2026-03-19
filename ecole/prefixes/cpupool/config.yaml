@@ -16,3 +16,5 @@ jupyterhub::kernel::venv::packages:
   - tqdm
   - optuna
   - xgboost
+  - imblearn
+  - seaborn
