@@ -13,6 +13,3 @@ jupyterhub::kernel::venv::packages:
   - pillow
   - pycuda==2025.1
   - torchvision
-
-
-
