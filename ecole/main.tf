@@ -16,20 +16,16 @@ locals {
     config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
     config_version = "15.2.1"
 
-    instances_type_map = {
-      juno = {
-        login = "ha4-15gb"
-      }
-    }
-
     mig = {
       gpupool = { "1g.5gb" = 7 }
+      gpu = { "1g.5gb" = 7 }
     }
 
-    image_cpu = "AlmaLinux-9"
-    image_gpu = "AlmaLinux-9"
-#    image_cpu = "snapshot-cpunode-2025-A9.4-ecole"
-#    image_gpu = "snapshot-gpunode-2025-A9.4-ecole"
+    image_compute = "AlmaLinux-9"
+#    image_map = {
+#      cpu = "AlmaLinux-9"
+#      gpu = "AlmaLinux-9"
+#    }
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 250

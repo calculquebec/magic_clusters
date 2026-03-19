@@ -51,8 +51,7 @@ data "tfe_workspace" "current" {
 locals {
   default_pod = {
     image = "AlmaLinux-9"
-    image_cpu = "snapshot-cpunode-2025.3-A9.6"
-    image_gpu = "snapshot-gpunode-2025.3-A9.6"
+    image_compute = "snapshot-cpunode-2025.3-A9.6"
     image_map = {
       gpu = "snapshot-gpunode-2025.3-A9.6"
       gpupool = "snapshot-gpunode-2025.3-A9.6"
@@ -118,7 +117,7 @@ locals {
       }
       juno = {
         mgmt = "ha4-15gb"
-        login = "c4-15gb"
+        login = "ha4-15gb"
         jupyter = "c4-15gb"
         cpu = "c8-30gb"
         cpupool = "c8-30gb"
@@ -192,7 +191,7 @@ locals {
 	  tags = try(local.custom.tags[flavor], local.default_pod.tags[flavor], ["node", "pool"])
 	  disk_size = try(local.custom.disk_size[flavor], local.default_pod.disk_size[flavor], 20)
 	  count = try(local.custom.nnodes[flavor], local.default_pod.nnodes[flavor], 0)
-	  image = try(local.custom.image_map[flavor], local.default_pod.image_map[flavor], local.default_pod.image_cpu)
+	  image = try(local.custom.image_map[flavor], local.custom.image_compute, local.default_pod.image_map[flavor], local.default_pod.image_compute)
 	  mig = try(local.custom.mig[var.cloud_name][flavor], local.default_pod.mig[var.cloud_name][flavor], null)
 	  shard = try(local.custom.shard[flavor], local.default_pod.shard[flavor], null)
 	  features = try(local.custom.features[flavor], local.default_pod.features[flavor], ["cpu"])
