@@ -187,12 +187,12 @@ locals {
     compute_instances = {
       for flavor in try(local.custom.node_flavors[var.cloud_name], local.custom.node_flavors, local.default_pod.node_flavors[var.cloud_name]):
         flavor => {
-	  type = try(local.custom.instances_type_map[var.cloud_name][flavor], local.default_pod.instances_type_map[var.cloud_name][flavor])
+	  type = try(local.custom.instances_type_map[var.cloud_name][flavor], local.custom.instances_type_map[flavor], local.default_pod.instances_type_map[var.cloud_name][flavor])
 	  tags = try(local.custom.tags[flavor], local.default_pod.tags[flavor], ["node", "pool"])
 	  disk_size = try(local.custom.disk_size[flavor], local.default_pod.disk_size[flavor], 20)
 	  count = try(local.custom.nnodes[flavor], local.default_pod.nnodes[flavor], 0)
 	  image = try(local.custom.image_map[flavor], local.custom.image_compute, local.default_pod.image_map[flavor], local.default_pod.image_compute)
-	  mig = try(local.custom.mig[var.cloud_name][flavor], local.default_pod.mig[var.cloud_name][flavor], null)
+	  mig = try(local.custom.mig[var.cloud_name][flavor], local.custom.mig[flavor], local.default_pod.mig[var.cloud_name][flavor], local.default_pod.mig[flavor], null)
 	  shard = try(local.custom.shard[flavor], local.default_pod.shard[flavor], null)
 	  features = try(local.custom.features[flavor], local.default_pod.features[flavor], ["cpu"])
 	}
