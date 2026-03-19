@@ -3,8 +3,8 @@ locals {
  
   custom = {
     nnodes = {
-      cpu = 1
-      gpu = 1
+      cpu = 0
+      gpu = 0
       compute_node = 0
       cpupool = 15
       gpupool = 15
@@ -18,14 +18,12 @@ locals {
 
     mig = {
       gpupool = { "1g.5gb" = 7 }
-      gpu = { "1g.5gb" = 7 }
     }
 
-    image_compute = "AlmaLinux-9"
-#    image_map = {
-#      cpu = "AlmaLinux-9"
-#      gpu = "AlmaLinux-9"
-#    }
+    image_map = {
+      gpupool = "snapshot-gpunode-2026-A9.7-1"
+      cpupool = "snapshot-cpunode-2026-A9.7-1"
+    }
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 250
