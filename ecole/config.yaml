@@ -77,28 +77,20 @@ profile::accounts::skel_archives:
     source: https://github.com/calculquebec/cip101/archive/refs/heads/main.zip
   - filename: shell-lesson-data.zip
     source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
-  - filename: cip202.zip
-    source: https://github.com/calculquebec/cip202/archive/refs/heads/main.zip
-  - filename: cip201.zip
-    source: https://github.com/calculquebec/cip201/archive/refs/heads/main.zip
   - filename: dat201.zip
     source: https://github.com/calculquebec/dat201/archive/refs/heads/main.zip
-  - filename: cq-formation-dask.zip
-    source: https://github.com/calculquebec/cq-formation-dask/archive/refs/heads/main.zip
-  - filename: mpi201.zip
-    source: https://github.com/calculquebec/mpi201/archive/refs/heads/main.zip
-  - filename: cq-intro-python-gpu.zip
-    source: https://github.com/calculquebec/cq-intro-python-gpu/archive/refs/heads/main.zip
   - filename: intro-machine-learning.zip
     source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
-  - filename: cq-formation-convolution.zip
-    source: https://github.com/calculquebec/cq-formation-convolution/archive/refs/heads/main.zip
-  - filename: cq-formation-ecoulement-chaleur.zip
-    source: https://github.com/calculquebec/cq-formation-ecoulement-chaleur/archive/refs/heads/main.zip
-  - filename: cq-formation-nbody.zip
-    source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
-  - filename: PYT101-ecole_printemps_2025.zip
-    source: https://github.com/calculquebec/PYT101-ecole_printemps_2025/archive/refs/heads/main.zip
+  - filename: pyt101.zip
+    source: https://github.com/calculquebec/pyt101/archive/refs/heads/main.zip
+  - filename: pyt102.zip
+    source: https://github.com/calculquebec/pyt102/archive/refs/heads/main.zip
+  - filename: dat203.zip
+    source: https://github.com/calculquebec/dat203/archive/refs/heads/main.zip
+  - filename: ia101.zip
+    source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
+  - filename: ia103.zip
+    source: https://github.com/calculquebec/ia103/archive/refs/heads/master.zip
   - filename: intro-apprentissage-IA.zip
     source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
 
