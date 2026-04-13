@@ -94,6 +94,7 @@ profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
 
 metrix::install::version: 1.7.0
+profile::prometheus::slurm_job_exporter::version: 0.4.11
 
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
