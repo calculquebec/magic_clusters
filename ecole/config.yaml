@@ -48,6 +48,7 @@ jupyterhub::jupyterhub_config_hash:
           gpus: 'gpu:0'
           feature-cpu: true
           feature-gpu: false
+          feature: 'cpu'
       IA_GPU:
         name: 'Séquence IA - GPU'
         params:
@@ -59,6 +60,7 @@ jupyterhub::jupyterhub_config_hash:
           gpus: 'gpu:1'
           feature-cpu: false
           feature-gpu: true
+          feature: 'gpu'
       PYT:
         name: 'Séquence intro python'
         params:
@@ -70,6 +72,7 @@ jupyterhub::jupyterhub_config_hash:
           gpus: 'gpu:0'
           feature-cpu: true
           feature-gpu: false
+          feature: 'cpu'
 
 profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
