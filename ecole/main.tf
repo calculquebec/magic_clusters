@@ -22,7 +22,7 @@ locals {
 
     image_map = {
       cpupool = "snapshot-cpunode-2026-A9.7-1"
-      gpupool = "snapshot-gpunode-2026-A9.7-1"
+      gpupool = "snapshot-gpunode-2026-A9.7-2"
     }
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous

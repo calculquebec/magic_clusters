@@ -94,8 +94,6 @@ profile::accounts::skel_archives:
   - filename: intro-apprentissage-IA.zip
     source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
 
-profile::reverse_proxy::subdomains:
-  prometheus: "http://%{alias('metrix::prometheus_ip')}:%{alias('metrix::prometheus_ip')}"
 
 cron::job:
   spawn_cpu_nodes:
