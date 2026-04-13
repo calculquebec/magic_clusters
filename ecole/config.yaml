@@ -45,6 +45,7 @@ jupyterhub::jupyterhub_config_hash:
           runtime: 4
           memory: '2048'
           ui: 'lab'
+          gpus: 'gpu:0'
           feature-cpu: true
           feature-gpu: false
       IA_GPU:
@@ -66,6 +67,7 @@ jupyterhub::jupyterhub_config_hash:
           memory: '1024'
           oversubscribe: false
           ui: 'lab'
+          gpus: 'gpu:0'
           feature-cpu: true
           feature-gpu: false
 
