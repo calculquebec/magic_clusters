@@ -21,7 +21,7 @@ locals {
     }
 
     image_map = {
-      cpupool = "snapshot-cpunode-2026-A9.7-1"
+      cpupool = "snapshot-cpunode-2026-A9.7-2"
       gpupool = "snapshot-gpunode-2026-A9.7-2"
     }
 
