@@ -93,6 +93,8 @@ profile::slurm::base::resume_timeout: 7200
 profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
 
+metrix::install::version: 1.7.0
+
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
 
