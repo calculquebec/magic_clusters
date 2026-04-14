@@ -10,6 +10,8 @@ jupyterhub::jupyterhub_config_hash:
       def: gpu:1
       choices:
         - gpu:1
+    feature:
+      def: 'gpu'
 
 jupyterhub::kernel::venv::packages:
   - cupy==12.2.0
