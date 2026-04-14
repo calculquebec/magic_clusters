@@ -50,6 +50,7 @@ jupyterhub::jupyterhub_config_hash:
     ui:
       def: 'lab'
     feature:
+      def: 'cpu'
       lock: true
 
   SlurmFormSpawner:
