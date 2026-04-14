@@ -51,10 +51,10 @@ data "tfe_workspace" "current" {
 locals {
   default_pod = {
     image = "AlmaLinux-9"
-    image_compute = "snapshot-cpunode-2025.3-A9.6"
+    image_compute = "snapshot-cpunode-2026-A9.7-2"
     image_map = {
-      gpu = "snapshot-gpunode-2025.3-A9.6"
-      gpupool = "snapshot-gpunode-2025.3-A9.6"
+      cpupool = "snapshot-cpunode-2026-A9.7-2"
+      gpupool = "snapshot-gpunode-2026-A9.7-2"
     }
     nb_users = 0
 
@@ -84,8 +84,8 @@ locals {
     }
 
     cluster_purpose = "formation"
-    config_git_url = "https://github.com/calculquebec/puppet-magic_castle_formation.git"
-    config_version = "e2d4f36"
+    config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
+    config_version = "a3c80de"
 
     node_flavors = {
       arbutus = ["cpu", "compute-node", "cpupool", "gpu", "gpupool"],
