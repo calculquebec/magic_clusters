@@ -98,8 +98,6 @@ profile::slurm::base::resume_timeout: 7200
 profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
 
-metrix::install::version: 1.7.0
-profile::prometheus::slurm_job_exporter::version: 0.4.11
 prometheus::storage_retention: '14d'
 
 
