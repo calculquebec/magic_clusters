@@ -1,5 +1,5 @@
 locals {
-  name = "pyt101"
+  name = "pytshs101"
   
   custom = {
     nnodes = {
