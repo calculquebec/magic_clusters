@@ -19,3 +19,4 @@ jupyterhub::kernel::venv::packages:
   - optuna
   - xgboost
   - imblearn
+  - seaborn
