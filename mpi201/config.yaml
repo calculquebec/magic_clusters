@@ -8,11 +8,16 @@ jupyterhub::jupyterhub_config_hash:
             lock: true
 
 profile::software_stack::lmod_default_modules: ['boost-mpi']
+profile::software_stack::initial_profile: '$HOME/.bashrc.custom'
 
 profile::accounts::skel_archives:
-    - filename: main-mpi201.zip
+    - filename: mpi201-main.zip
       source: https://github.com/calculquebec/mpi201/archive/refs/heads/main.zip
-    - filename: main-nbody.zip
-      source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
-    - filename: main-convolution.zip
-      source: https://github.com/calculquebec/cq-formation-convolution/archive/refs/heads/main.zip
+#    - filename: nbody.zip
+#      source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
+#    - filename: convolution.zip
+#      source: https://github.com/calculquebec/cq-formation-convolution/archive/refs/heads/main.zip
+
+formation_extra::stripped_skel_archives:
+    - filename: cip20x_skel_extra.tar.gz
+      source: https://github.com/calculquebec/formation_skels/archive/refs/heads/cip20x.tar.gz
