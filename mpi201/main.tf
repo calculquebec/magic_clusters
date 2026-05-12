@@ -4,7 +4,7 @@ locals {
   custom = {
     nnodes = {
       cpu = 1
-      compute_node = 9  # 25 participants + instructor + helper
+      cpupool = 9  # 25 participants + instructor + helper
     }
   }
 }
