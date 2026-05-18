@@ -7,8 +7,8 @@ jupyterhub::jupyterhub_config_hash:
       max: 55000
       def: 55000
     gpus:
-      def: gpu:1
-      choices: gpu:1
+      def: 'gpu:1'
+      choices: 'gpu:1'
 
 jupyterhub::kernel::venv::packages:
   - cupy==12.2.0
