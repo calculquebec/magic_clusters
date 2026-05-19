@@ -11,5 +11,10 @@ locals {
     mig = {
       gpupool = { "3g.20gb" = 2 }
     }
+    image_compute = "snapshot-cpunode-2026-A9.7-2"
+    image_map = {
+      cpupool = "snapshot-cpunode-2026-A9.7-2"
+      gpupool = "snapshot-gpunode-2026-A9.7-2"
+    }
   }
 }
