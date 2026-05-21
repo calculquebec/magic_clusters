@@ -90,7 +90,6 @@ profile::accounts::skel_archives:
   - filename: intro-apprentissage-IA.zip
     source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
 
-
 cron::job:
   spawn_cpu_nodes:
     command: "/opt/software/slurm/bin/scontrol update node=cpupool[1-15] state=power_up"
