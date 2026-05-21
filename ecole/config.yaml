@@ -96,8 +96,8 @@ cron::job:
     command: "/opt/software/slurm/bin/scontrol update node=cpupool[1-15] state=power_up"
     minute: '0'
     hour: '8'
-    date: '19,20,21'
-    month: '5'
+    date: '2,3,4,5'
+    month: '6'
     weekday: '*'
     user: 'root'
     description: 'spawn cpu nodes'
@@ -106,8 +106,8 @@ cron::job:
     command: "/opt/software/slurm/bin/scontrol update node=ALL state=power_up"
     minute: '0'
     hour: '8'
-    date: '22,23'
-    month: '5'
+    date: '2,3,4,5'
+    month: '6'
     weekday: '*'
     user: 'root'
     description: 'spawn all nodes'
