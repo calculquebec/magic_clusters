@@ -13,11 +13,5 @@ jupyterhub::kernel::venv::packages:
   - pillow
   - pycuda==2025.1
   - torchvision
-  - shap
-  - umap-learn
-  - tqdm
-  - optuna
-  - xgboost
-  - imblearn
-  - seaborn
-  - vllm==0.21.0
+  - torch
+  - transformers
