@@ -59,7 +59,7 @@ jupyterhub::jupyterhub_config_hash:
         params:
           nprocs: 1
           runtime: 4
-          memory: '1024'
+          memory: '2560'
           oversubscribe: false
           ui: 'lab'
           gpus: 'gpu:0'
