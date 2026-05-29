@@ -83,10 +83,10 @@ profile::accounts::skel_archives:
 #    source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
   - filename: dat203.zip
     source: https://github.com/calculquebec/dat203/archive/refs/heads/main.zip
-#  - filename: ia101.zip
-#    source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
-#  - filename: ia103.zip
-#    source: https://github.com/calculquebec/ia103/archive/refs/heads/master.zip
+  - filename: ia102.zip
+    source: https://github.com/calculquebec/ia102_ecole2026/archive/refs/heads/main.zip
+  - filename: ia103.zip
+    source: https://github.com/calculquebec/ia103/archive/refs/heads/main.zip
   - filename: intro-apprentissage-IA.zip
     source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
 
