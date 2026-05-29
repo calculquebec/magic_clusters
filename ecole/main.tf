@@ -6,8 +6,8 @@ locals {
       cpu = 0
       gpu = 0
       compute_node = 0
-      cpupool = 15
-      gpupool = 15
+      cpupool = 10
+      gpupool = 6
       # instance jupyter séparée
       jupyter = 1
 
