@@ -43,7 +43,7 @@ jupyterhub::jupyterhub_config_hash:
           memory: '2048'
           ui: 'lab'
           gpus: 'gpu:0'
-          feature: ['cpu']
+          feature: ['gpu']
       IA_GPU:
         name: 'Séquence IA - GPU'
         params:
