@@ -69,26 +69,26 @@ profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
 
 profile::accounts::skel_archives:
-  - filename: cip101.zip
-    source: https://github.com/calculquebec/cip101/archive/refs/heads/main.zip
   - filename: shell-lesson-data.zip
     source: https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
-  - filename: dat201.zip
-    source: https://github.com/calculquebec/dat201/archive/refs/heads/main.zip
-  - filename: intro-machine-learning.zip
-    source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
+  - filename: cip101.zip
+    source: https://github.com/calculquebec/cip101/archive/refs/heads/main.zip
   - filename: pyt101.zip
-    source: https://github.com/calculquebec/pyt101/archive/refs/heads/main.zip
+    source: https://github.com/calculquebec/pyt101/archive/refs/heads/ecole.zip
   - filename: pyt102.zip
     source: https://github.com/calculquebec/pyt102/archive/refs/heads/main.zip
+#  - filename: dat201.zip
+#    source: https://github.com/calculquebec/dat201/archive/refs/heads/main.zip
+#  - filename: intro-machine-learning.zip
+#    source: https://github.com/calculquebec/intro-machine-learning/archive/refs/heads/master.zip
   - filename: dat203.zip
     source: https://github.com/calculquebec/dat203/archive/refs/heads/main.zip
-  - filename: ia101.zip
-    source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
-  - filename: ia103.zip
-    source: https://github.com/calculquebec/ia103/archive/refs/heads/master.zip
-  - filename: intro-apprentissage-IA.zip
-    source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
+#  - filename: ia101.zip
+#    source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
+#  - filename: ia103.zip
+#    source: https://github.com/calculquebec/ia103/archive/refs/heads/master.zip
+#  - filename: intro-apprentissage-IA.zip
+#    source: https://github.com/calculquebec/intro-apprentissage-IA/archive/refs/heads/main.zip
 
 cron::job:
   spawn_cpu_nodes:
