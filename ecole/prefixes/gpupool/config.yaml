@@ -17,6 +17,13 @@ jupyterhub::kernel::venv::packages:
   - torch
   - transformers
   - vllm==0.21.0
+  - seaborn
+  - shap
+  - imblearn
+  - xgboost
+  - optuna
+  - tqdm
+  - umap-learn
 
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
