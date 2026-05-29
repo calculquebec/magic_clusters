@@ -21,5 +21,11 @@ locals {
     home_size = 250
     project_size = 200
     scratch_size = 100
+
+    user_quotas_sizes = {
+      home = "5g"
+      project = "4g"
+      scratch = "5g"
+    }
   }
 }
