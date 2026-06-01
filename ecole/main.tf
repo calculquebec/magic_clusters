@@ -15,6 +15,7 @@ locals {
 
     image_map = {
       gpupool = "snapshot-gpunode-2026-A9.7-ecole"
+      cpupool = "snapshot-cpunode-2026-A9.7-ecole"
     }
     mig = {
       gpupool = { "1g.5gb" = 7 }
