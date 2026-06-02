@@ -67,6 +67,7 @@ jupyterhub::jupyterhub_config_hash:
 
 profile::freeipa::mokey::enable_user_signup: true
 profile::freeipa::mokey::require_verify_admin: false
+profile::slurm::base::suspend_time: 14400
 
 profile::accounts::skel_archives:
   - filename: shell-lesson-data.zip
