@@ -24,6 +24,8 @@ jupyterhub::kernel::venv::packages:
   - optuna
   - tqdm
   - umap-learn
+  - imageio
+  - hdbscan
 
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
