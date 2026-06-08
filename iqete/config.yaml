@@ -18,7 +18,7 @@ jupyterhub::jupyterhub_config_hash:
         disable_form: false
         start_timeout: 900
 
-jupyterhub::kernel::venv::packages: ['aiohttp', 'fsspec', 'h5py', 'pennylane==0.39.0', 'numpy', 'pandas', 'matplotlib']
+jupyterhub::kernel::venv::packages: ['aiohttp', 'fsspec', 'h5py', 'pennylane==0.45.0', 'numpy', 'pandas', 'matplotlib', 'pennylane-calculquebec==0.8.2', 'qiskit==2.3.1']
 
 profile::accounts::skel_archives:
     - filename: ia103-main.zip
