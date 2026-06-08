@@ -22,4 +22,4 @@ jupyterhub::kernel::venv::packages: ['aiohttp', 'fsspec', 'h5py', 'pennylane==0.
 
 profile::accounts::skel_archives:
     - filename: ia103-main.zip
-      source: https://github.com/calculquebec/ia103/archive/refs/heads/master.zip
+      source: https://github.com/calculquebec/ciq101/archive/refs/heads/master.zip
