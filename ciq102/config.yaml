@@ -18,7 +18,6 @@ jupyterhub::kernel::venv::packages:
   - qiskit-calculquebec[mitigation]
   - mitiq
   - mthree
-  - psutil
   - ply
   - platexenc
   
