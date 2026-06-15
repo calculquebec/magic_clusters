@@ -15,6 +15,7 @@ jupyterhub::kernel::venv::packages:
   - pennylane-calculquebec
   - qiskit
   - qiskit-calculquebec
+  - qiskit-calculquebec[mitigation]
   - mitiq
   - mthree
   - psutil
