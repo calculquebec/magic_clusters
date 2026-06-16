@@ -16,10 +16,10 @@ jupyterhub::kernel::venv::packages:
   - qiskit
   - qiskit-calculquebec
   - qiskit-calculquebec[mitigation]
-  #- mitiq
-  #- mthree
-  #- ply
-  #- platexenc
+  - mitiq
+  - mthree
+  - ply
+  - platexenc
   
 
 profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'python/3.11', 'jupyterlab-apps/1.0']
