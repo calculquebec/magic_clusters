@@ -244,7 +244,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/calculquebec/magic_castle_formation.git//openstack?ref=formation"
+  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=fd21639"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
