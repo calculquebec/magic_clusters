@@ -27,7 +27,6 @@ jupyterhub::jupyter_notebook_config_hash:
   ServerApp:
     allow_origin: "https://jupyter.%{lookup('terraform.data.domain_name')}"
 
-jupyterhub::slurmformspawner::version: 2.11.2
 jupyterhub::jupyterhub_config_hash:
   SbatchForm:
     account:
