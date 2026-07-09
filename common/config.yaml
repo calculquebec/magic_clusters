@@ -91,7 +91,6 @@ profile::users::ldap::users:
 profile::freeipa::mokey::enable_user_signup: false
 profile::nfs::server::enable_client_quotas: true
 
-profile::slurm::base::slurm_version: '24.11'
 profile::slurm::base::suspend_time: 7200
 profile::slurm::base::resume_timeout: 7200
 profile::slurm::base::suspend_rate: 80

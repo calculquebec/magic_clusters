@@ -51,10 +51,10 @@ data "tfe_workspace" "current" {
 locals {
   default_pod = {
     image = "AlmaLinux-9"
-    image_compute = "snapshot-cpunode-2026-A9.7-4"
+    image_compute = "snapshot-cpunode-2026-A9.8-1"
     image_map = {
-      cpupool = "snapshot-cpunode-2026-A9.7-4"
-      gpupool = "snapshot-gpunode-2026-A9.7-4"
+      cpupool = "snapshot-cpunode-2026-A9.8-1"
+      gpupool = "snapshot-gpunode-2026-A9.8-1"
     }
     nb_users = 0
 
@@ -85,7 +85,7 @@ locals {
 
     cluster_purpose = "formation"
     config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
-    config_version = "a3c80de"
+    config_version = "15.6.1"
 
     node_flavors = {
       arbutus = ["cpu", "compute-node", "cpupool", "gpu", "gpupool"],
@@ -244,7 +244,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=fd21639"
+  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=15.6.0"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -289,7 +289,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/calculquebec/magic_castle_formation.git//dns/cloudflare?ref=formation"
+  source           = "git::https://github.com/computecanada/magic_castle.git//dns/cloudflare?ref=15.6.0"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
