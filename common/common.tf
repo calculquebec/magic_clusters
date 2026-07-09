@@ -51,23 +51,21 @@ data "tfe_workspace" "current" {
 locals {
   default_pod = {
     image = "AlmaLinux-9"
-    image_cpu = "snapshot-cpunode-2025.3-A9.6"
-    image_gpu = "snapshot-gpunode-2025.3-A9.6"
+    image_compute = "snapshot-cpunode-2026-A9.8-1"
+    image_map = {
+      cpupool = "snapshot-cpunode-2026-A9.8-1"
+      gpupool = "snapshot-gpunode-2026-A9.8-1"
+    }
     nb_users = 0
 
     nnodes = {
       cpu = 2
-      compute_node = 0
-      gpu = 0
-      cpupool = 0
-      gpupool = 0
-      jupyter = 0
       login = 1
-      gpupool12 = 0
-      gpupool16 = 0
-      gpupool80 = 0
-      gpupool16-cq = 0
-      gpupool12-j = 0
+    }
+    
+    features = {
+      gpu = ["gpu"],
+      gpupool = ["gpu"],
     }
 
     home_size = 80
@@ -86,9 +84,18 @@ locals {
     }
 
     cluster_purpose = "formation"
-    config_git_url = "https://github.com/calculquebec/puppet-magic_castle_formation.git"
-    config_version = "e2d4f36"
+    config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
+    config_version = "15.6.1"
 
+    node_flavors = {
+      arbutus = ["cpu", "compute-node", "cpupool", "gpu", "gpupool"],
+      beluga = ["cpu", "compute-node", "cpupool"]
+      juno = ["cpu", "cpupool", "gpu", "gpupool"]
+    }
+    tags = {
+      cpu = ["node"]
+      gpu = ["node"]
+    }
     instances_type_map = {
       arbutus = {
         mgmt = "p8-12gb"
@@ -96,7 +103,7 @@ locals {
         jupyter = "p4-6gb"
         cpu = "c8-30gb-186-avx2"
         cpupool = "c8-30gb-186-avx2"
-        compute_node = "p8-12gb"
+        compute-node = "p8-12gb"
         gpu = "g1-8gb-c4-22gb"
         gpupool = "g1-8gb-c4-22gb"
       }
@@ -106,44 +113,33 @@ locals {
         jupyter = "p4-7.5gb"
         cpu = "c8-60gb"
         cpupool = "c8-60gb"
-        compute_node = "p8-15gb"
+        compute-node = "p8-15gb"
       }
       juno = {
         mgmt = "ha4-15gb"
-        login = "c4-15gb"
+        login = "ha4-15gb"
         jupyter = "c4-15gb"
         cpu = "c8-30gb"
         cpupool = "c8-30gb"
 	gpu = "gpu16-240-3450gb-a100x1_cq"
         gpupool = "gpu12-120-850gb-a100x1_MC"
-        gpupool16 = "gpu16-240-3375gb-a100x1"
-        gpupool80 = "gpu13-240-2500gb-a100-80gx1"
-        gpupool12 = "gpu12-120-850gb-a100x1"
-	gpupool16-cq = "gpu16-240-3450gb-a100x1_cq"
-	gpupool12-j = "gpu12-120-850gb-a100x1_j"
       }
     }
 
+    disk_size = {
+      gpu = 50
+      gpupool = 50
+    }
+    
     mig = {
       gpu = { "1g.5gb" = 7 }
       gpupool = { "1g.5gb" = 7 }
-      gpupool16 = { "1g.5gb" = 7 }
-      gpupool80 = { "1g.10gb" = 7 }
-      gpupool12 = { "1g.5gb" = 7 }
-      gpupool16-cq = { "1g.5gb" = 7 }
-      gpupool12-j = { "1g.5gb" = 7 }
     }
 
     shard = {
       gpu = null
       gpupool = null
-      gpupool16 = null
-      gpupool80 = null
-      gpupool12 = null
-      gpupool16-cq = null
-      gpupool12-j = null
     }
-
   }
 
   user_quotas = {
@@ -168,197 +164,38 @@ locals {
   }
 
   default = {
-    instances_map = {
-      arbutus = {
-        mgmt = {
-          type = try(local.custom.instances_type_map.arbutus.mgmt, local.default_pod.instances_type_map.arbutus.mgmt),
-          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
-          disk_size = 20,
-          count = 1
-        }
-        login = {
-          type = try(local.custom.instances_type_map.arbutus.login, local.default_pod.instances_type_map.arbutus.login),
-          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
-        }
-        jupyter = {
-          type = try(local.custom.instances_type_map.arbutus.jupyter, local.default_pod.instances_type_map.arbutus.jupyter),
-          tags = ["public", "proxy"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
-        }
-        nodecpu = {
-          type = try(local.custom.instances_type_map.arbutus.cpu, local.default_pod.instances_type_map.arbutus.cpu),
-          tags = ["node"],
-          count = try(local.custom.nnodes.cpu, local.default_pod.nnodes.cpu),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        compute-node = {
-          type = try(local.custom.instances_type_map.arbutus.compute_node, local.default_pod.instances_type_map.arbutus.compute_node),
-          tags = ["node"],
-          count = try(local.custom.nnodes.compute_node, local.default_pod.nnodes.compute_node),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodecpupool = {
-          type = try(local.custom.instances_type_map.arbutus.cpupool, local.default_pod.instances_type_map.arbutus.cpupool),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.cpupool, local.default_pod.nnodes.cpupool),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodegpu = {
-          type = try(local.custom.instances_type_map.arbutus.gpu, local.default_pod.instances_type_map.arbutus.gpu),
-          tags = ["node"],
-          count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
-        }
-        nodegpupool = {
-          type = try(local.custom.instances_type_map.arbutus.gpupool, local.default_pod.instances_type_map.arbutus.gpupool),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool, local.default_pod.nnodes.gpupool),
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
-        }
+    mgmt_instances = {
+      mgmt = {
+        type = try(local.custom.instances_type_map[var.cloud_name]["mgmt"], local.default_pod.instances_type_map[var.cloud_name]["mgmt"]),
+	tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
+	disk_size = 20,
+	count = 1
       }
-      beluga = {
-        mgmt = {
-          type = try(local.custom.instances_type_map.beluga.mgmt, local.default_pod.instances_type_map.beluga.mgmt),
-          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
-          disk_size = 20,
-          count = 1
-        }
-        login = {
-          type = try(local.custom.instances_type_map.beluga.login, local.default_pod.instances_type_map.beluga.login),
-          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
-        }
-        jupyter = {
-          type = try(local.custom.instances_type_map.beluga.jupyter, local.default_pod.instances_type_map.beluga.jupyter),
-          tags = ["public", "proxy"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
-        }
-        nodecpu = {
-          type = try(local.custom.instances_type_map.beluga.cpu, local.default_pod.instances_type_map.beluga.cpu),
-          disk_size = 20
-          tags = ["node"],
-          count = try(local.custom.nnodes.cpu, local.default_pod.nnodes.cpu),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        compute-node = {
-          type = try(local.custom.instances_type_map.beluga.compute_node, local.default_pod.instances_type_map.beluga.compute_node),
-          disk_size = 20
-          tags = ["node"],
-          count = try(local.custom.nnodes.compute_node, local.default_pod.nnodes.compute_node),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodecpupool = {
-          type = try(local.custom.instances_type_map.beluga.cpupool, local.default_pod.instances_type_map.beluga.cpupool),
-          disk_size = 20
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.cpupool, local.default_pod.nnodes.cpupool),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
+      login = {
+        type = try(local.custom.instances_type_map[var.cloud_name]["login"], local.default_pod.instances_type_map[var.cloud_name]["login"]),
+	tags = try(local.custom.nnodes.jupyter, 0) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
+	disk_size = 20,
+	count = try(local.custom.nnodes.login, 1)
       }
-      juno = {
-        mgmt = {
-          type = try(local.custom.instances_type_map.juno.mgmt, local.default_pod.instances_type_map.juno.mgmt),
-          tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
-          disk_size = 20,
-          count = 1
-        }
-        login = {
-          type = try(local.custom.instances_type_map.juno.login, local.default_pod.instances_type_map.juno.login),
-          tags = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.login, local.default_pod.nnodes.login)
-        }
-        jupyter = {
-          type = try(local.custom.instances_type_map.juno.jupyter, local.default_pod.instances_type_map.juno.jupyter),
-          tags = ["public", "proxy"],
-          disk_size = 20,
-          count = try(local.custom.nnodes.jupyter, local.default_pod.nnodes.jupyter)
-        }
-        nodecpu = {
-          type = try(local.custom.instances_type_map.juno.cpu, local.default_pod.instances_type_map.juno.cpu),
-          disk_size = 20
-          tags = ["node"],
-          count = try(local.custom.nnodes.cpu, local.default_pod.nnodes.cpu),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodecpupool = {
-          type = try(local.custom.instances_type_map.juno.cpupool, local.default_pod.instances_type_map.juno.cpupool),
-          disk_size = 20
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.cpupool, local.default_pod.nnodes.cpupool),
-          image = try(local.custom.image_cpu, local.default_pod.image_cpu),
-        }
-        nodegpu = {
-          type = try(local.custom.instances_type_map.juno.gpu, local.default_pod.instances_type_map.juno.gpu),
-          tags = ["node"],
-          count = try(local.custom.nnodes.gpu, local.default_pod.nnodes.gpu),
-          mig = try(local.custom.mig.gpu, local.default_pod.mig.gpu)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpu, local.default_pod.shard.gpu),
-          disk_size = "50"
-        }
-        nodegpupool = {
-          type = try(local.custom.instances_type_map.juno.gpupool, local.default_pod.instances_type_map.juno.gpupool),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool, 0),
-          mig = try(local.custom.mig.gpupool, local.default_pod.mig.gpupool)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool, local.default_pod.shard.gpupool),
-          disk_size = "50"
-        }
-        nodegpupool16 = {
-          type = try(local.custom.instances_type_map.juno.gpupool16, local.default_pod.instances_type_map.juno.gpupool16),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool16, 0),
-          mig = try(local.custom.mig.gpupool16, local.default_pod.mig.gpupool16)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool16, local.default_pod.shard.gpupool16),
-          disk_size = "50"
-        }
-        nodegpupool16-cq = {
-          type = try(local.custom.instances_type_map.juno.gpupool16-cq, local.default_pod.instances_type_map.juno.gpupool16-cq),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool16-cq, 0),
-          mig = try(local.custom.mig.gpupool16-cq, local.default_pod.mig.gpupool16-cq)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool16-cq, local.default_pod.shard.gpupool16-cq),
-          disk_size = "50"
-        }
-        nodegpupool12 = {
-          type = try(local.custom.instances_type_map.juno.gpupool12, local.default_pod.instances_type_map.juno.gpupool12),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool12, 0),
-          mig = try(local.custom.mig.gpupool12, local.default_pod.mig.gpupool12)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool12, local.default_pod.shard.gpupool12),
-          disk_size = "50"
-        }
-        nodegpupool12-j = {
-          type = try(local.custom.instances_type_map.juno.gpupool12-j, local.default_pod.instances_type_map.juno.gpupool12-j),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool12-j, 0),
-          mig = try(local.custom.mig.gpupool12-j, local.default_pod.mig.gpupool12-j)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool12-j, local.default_pod.shard.gpupool12-j),
-          disk_size = "50"
-        }
-        nodegpupool80 = {
-          type = try(local.custom.instances_type_map.juno.gpupool80, local.default_pod.instances_type_map.juno.gpupool80),
-          tags = ["node", "pool"],
-          count = try(local.custom.nnodes.gpupool80, 0),
-          mig = try(local.custom.mig.gpupool80, local.default_pod.mig.gpupool80)
-          image = try(local.custom.image_gpu, local.default_pod.image_gpu),
-	  shard = try(local.custom.shard.gpupool80, local.default_pod.shard.gpupool80),
-          disk_size = "50"
-        }
+      jupyter = {
+        type = try(local.custom.instances_type_map[var.cloud_name]["jupyter"], local.default_pod.instances_type_map[var.cloud_name]["jupyter"]),
+	tags = ["public", "proxy"],
+	disk_size = 20,
+	count = try(local.custom.nnodes.jupyter, 0)
       }
+    }
+    compute_instances = {
+      for flavor in try(local.custom.node_flavors[var.cloud_name], local.custom.node_flavors, local.default_pod.node_flavors[var.cloud_name]):
+        flavor => {
+	  type = try(local.custom.instances_type_map[var.cloud_name][flavor], local.custom.instances_type_map[flavor], local.default_pod.instances_type_map[var.cloud_name][flavor])
+	  tags = try(local.custom.tags[flavor], local.default_pod.tags[flavor], ["node", "pool"])
+	  disk_size = try(local.custom.disk_size[flavor], local.default_pod.disk_size[flavor], 20)
+	  count = try(local.custom.nnodes[flavor], local.default_pod.nnodes[flavor], 0)
+	  image = try(local.custom.image_map[flavor], local.custom.image_compute, local.default_pod.image_map[flavor], local.default_pod.image_compute)
+	  mig = try(local.custom.mig[var.cloud_name][flavor], local.custom.mig[flavor], local.default_pod.mig[var.cloud_name][flavor], local.default_pod.mig[flavor], null)
+	  shard = try(local.custom.shard[flavor], local.default_pod.shard[flavor], null)
+	  features = try(local.custom.features[flavor], local.default_pod.features[flavor], ["cpu"])
+	}
     }
     volumes_map = {
       arbutus = {
@@ -385,7 +222,7 @@ locals {
     }
   }
 
-  instances = try(local.custom.instances, local.default.instances_map[var.cloud_name])
+  instances = try(local.custom.instances, merge(local.default.mgmt_instances, local.default.compute_instances))
   volumes = try(local.custom.volumes, local.default.volumes_map[var.cloud_name])
   cluster_purpose = try(local.custom.cluster_purpose, local.default_pod.cluster_purpose)
   nb_users = try(local.custom.nb_users, local.default_pod.nb_users)
@@ -407,7 +244,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/calculquebec/magic_castle_formation.git//openstack?ref=formation"
+  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=15.6.0"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -452,7 +289,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/calculquebec/magic_castle_formation.git//dns/cloudflare?ref=formation"
+  source           = "git::https://github.com/computecanada/magic_castle.git//dns/cloudflare?ref=15.6.0"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances

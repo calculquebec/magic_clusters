@@ -3,37 +3,33 @@ locals {
  
   custom = {
     nnodes = {
-      cpu = 1
-      gpu = 1
+      cpu = 0
+      gpu = 0
       compute_node = 0
-      cpupool = 15
-      gpupool = 15
+      cpupool = 10
+      gpupool = 6
       # instance jupyter séparée
       jupyter = 1
 
-      # update git config
-      config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
-      config_version = "15.2.1"
     }
 
-    instances_type_map = {
-      juno = {
-        login = "ha4-15gb"
-      }
+    image_map = {
+      gpupool = "snapshot-gpunode-2026-A9.7-ecole"
+      cpupool = "snapshot-cpunode-2026-A9.7-ecole"
     }
-
     mig = {
       gpupool = { "1g.5gb" = 7 }
     }
-
-    image_cpu = "AlmaLinux-9"
-    image_gpu = "AlmaLinux-9"
-#    image_cpu = "snapshot-cpunode-2025-A9.4-ecole"
-#    image_gpu = "snapshot-gpunode-2025-A9.4-ecole"
 
     # taille des systèmes de fichiers. Les valeurs par défaut sont celles ci-dessous
     home_size = 250
     project_size = 200
     scratch_size = 100
+
+    user_quotas_sizes = {
+      home = "5g"
+      project = "4g"
+      scratch = "5g"
+    }
   }
 }

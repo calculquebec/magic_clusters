@@ -1,0 +1,20 @@
+profile::software_stack::lmod_default_modules: ['StdEnv/2023', 'gcc', 'jupyterlab-apps/1.0', 'python/3.13', 'ipython-kernel/3.13']
+jupyterhub::kernel::venv::packages:
+  - numpy>2
+  - pandas==3.0.0
+  - matplotlib==3.10.8
+  - plotnine==0.15.0
+  - altair==5.5.0
+  - vega_datasets
+  - vl_convert_python
+  - graphviz
+  - sparse
+  - scipy==1.17.0
+  - pillow
+  - shap
+  - umap-learn
+  - tqdm
+  - optuna
+  - xgboost
+  - imblearn
+  - seaborn

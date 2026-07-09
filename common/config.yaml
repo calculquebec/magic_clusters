@@ -48,6 +48,9 @@ jupyterhub::jupyterhub_config_hash:
       lock: true
     ui:
       def: 'lab'
+    feature:
+      lock: true
+
   SlurmFormSpawner:
     disable_form: true
     start_timeout: 900
@@ -87,11 +90,13 @@ profile::users::ldap::users:
 profile::freeipa::mokey::enable_user_signup: false
 profile::nfs::server::enable_client_quotas: true
 
-profile::slurm::base::slurm_version: '24.11'
 profile::slurm::base::suspend_time: 7200
 profile::slurm::base::resume_timeout: 7200
 profile::slurm::base::suspend_rate: 80
 profile::slurm::base::resume_rate: 80
+
+prometheus::storage_retention: '14d'
+
 
 jupyterhub::kernel::venv::pip_environment:
   PIP_NO_INDEX: 1
