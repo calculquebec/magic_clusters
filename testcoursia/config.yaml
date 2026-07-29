@@ -1,0 +1,1 @@
+jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pillow', 'numpy', 'torch', 'torchvision']
