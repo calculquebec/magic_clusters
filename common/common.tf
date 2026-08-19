@@ -85,7 +85,7 @@ locals {
 
     cluster_purpose = "formation"
     config_git_url = "https://github.com/computecanada/puppet-magic_castle.git"
-    config_version = "c5be233"
+    config_version = "7e03ce0"
 
     node_flavors = {
       arbutus = ["cpu", "compute-node", "cpupool", "gpu", "gpupool"],
@@ -254,7 +254,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=5d4e1b2"
+  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=4ae5ab9"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -299,7 +299,7 @@ output "public_ip" {
 
 # Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/computecanada/magic_castle.git//dns/cloudflare?ref=5d4e1b2"
+  source           = "git::https://github.com/computecanada/magic_castle.git//dns/cloudflare?ref=4ae5ab9"
   name             = module.openstack.cluster_name
   domain           = module.openstack.domain
   public_instances = module.openstack.public_instances
