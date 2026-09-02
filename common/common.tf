@@ -43,6 +43,14 @@ variable "subnet_id" {
   type = string
   default = ""
 }
+variable "support_email" {
+  type = string
+  default = ""
+}
+variable "gitlab_token" {
+  type = string
+  default = ""
+}
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME
   organization = "CalculQuebec"
@@ -93,8 +101,8 @@ locals {
       juno = ["cpu", "cpupool", "gpu", "gpupool"]
     }
     tags = {
-      cpu = ["node"]
-      gpu = ["node"]
+      cpu = ["node", "allcq"]
+      gpu = ["node", "allcq"]
     }
     upgrades = {
       cpu = "vanilla-all"
@@ -173,21 +181,21 @@ locals {
     mgmt_instances = {
       mgmt = {
         type = try(local.custom.instances_type_map[var.cloud_name]["mgmt"], local.default_pod.instances_type_map[var.cloud_name]["mgmt"]),
-	tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron"],
+	tags = ["puppet", "mgmt", "nfs", "formation_extra", "cron", "allcq"],
 	disk_size = 20,
 	count = 1,
 	upgrade = "vanilla-all",
       }
       login = {
         type = try(local.custom.instances_type_map[var.cloud_name]["login"], local.default_pod.instances_type_map[var.cloud_name]["login"]),
-	tags = try(local.custom.nnodes.jupyter, 0) == 0 ? ["login", "public", "proxy"] : ["login", "public"],
+	tags = try(local.custom.nnodes.jupyter, 0) == 0 ? ["login", "public", "proxy", "allcq"] : ["login", "public", "allcq"],
 	disk_size = 20,
 	count = try(local.custom.nnodes.login, 1),
 	upgrade = "vanilla-all",
       }
       jupyter = {
         type = try(local.custom.instances_type_map[var.cloud_name]["jupyter"], local.default_pod.instances_type_map[var.cloud_name]["jupyter"]),
-	tags = ["public", "proxy"],
+	tags = ["public", "proxy", "allcq"],
 	disk_size = 20,
 	count = try(local.custom.nnodes.jupyter, 0),
 	upgrade = "vanilla-all",
@@ -197,7 +205,7 @@ locals {
       for flavor in try(local.custom.node_flavors[var.cloud_name], local.custom.node_flavors, local.default_pod.node_flavors[var.cloud_name]):
         flavor => {
 	  type = try(local.custom.instances_type_map[var.cloud_name][flavor], local.custom.instances_type_map[flavor], local.default_pod.instances_type_map[var.cloud_name][flavor])
-	  tags = try(local.custom.tags[flavor], local.default_pod.tags[flavor], ["node", "pool"])
+	  tags = try(local.custom.tags[flavor], local.default_pod.tags[flavor], ["node", "pool", "allcq"])
 	  disk_size = try(local.custom.disk_size[flavor], local.default_pod.disk_size[flavor], 20)
 	  count = try(local.custom.nnodes[flavor], local.default_pod.nnodes[flavor], 0)
 	  image = try(local.custom.image_map[flavor], local.custom.image_compute, local.default_pod.image_map[flavor], local.default_pod.image_compute)
@@ -241,12 +249,13 @@ locals {
     {
       "profile::slurm::controller::tfe_token" =  var.tfe_token
       "profile::slurm::controller::tfe_workspace" = data.tfe_workspace.current.id
-      "cluster_name" = local.name
+      "cluster_name" = "${local.name}${var.suffix}"
       "prometheus_password" = var.prometheus_password
       "google_calendar_id" = var.google_calendar_id
       "google_api_key" = var.google_api_key
       "cloud_name" = var.cloud_name
       "cluster_purpose" = local.cluster_purpose
+      "gitlab_token" = var.gitlab_token
     },
     var.credentials_hieradata,
     yamldecode(file("../common/config.yaml")),
@@ -254,7 +263,7 @@ locals {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=4ae5ab9"
+  source         = "git::https://github.com/computecanada/magic_castle.git//openstack?ref=2dace5d"
   config_git_url = try(local.custom.config_git_url, local.default_pod.config_git_url)
   config_version = try(local.custom.config_version, local.default_pod.config_version)
 
@@ -295,6 +304,62 @@ output "accounts" {
 
 output "public_ip" {
   value = module.openstack.public_ip
+}
+
+terraform {
+  required_providers {
+    gitlab = {
+      source = "gitlabhq/gitlab"
+    }
+    prettyjson = {
+      source = "graysievert/prettyjson"
+    }
+  }
+}
+
+locals {
+  assets = [
+    for host in keys(module.openstack.assets): {
+        host = {
+          "name" = "${host}.int.${module.openstack.cluster_name}.${module.openstack.domain}",
+          "id"   = "CQ/${host}.int.${module.openstack.cluster_name}.${module.openstack.domain}"
+          "uuid" = module.openstack.assets[host].uuid,
+          "ip"   = compact([module.openstack.assets[host].local_ip, try(module.openstack.assets[host].public_ip, "")]),
+          "exposure" = coalesce(
+            contains(module.openstack.assets[host].tags, "login") ? "login" : "",
+            contains(module.openstack.assets[host].tags, "proxy") ? "portal" : "",
+	    contains(module.openstack.assets[host].tags, "node") ? "node" : "",
+            "infra"
+          ),
+          "type" = "virtual",
+        },
+        service = {
+          "name" = module.openstack.cluster_name,
+          "state" = "production",
+          "type" = "Magic castle cluster for training",
+        },
+        location = {
+          "site" = "${var.cloud_name} cloud"
+        },
+        user = {
+          "email" = var.support_email
+        },
+      }
+    ]
+}
+output "assets" {
+  value = local.assets
+}
+
+resource "gitlab_repository_file" "assets_file" {
+  project = "calculquebec/formation-assets"
+  file_path = "${local.cluster_purpose}/${module.openstack.cluster_name}/assets/${module.openstack.cluster_name}-assets.json"
+  branch = "main"
+  encoding = "text"
+  content = provider::prettyjson::jsonprettyprint(jsonencode(local.assets))
+  author_email = var.support_email
+  author_name = "Terraform"
+  commit_message = "Automatic update of assets"
 }
 
 # Uncomment to register your domain name with CloudFlare
