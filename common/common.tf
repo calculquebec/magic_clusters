@@ -51,6 +51,10 @@ variable "gitlab_token" {
   type = string
   default = ""
 }
+variable "gitlab_project_name" {
+  type = string
+  default = ""
+}
 data "tfe_workspace" "current" {
   name         = var.TFC_WORKSPACE_NAME
   organization = "CalculQuebec"
@@ -347,19 +351,70 @@ locals {
       }
     ]
 }
-output "assets" {
-  value = local.assets
-}
 
 resource "gitlab_repository_file" "assets_file" {
-  project = "calculquebec/formation-assets"
+  project = var.gitlab_project_name
   file_path = "${local.cluster_purpose}/${module.openstack.cluster_name}/assets/${module.openstack.cluster_name}-assets.json"
   branch = "main"
   encoding = "text"
   content = provider::prettyjson::jsonprettyprint(jsonencode(local.assets))
   author_email = var.support_email
   author_name = "Terraform"
-  commit_message = "Automatic update of assets"
+  update_commit_message = "Automatic update of assets for cluster ${module.openstack.cluster_name}"
+  create_commit_message = "Creating cluster ${module.openstack.cluster_name}"
+  delete_commit_message = "Deleting cluster ${module.openstack.cluster_name}"
+}
+
+data "gitlab_repository_tree" "software_repository" {
+  project = var.gitlab_project_name
+  ref = "main"
+  path = "${local.cluster_purpose}/${module.openstack.cluster_name}"
+  recursive = true
+  depends_on = [gitlab_repository_file.assets_file]
+}
+resource "terraform_data" "cleanup_assets" {
+  # Capture all required values during creation so they are safe at destroy-time
+  triggers_replace = {
+    support_email       = var.support_email
+    cluster_purpose     = local.cluster_purpose
+    cluster_name        = module.openstack.cluster_name
+    assets_file_path    = gitlab_repository_file.assets_file.file_path
+    
+    # Store the tree items as a static list of paths during creation
+    blob_paths = [
+      for item in data.gitlab_repository_tree.software_repository.tree : item.path
+      if item.type == "blob"
+    ]
+  }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<EOT
+      curl --request POST \
+        --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+        --header "Content-Type: application/json" \
+        --data "$API_PAYLOAD" \
+        "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits"
+    EOT
+
+    environment = {
+      API_PAYLOAD = jsonencode({
+        branch        = "main"
+        author_name   = "Terraform GitLab Bot"
+        author_email  = self.triggers_replace.support_email
+        commit_message = "Automated cleanup: removing files related to cluster ${self.triggers_replace.cluster_name}"
+  
+        # Build the dynamic delete actions array completely from self-contained trigger state
+        actions = [
+          for path in self.triggers_replace.blob_paths : {
+            action    = "delete"
+            file_path = path
+          }
+          if path != self.triggers_replace.assets_file_path && strcontains(path, "${self.triggers_replace.cluster_purpose}/${self.triggers_replace.cluster_name}")
+        ]
+      })
+    }
+  }
 }
 
 # Uncomment to register your domain name with CloudFlare
