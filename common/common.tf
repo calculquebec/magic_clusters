@@ -80,6 +80,8 @@ locals {
       gpupool = ["gpu"],
     }
 
+    service_state = "production"
+
     home_size = 80
     project_size = 20
     scratch_size = 20
@@ -339,7 +341,7 @@ locals {
         },
         service = {
           "name" = module.openstack.cluster_name,
-          "state" = "production",
+          "state" = try(local.custom.service_state, local.default_pod.service_state),
           "type" = "Magic castle cluster for training",
         },
         location = {
@@ -374,9 +376,8 @@ data "gitlab_repository_tree" "software_repository" {
 }
 resource "terraform_data" "cleanup_assets" {
   # Capture all required values during creation so they are safe at destroy-time
-  triggers_replace = {
+  input = {
     support_email       = var.support_email
-    cluster_purpose     = local.cluster_purpose
     cluster_name        = module.openstack.cluster_name
     assets_file_path    = gitlab_repository_file.assets_file.file_path
     
@@ -390,29 +391,32 @@ resource "terraform_data" "cleanup_assets" {
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-      curl --request POST \
-        --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-        --header "Content-Type: application/json" \
-        --data "$API_PAYLOAD" \
-        "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits"
+      test "$NUM_FILES" != "1" && \
+        curl --request POST \
+          --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+          --header "Content-Type: application/json" \
+          --data "$API_PAYLOAD" \
+          "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits" \
+	 || echo "Nothing to delete"
     EOT
 
     environment = {
       API_PAYLOAD = jsonencode({
         branch        = "main"
         author_name   = "Terraform GitLab Bot"
-        author_email  = self.triggers_replace.support_email
-        commit_message = "Automated cleanup: removing files related to cluster ${self.triggers_replace.cluster_name}"
+        author_email  = self.input.support_email
+        commit_message = "Automated cleanup: removing files related to cluster ${self.input.cluster_name}"
   
         # Build the dynamic delete actions array completely from self-contained trigger state
         actions = [
-          for path in self.triggers_replace.blob_paths : {
+          for path in self.input.blob_paths : {
             action    = "delete"
             file_path = path
           }
-          if path != self.triggers_replace.assets_file_path && strcontains(path, "${self.triggers_replace.cluster_purpose}/${self.triggers_replace.cluster_name}")
+          if path != self.input.assets_file_path
         ]
       })
+      NUM_FILES = tostring(length(self.input.blob_paths))
     }
   }
 }
