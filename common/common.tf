@@ -381,39 +381,6 @@ resource "terraform_data" "software_file" {
   }
 
   provisioner "local-exec" {
-    when = create
-    command = <<-EOT
-        if [ -z "$UUID" ]; then
-	  echo "Nothing to create"
-	else
-	  python3 -c 'import time; import random; time.sleep(random.uniform(0,5))'
-          curl --request POST \
-            --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-            --header "Content-Type: application/json" \
-            --data "$API_PAYLOAD" \
-            "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits"
-	fi
-    EOT
-
-    environment = {
-      API_PAYLOAD = jsonencode({
-        branch        = "main"
-        author_name   = "Terraform GitLab Bot"
-        author_email  = self.input.support_email
-        commit_message = "Automated preparation: creating software file for ${self.input.fqdn}"
-
-        # Build the dynamic delete actions array completely from self-contained trigger state
-	actions = [{
-	  action = "create"
-	  file_path = "${self.input.folder}/${self.input.fqdn}.txt"
-	  content = ""
-	}]
-      })
-      UUID = self.triggers_replace.uuid
-    }
-  }
-
-  provisioner "local-exec" {
     when = destroy
     command = <<-EOT
         if [ -z "$UUID" ]; then
