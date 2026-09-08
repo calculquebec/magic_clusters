@@ -366,38 +366,33 @@ resource "gitlab_repository_file" "assets_file" {
   create_commit_message = "Creating cluster ${module.openstack.cluster_name}"
   delete_commit_message = "Deleting cluster ${module.openstack.cluster_name}"
 }
+resource "terraform_data" "software_file" {
+  for_each = { for asset in local.assets: asset.host.name => asset}
 
-data "gitlab_repository_tree" "software_repository" {
-  project = var.gitlab_project_name
-  ref = "main"
-  path = "${local.cluster_purpose}/${module.openstack.cluster_name}"
-  recursive = true
-  depends_on = [gitlab_repository_file.assets_file]
-}
-resource "terraform_data" "cleanup_assets" {
-  # Capture all required values during creation so they are safe at destroy-time
   input = {
-    support_email       = var.support_email
-    cluster_name        = module.openstack.cluster_name
-    assets_file_path    = gitlab_repository_file.assets_file.file_path
-    
-    # Store the tree items as a static list of paths during creation
-    blob_paths = [
-      for item in data.gitlab_repository_tree.software_repository.tree : item.path
-      if item.type == "blob"
-    ]
+    fqdn = each.value.host.name
+    support_email = var.support_email
+    cluster_name = module.openstack.cluster_name
+    folder = "${local.cluster_purpose}/${module.openstack.cluster_name}/software"
+  }
+
+  triggers_replace = {
+    uuid = each.value.host.uuid
   }
 
   provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-      test "$NUM_FILES" != "1" && \
-        curl --request POST \
-          --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-          --header "Content-Type: application/json" \
-          --data "$API_PAYLOAD" \
-          "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits" \
-	 || echo "Nothing to delete"
+    when = create
+    command = <<-EOT
+        if [ -z "$UUID" ]; then
+	  echo "Nothing to create"
+	else
+	  python3 -c 'import time; import random; time.sleep(random.uniform(0,5))'
+          curl --request POST \
+            --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data "$API_PAYLOAD" \
+            "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits"
+	fi
     EOT
 
     environment = {
@@ -405,18 +400,48 @@ resource "terraform_data" "cleanup_assets" {
         branch        = "main"
         author_name   = "Terraform GitLab Bot"
         author_email  = self.input.support_email
-        commit_message = "Automated cleanup: removing files related to cluster ${self.input.cluster_name}"
-  
+        commit_message = "Automated preparation: creating software file for ${self.input.fqdn}"
+
         # Build the dynamic delete actions array completely from self-contained trigger state
-        actions = [
-          for path in self.input.blob_paths : {
-            action    = "delete"
-            file_path = path
-          }
-          if path != self.input.assets_file_path
-        ]
+	actions = [{
+	  action = "create"
+	  file_path = "${self.input.folder}/${self.input.fqdn}.txt"
+	  content = ""
+	}]
       })
-      NUM_FILES = tostring(length(self.input.blob_paths))
+      UUID = self.triggers_replace.uuid
+    }
+  }
+
+  provisioner "local-exec" {
+    when = destroy
+    command = <<-EOT
+        if [ -z "$UUID" ]; then
+	  echo "Nothing to delete"
+	else
+	    python3 -c 'import time; import random; time.sleep(random.uniform(0,5))'
+            curl --request POST \
+            --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data "$API_PAYLOAD" \
+            "$GITLAB_BASE_URL/projects/$GITLAB_PROJECT_ID/repository/commits"
+	fi
+    EOT
+
+    environment = {
+      API_PAYLOAD = jsonencode({
+        branch        = "main"
+        author_name   = "Terraform GitLab Bot"
+        author_email  = self.input.support_email
+        commit_message = "Automated cleanup: removing software file for ${self.input.fqdn}"
+
+        # Build the dynamic delete actions array completely from self-contained trigger state
+	actions = [{
+	  action = "delete"
+	  file_path = "${self.input.folder}/${self.input.fqdn}.txt"
+	}]
+      })
+      UUID = self.triggers_replace.uuid
     }
   }
 }
