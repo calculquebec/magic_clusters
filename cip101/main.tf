@@ -4,8 +4,8 @@ locals {
   custom = {
     nnodes = {
       cpu = 0
-      cpupool = 1
-      compute-node = 1  # Requis pour les salloc et sbatch
+      cpupool = 2
+      compute-node = 2  # Requis pour les salloc et sbatch
     }
 
     instances_type_map = {
