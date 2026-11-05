@@ -4,7 +4,7 @@ locals {
   custom = {
     nnodes = {
       cpu = 0
-      cpupool = 2
+      cpupool = 3  # Maximum 14 personnes par noeud
       gpupool = 0
     }
   }
