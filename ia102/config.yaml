@@ -10,4 +10,4 @@ jupyterhub::kernel::venv::packages: ['scikit-learn', 'matplotlib', 'pandas', 'pi
 
 profile::accounts::skel_archives:
     - filename: ia102-main.zip
-      source: https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
+      source:  https://github.com/calculquebec/ia101/archive/refs/heads/master.zip #https://github.com/calculquebec/ia102/archive/refs/heads/master.zip
