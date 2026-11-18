@@ -6,7 +6,7 @@ locals {
     nnodes = {
       cpu = 0
       gpu = 0
-      gpupool = 8
+      gpupool = 10
     }
     mig = {
       gpupool = { "3g.20gb" = 2 }
